@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="PetsDiary.Presentation.Controls.PopupWithTopArrowControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" >
+    <UserControl.Resources>
+        <Style x:Key="ArrowStyle" TargetType="Path" >
+            <Setter Property="Margin" Value="0,11,15,0"/>
+            <Setter Property="Fill" Value="Wheat" />
+            <Setter Property="Stroke" Value="LightGray" />
+            <Setter Property="StrokeThickness" Value="1" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ShowBasketStyle, ElementName=PopupWithTopArrow}" 
+                             Value="true">
+                    <Setter Property="Fill" Value="LightGray"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>        
+    </UserControl.Resources>
+    <Grid>
+        <Popup x:Name="Pop"
+               PlacementTarget="{Binding PopupPlacementTarget, ElementName=PopupWithTopArrow}" 
+               StaysOpen="{Binding StaysOpen, ElementName=PopupWithTopArrow}"
+               IsOpen="{Binding IsOpen, ElementName=PopupWithTopArrow, Mode=TwoWay}"
+               Placement="Custom" 
+               AllowsTransparency="True"
+               PopupAnimation="Slide" >
+            <Grid Background="Transparent" >
+                <!--margines: 10 od gory, miejsce na strzalke-->
+                <Border  Margin="0,10,0,0" >
+                    <ContentControl Content="{Binding InnerContent, ElementName=PopupWithTopArrow, Mode=TwoWay}" />
+                </Border>
+                <!--Strzalka-->
+                <Path 
+                        Data="M0,0 L10,-10 L20,0"
+                        Style="{StaticResource ArrowStyle}">
+                </Path>
+            </Grid>
+        </Popup>
+    </Grid>
+</UserControl>
+

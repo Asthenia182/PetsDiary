@@ -1,9 +1,11 @@
-﻿using PetsDiary.Views;
+﻿using Module;
+using PetsDiary.Core.Views;
 using Prism.DryIoc;
 using Prism.Ioc;
+using Prism.Modularity;
 using System.Windows;
 
-namespace PetsDiary
+namespace PetsDiary.Core
 {
     /// <summary>
     /// Interaction logic for App.xaml
@@ -12,7 +14,7 @@ namespace PetsDiary
     {
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            throw new System.NotImplementedException(); 
+           
         }
 
         protected override Window CreateShell()
@@ -20,5 +22,9 @@ namespace PetsDiary
             return Container.Resolve<ShellWindow>();
         }
 
+        protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
+        {
+            moduleCatalog.AddModule<SingleModule>();
+        }
     }
 }

@@ -1,0 +1,17 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options" >
+
+    <!--#region  ______________________________COLORS-->
+    <SolidColorBrush x:Key="Wheat" Color="#f2e0b0" PresentationOptions:Freeze="True" />
+    <SolidColorBrush x:Key="GreenSheen" Color="#81b29a" PresentationOptions:Freeze="True" />
+    <SolidColorBrush x:Key="Independence" Color="#3d405b" PresentationOptions:Freeze="True" />
+    <!--#endregion-->
+
+    <!--#region  ______________________________FONTFAMILIES-->
+    <FontFamily x:Key="Monsterrat-Bold">./Presentation/resources/fonts/Monsterrat-Bold.ttf#Monsterrat</FontFamily>
+    <FontFamily x:Key="NotoSans-Regular">./Presentation/resources/fonts/NotoSans-Regular.ttf#Noto Sans</FontFamily>
+    <FontFamily x:Key="NotoSans-Bold">./Presentation/resources/fonts/NotoSans-Bold.ttf#Noto Sans</FontFamily>
+    <!--#endregion-->
+
+</ResourceDictionary>

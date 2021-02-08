@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="PetsDiary.Presentation.Views.NavigationBarView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" >
+    <Grid>
+        <DockPanel HorizontalAlignment="Stretch" LastChildFill="False" Background="{StaticResource GreenSheen}">
+
+            <Button DockPanel.Dock="Left" Style="{StaticResource IconButtonStyle}" 
+                        VerticalAlignment="Center"
+                        Margin="0,0,0,5"
+                        Command="{Binding AddCommand}">
+                    <Viewbox Stretch="Fill"
+                         Height="30"
+                         Width="30" >
+                        <Path  Fill="White" 
+                           Data="{StaticResource Home}">
+                        </Path>
+                    </Viewbox>                  
+            </Button>
+
+            <RadioButton DockPanel.Dock="Right" GroupName="Nav" 
+                                 Content="Dane podstawowe" 
+                                 Style="{StaticResource NavRadioButtonStyle}"
+                                 IsChecked="True"/>
+            <RadioButton DockPanel.Dock="Right"  GroupName="Nav" 
+                                 Content="Szczepienia" 
+                                 Style="{StaticResource NavRadioButtonStyle}"/>
+            <RadioButton DockPanel.Dock="Right"  GroupName="Nav" 
+                                 Content="Wizyty" 
+                                 Style="{StaticResource NavRadioButtonStyle}"/>
+            <RadioButton DockPanel.Dock="Right"  GroupName="Nav" 
+                                 Content="Powiadomienia" 
+                                 Style="{StaticResource NavRadioButtonStyle}"
+                                 IsEnabled="False"/>
+            <RadioButton DockPanel.Dock="Right"  GroupName="Nav" 
+                                 Content="Dodatkowe" 
+                                 Style="{StaticResource NavRadioButtonStyle}"
+                                 IsEnabled="False"/>
+        </DockPanel>
+    </Grid>
+</UserControl>

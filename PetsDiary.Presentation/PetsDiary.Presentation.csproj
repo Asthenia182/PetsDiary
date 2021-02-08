@@ -1,0 +1,79 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\fonts\BloggerSans.ttf" />
+    <None Remove="Resources\fonts\Montserrat-Bold.ttf" />
+    <None Remove="Resources\fonts\Mostra Nuova Bold.otf" />
+    <None Remove="Resources\fonts\NotoSans-Bold.ttf" />
+    <None Remove="Resources\fonts\NotoSans-BoldItalic.ttf" />
+    <None Remove="Resources\fonts\NotoSans-Italic.ttf" />
+    <None Remove="Resources\fonts\NotoSans-Regular.ttf" />
+    <None Remove="Resources\img\pug.png" />
+    <None Remove="Resources\img\pug2.png" />
+    <None Remove="Resources\img\pug3.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\fonts\BloggerSans.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\fonts\Montserrat-Bold.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\fonts\Mostra Nuova Bold.otf" />
+    <Resource Include="Resources\fonts\NotoSans-Bold.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Content Include="Resources\fonts\NotoSans-Regular.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Prism.Core" Version="8.0.0.1909" />
+    <PackageReference Include="Prism.Wpf" Version="8.0.0.1909" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\fonts\NotoSans-BoldItalic.ttf" />
+    <Resource Include="Resources\fonts\NotoSans-Italic.ttf" />
+    <Resource Include="Resources\img\pug.png" />
+    <Resource Include="Resources\img\pug2.png" />
+    <Resource Include="Resources\img\pug3.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources\CommonResources - Copy.Designer.cs">
+      <DependentUpon>CommonResources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Resources\CommonResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CommonResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Views\HomeView.xaml.cs">
+      <DependentUpon>HomeView.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\CommonResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CommonResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Views\HomeView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+</Project>

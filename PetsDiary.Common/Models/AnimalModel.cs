@@ -1,4 +1,6 @@
-﻿namespace PetsDiary.Common.Models
+﻿using System;
+
+namespace PetsDiary.Common.Models
 {
     public class AnimalModel
     {
@@ -10,7 +12,11 @@
 
         public int AnimalType { get; set; }
 
-        public double ActualWeight { get; set; }
+        public int Gender { get; set; }
+
+        public DateTime BirthDate { get; set; }
+
+        public DateTime LastModified { get; set; }
 
         /// <summary>
         /// Picture's file name

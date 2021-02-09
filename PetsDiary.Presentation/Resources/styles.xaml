@@ -186,7 +186,27 @@
            TargetType="Button">
         <Setter Property="BorderBrush" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Background" Value="Transparent"/>        
+    </Style>
+
+    <Style x:Key="DarkPathStyle" TargetType="Path">
+        <Setter Property="Fill" Value="{StaticResource Independence}"/>
+        <Style.Triggers>
+            <Trigger Property="IsFocused" Value="True">
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect ShadowDepth="0"
+                                  Color="{StaticResource IndependenceColor}"
+                                  Opacity="1"
+                                  BlurRadius="5"/>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Fill" Value="{StaticResource LightIndependence}"/>
+            </Trigger>
+        </Style.Triggers>
+
     </Style>
     
     <Style x:Key="NavRadioButtonStyle"
@@ -219,6 +239,10 @@
                         </Trigger>
                         <Trigger Property="IsChecked" Value="True">
                             <Setter Property="Background" Value="{StaticResource Independence}"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Background" Value="{StaticResource GreenSheen}"/>
+                            <Setter Property="Foreground" Value="{StaticResource RussianGreen}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

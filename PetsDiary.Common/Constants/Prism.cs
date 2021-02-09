@@ -11,5 +11,10 @@
         public const string Animal = "Animal";
         public const string Home = "Home";
         public const string Vaccinations = "Vaccinations";
+        public const string Visits = "Visits";
+        public const string Notes = "Notes";
+        public const string Notifications = "Notifications";
+        public const string Weights = "Weights";
+        public const string Navigation = "Navigation";
     }
 }

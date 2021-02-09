@@ -1,21 +1,26 @@
-﻿using PetsDiary.Presentation.Constants;
+﻿using PetsDiary.Common.Interfaces;
+using PetsDiary.Common.Models;
+using PetsDiary.Presentation.Constants;
 using PetsDiary.Presentation.Enums;
+using PetsDiary.Presentation.Events;
 using PetsDiary.Presentation.Interfaces;
 using PetsDiary.Presentation.Resources;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Regions;
 using System;
-using System.Threading.Tasks;
 
 namespace PetsDiary.Presentation.ViewModels
 {
     public class AnimalViewModel : BaseViewModel, IAnimalViewModel
     {
-        public AnimalViewModel()
+        public AnimalViewModel(IPetsData petsData, IEventAggregator eventAggregator)
         {
-            SaveCommand = new DelegateCommand(async () => await Save());
+            SaveCommand = new DelegateCommand(Save);
             EditCommand = new DelegateCommand(Edit);
             ValidateName();
+            this.petsData = petsData;
+            this.eventAggregator = eventAggregator;
         }
 
         protected override void OnErrorsChanged(string propertyName)
@@ -104,9 +109,12 @@ namespace PetsDiary.Presentation.ViewModels
             }
         }
 
-        private DateTime? lastModified;
+        private DateTime lastModified;
 
-        public DateTime? LastModified
+        private readonly IPetsData petsData;
+        private readonly IEventAggregator eventAggregator;
+
+        public DateTime LastModified
         {
             get { return lastModified; }
             set
@@ -134,11 +142,42 @@ namespace PetsDiary.Presentation.ViewModels
 
         public DelegateCommand EditCommand { get; private set; }
 
-        private Task Save()
+        private void Save()
         {
-            return new Task(() =>
+            var animal = new AnimalModel()
             {
-            });
-        }
+                AnimalType = (int)AnimalType,
+                Breed = Breed,
+                Name = Name,
+                Gender = (int)Gender,
+                BirthDate = BirthDate.Value,
+                LastModified = DateTime.Now
+            };
+
+            petsData.AddAnimal(animal);
+
+            LastModified = animal.LastModified;
+
+            IsInEdit = false;
+
+            var args = new PetChangedEventArgs(Name, true);
+            eventAggregator.GetEvent<PetChangedEvent>()
+                .Publish(args);
+
+            //return new Task(() =>
+            //{
+            //    var animal = new AnimalModel()
+            //    {
+            //        AnimalType = (int)AnimalType,
+            //        Breed = Breed,
+            //        Name = Name,
+            //        Gender =(int)Gender,
+            //        BirthDate = BirthDate.Value,
+            //        LastModified = DateTime.Now
+            //    };
+
+            //    animalData.AddAnimal(animal);
+            //});
+        }      
     }
 }

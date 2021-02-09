@@ -111,7 +111,6 @@
                     Style="{StaticResource DatePickerStyle}"
                     Grid.Row="5" Grid.Column="1" 
                     Height="25" Width="150" 
-                    DisplayDateStart="{x:Static sys:DateTime.Today}"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Left"
                     IsEnabled="{Binding IsInEdit}"                    

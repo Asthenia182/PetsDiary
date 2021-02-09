@@ -1,4 +1,6 @@
 ﻿using PetsDiary.Common.Constants;
+using PetsDiary.Common.Interfaces;
+using PetsDiary.Data;
 using PetsDiary.Presentation.Views;
 using Prism.Ioc;
 using Prism.Modularity;
@@ -18,6 +20,9 @@ namespace Module
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<AnimalView>(ViewNames.Animal);
+            containerRegistry.RegisterForNavigation<HomeView>(ViewNames.Home);
+
+            containerRegistry.RegisterSingleton<IPetsData, PetsData>();
         }
     }
 }

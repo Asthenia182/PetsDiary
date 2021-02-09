@@ -57,7 +57,7 @@ namespace PetsDiary.Presentation
 
         public bool IsNavigationTarget(NavigationContext navigationContext)
         {
-            throw new System.NotImplementedException();
+            return true;
         }
 
         public virtual void OnNavigatedFrom(NavigationContext navigationContext)

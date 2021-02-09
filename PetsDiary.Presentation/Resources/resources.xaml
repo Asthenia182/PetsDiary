@@ -10,6 +10,7 @@
     <SolidColorBrush x:Key="CambridgeBlue" Color="#A6CCB6" PresentationOptions:Freeze="True" />
     <Color  x:Key="IndependenceColor" PresentationOptions:Freeze="True">#3d405b</Color>
     <SolidColorBrush x:Key="Independence" Color="{DynamicResource IndependenceColor}" PresentationOptions:Freeze="True" />
+    <SolidColorBrush x:Key="LightIndependence" Color="#555A70" PresentationOptions:Freeze="True" />
     <!--#endregion-->
 
     

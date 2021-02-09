@@ -4,10 +4,33 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:res="clr-namespace:PetsDiary.Presentation.Resources"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:converters ="clr-namespace:PetsDiary.Presentation.Convertes"
+             xmlns:enums ="clr-namespace:PetsDiary.Presentation.Enums"
              mc:Ignorable="d" >
-    <Grid Background="White">
+    <UserControl.Resources>
+        <converters:ComparisonConverter x:Key="ComparisonConverter"/>
+
+        <Style x:Key="Editbtn" TargetType="Button" BasedOn="{StaticResource FilledButtonStyle}">
+            <Setter Property="Content" Value="{x:Static res:CommonResources.Edit}"/>
+            <Setter Property="Command" Value="{Binding EditCommand}"/>
+        </Style>
+        <Style x:Key="Savebtn" TargetType="Button" BasedOn="{StaticResource FilledButtonStyle}">
+            <Setter Property="Content" Value="{x:Static res:CommonResources.Save}"/>
+            <Setter Property="Command" Value="{Binding SaveCommand}"/>
+            <Setter Property="IsEnabled" Value="{Binding CanSave}"/>
+        </Style>
+
+        <converters:ButtonStyleConverter x:Key="ButtonStyleConverter" 
+                                              EditButtonStyle="{StaticResource Editbtn}"                                       
+                                              SaveButtonStyle="{StaticResource Savebtn}"/>
+    </UserControl.Resources>
+    
+    <Grid Background="White" HorizontalAlignment="Center">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -18,56 +41,94 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-
-        <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+        <StackPanel Orientation="Horizontal">
+        <Label 
+                Content="{x:Static res:CommonResources.LastModified}"
+                ContentStringFormat="{}{0}:"
+                Style="{StaticResource SmallLabelStyle}"/>
+        <Label Grid.Row="0" Grid.Column="0"
+                Content="{Binding LastModified}"
+                Style="{StaticResource SmallLabelStyle}"/>
+        </StackPanel>
+        
+        <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                 Height="100" Width="100"
                 CornerRadius="5"
                 BorderThickness="2"
                 BorderBrush="{StaticResource GreenSheen}"
                 Margin="10">            
         </Border>
-        
-        <Label Grid.Row="1" Grid.Column="0" 
-               Content="{x:Static res:CommonResources.AnimalType}"
-               Style="{StaticResource FormLabelStyle}"/>
-        <StackPanel Grid.Row="1" Grid.Column="1"
-                    Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-        <RadioButton 
-                     GroupName="AnimalType" Content="{x:Static res:CommonResources.Dog}" Margin="0,0,10,0"/>
-        <RadioButton  
-                     GroupName="AnimalType" Content="{x:Static res:CommonResources.Cat}"/>
-        </StackPanel>
 
         <Label Grid.Row="2" Grid.Column="0" 
-               Content="{x:Static res:CommonResources.Gender}"
+               Content="{x:Static res:CommonResources.Name}"
                Style="{StaticResource FormLabelStyle}"/>
-        <StackPanel Grid.Row="2" Grid.Column="1"
-                    Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-            <RadioButton 
-                     GroupName="AnimalType" Content="{x:Static res:CommonResources.Female}" Margin="0,0,10,0"/>
-            <RadioButton  
-                     GroupName="AnimalType" Content="{x:Static res:CommonResources.Male}"/>
-        </StackPanel>
+        <TextBox Grid.Row="2" Grid.Column="1" 
+                 Width="300" Margin="0,10" 
+                 Style="{StaticResource FormTextBoxStyle}" 
+                 IsEnabled="{Binding IsInEdit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                 
+                 Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnNotifyDataErrors=True}"/>
 
         <Label Grid.Row="3" Grid.Column="0" 
-               Content="{x:Static res:CommonResources.BirthDate}"
+               Content="{x:Static res:CommonResources.AnimalType}"
                Style="{StaticResource FormLabelStyle}"/>
-        <DatePicker Grid.Row="3" Grid.Column="1"
-                    Height="25" Width="150" 
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Left"/>
+        <StackPanel Grid.Row="3" Grid.Column="1"
+                    Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+        <RadioButton 
+                     GroupName="AnimalType" Content="{x:Static res:CommonResources.Dog}"
+                     IsEnabled="{Binding IsInEdit}"
+                     Style="{StaticResource RadioButtonStyle}"
+                     IsChecked="{Binding Path=AnimalType, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static enums:AnimalType.Dog}}"
+                     Margin="0,0,10,0"/>
+        <RadioButton  
+                     GroupName="AnimalType" Content="{x:Static res:CommonResources.Cat}"
+                     IsEnabled="{Binding IsInEdit}"
+                     Style="{StaticResource RadioButtonStyle}"
+                     IsChecked="{Binding Path=AnimalType, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static enums:AnimalType.Cat}}"/>
+        </StackPanel>
 
         <Label Grid.Row="4" Grid.Column="0" 
-               Content="{x:Static res:CommonResources.Breed}"
+               Content="{x:Static res:CommonResources.Gender}"
                Style="{StaticResource FormLabelStyle}"/>
-        <TextBox Grid.Row="4" Grid.Column="1" 
-                 Width="300" Margin="0,10" Style="{StaticResource FormTextBoxStyle}"/>
+        <StackPanel Grid.Row="4" Grid.Column="1"
+                    Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <RadioButton 
+                     GroupName="Gender" Content="{x:Static res:CommonResources.Female}"
+                     Margin="0,0,10,0"
+                     IsEnabled="{Binding IsInEdit}"
+                     Style="{StaticResource RadioButtonStyle}"
+                     IsChecked="{Binding Path=Gender, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static enums:Gender.Female}}"/>
+            <RadioButton  
+                     GroupName="Gender" Content="{x:Static res:CommonResources.Male}"
+                     IsEnabled="{Binding IsInEdit}"
+                     Style="{StaticResource RadioButtonStyle}"
+                     IsChecked="{Binding Path=Gender, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static enums:Gender.Male}}"/>
+        </StackPanel>
 
         <Label Grid.Row="5" Grid.Column="0" 
-               Content="{x:Static res:CommonResources.Weight}"
+               Content="{x:Static res:CommonResources.BirthDate}"
                Style="{StaticResource FormLabelStyle}"/>
-        <TextBox Grid.Row="5" Grid.Column="1" 
-                 Width="100" Margin="0,10" Style="{StaticResource FormTextBoxStyle}"/>
+        <DatePicker 
+                    Style="{StaticResource DatePickerStyle}"
+                    Grid.Row="5" Grid.Column="1" 
+                    Height="25" Width="150" 
+                    DisplayDateStart="{x:Static sys:DateTime.Today}"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    IsEnabled="{Binding IsInEdit}"                    
+                    SelectedDate="{Binding BirthDate,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+
+        <Label Grid.Row="6" Grid.Column="0" 
+               Content="{x:Static res:CommonResources.Breed}"
+               Style="{StaticResource FormLabelStyle}"/>
+        <TextBox Grid.Row="6" Grid.Column="1" 
+                 Width="300" Margin="0,10" 
+                 Style="{StaticResource FormTextBoxStyle}" 
+                 IsEnabled="{Binding IsInEdit}"
+                 Text="{Binding Breed,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>       
+        
+        <Button Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2"
+                HorizontalAlignment="Center"
+                Style="{Binding Path=IsInEdit, Converter={StaticResource ButtonStyleConverter}}"/>
 
     </Grid>
 </UserControl>

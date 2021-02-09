@@ -2,6 +2,25 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
 
+    <Style x:Key="RadioButtonStyle" TargetType="RadioButton">
+        <Setter Property="Foreground" Value="{StaticResource Independence}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontFamily" Value="{StaticResource BloggerSans-Regular}"/>       
+    </Style>
+    
+    <Style x:Key="DatePickerStyle" TargetType="DatePicker">
+        <Setter Property="BorderBrush" Value="{StaticResource GreenSheen}"/>
+        <Setter Property="Foreground" Value="{StaticResource Independence}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontFamily" Value="{StaticResource BloggerSans-Regular}"/>
+    </Style>
+
+    <Style x:Key="SmallLabelStyle" TargetType="Label">
+        <Setter Property="FontSize" Value="10"/>
+        <Setter Property="FontFamily" Value="{StaticResource NotoSans-Bold}"/>
+        <Setter Property="Foreground" Value="{StaticResource Independence}"/>        
+    </Style>
+    
     <Style x:Key="FormLabelStyle" TargetType="Label">
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="FontFamily" Value="{StaticResource NotoSans-Bold}"/>
@@ -19,20 +38,21 @@
         <Setter Property="Foreground" Value="{StaticResource Independence}"/>
         <Setter Property="BorderBrush" Value="{StaticResource GreenSheen}"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
-
         <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Margin" Value="4,4" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBox}">
                     <Border Background="{TemplateBinding Background}"    
                             x:Name="Bd" BorderBrush="{StaticResource GreenSheen}"   
                             BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="4">
-                        <ScrollViewer x:Name="PART_ContentHost"/>
+                     <ScrollViewer x:Name="PART_ContentHost"/>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Background" Value="{StaticResource Independence}" TargetName="Bd"/>
+                            <Setter Property="Background" Value="White" TargetName="Bd"/>
                             <Setter Property="Foreground" Value="{StaticResource Independence}"/>
+                            <Setter TargetName="Bd" Property="BorderThickness" Value="0"></Setter>
                         </Trigger>
                         <Trigger Property="Width" Value="Auto">
                             <Setter Property="MinWidth" Value="100"/>
@@ -48,12 +68,73 @@
                             <Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource Independence}"></Setter>
                             <Setter TargetName="Bd" Property="BorderThickness" Value="2"></Setter>
                         </Trigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Validation.ErrorTemplate">
+            <Setter.Value>
+                <ControlTemplate>
+                    <StackPanel>
+                        <AdornedElementPlaceholder x:Name="textBox" />
+                        <ItemsControl ItemsSource="{Binding}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding ErrorContent}" Foreground="Red" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+
+    <Style x:Key="FilledButtonStyle"
+           TargetType="Button">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontFamily" Value="{StaticResource NotoSans-Regular}"/>
+        <Setter Property="Padding" Value="20,5,20,5"/>
+        <Setter Property="Margin" Value="5,10"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border CornerRadius="5" x:Name="Bd" Background="{StaticResource GreenSheen}"  BorderThickness="0" >
+                        <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Background" Value="LightGray" TargetName="Bd"/>
+                            <Setter Property="Foreground" Value="DarkGray"/>
+                            <Setter TargetName="Bd" Property="BorderThickness" Value="0"></Setter>
+                        </Trigger>
+                        <Trigger Property="Width" Value="Auto">
+                            <Setter Property="MinWidth" Value="100"/>
+                        </Trigger>
+                        <Trigger Property="Height" Value="Auto">
+                            <Setter Property="MinHeight" Value="25"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bd" Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect ShadowDepth="0"
+                                  Color="{StaticResource IndependenceColor}"
+                                  Opacity="1"
+                                  BlurRadius="5"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="Bd" Property="Background" Value="{StaticResource RussianGreen}"/>
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-
 
     <Style x:Key="EmptyButtonStyle"
            TargetType="Button">
@@ -66,9 +147,36 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border CornerRadius="5" Background="Transparent" BorderBrush="{StaticResource GreenSheen}" BorderThickness="1" >
+                    <Border x:Name="Bd" CornerRadius="5" Background="Transparent" BorderBrush="{StaticResource GreenSheen}" BorderThickness="1" >
                         <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Background" Value="LightGray" TargetName="Bd"/>
+                            <Setter Property="Foreground" Value="DarkGray"/>
+                            <Setter TargetName="Bd" Property="BorderThickness" Value="0"></Setter>
+                        </Trigger>
+                        <Trigger Property="Width" Value="Auto">
+                            <Setter Property="MinWidth" Value="100"/>
+                        </Trigger>
+                        <Trigger Property="Height" Value="Auto">
+                            <Setter Property="MinHeight" Value="25"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bd" Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect ShadowDepth="0"
+                                  Color="{StaticResource GreenSheenColor}"
+                                  Opacity="1"
+                                  BlurRadius="5"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="Bd" Property="Background" Value="{StaticResource GreenSheen}"/>
+                            <Setter Property="Foreground" Value="White"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

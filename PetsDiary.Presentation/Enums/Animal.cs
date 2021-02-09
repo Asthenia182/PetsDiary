@@ -1,7 +1,5 @@
 ﻿namespace PetsDiary.Presentation.Enums
 {
-    public class AnimalEnums
-    {
         public enum Gender
         {
             Unknown,
@@ -11,8 +9,9 @@
 
         public enum AnimalType
         {
+            Unknown,
             Cat,
             Dog
         }
-    }
+    
 }

@@ -4,10 +4,12 @@
 
     <!--#region  ______________________________COLORS-->
     <SolidColorBrush x:Key="Wheat" Color="#f2e0b0" PresentationOptions:Freeze="True" />
+    <Color x:Key="GreenSheenColor" PresentationOptions:Freeze="True">#81b29a </Color>
     <SolidColorBrush x:Key="GreenSheen" Color="#81b29a" PresentationOptions:Freeze="True" />
     <SolidColorBrush x:Key="RussianGreen" Color="#5F997B" PresentationOptions:Freeze="True" />
     <SolidColorBrush x:Key="CambridgeBlue" Color="#A6CCB6" PresentationOptions:Freeze="True" />
-    <SolidColorBrush x:Key="Independence" Color="#3d405b" PresentationOptions:Freeze="True" />
+    <Color  x:Key="IndependenceColor" PresentationOptions:Freeze="True">#3d405b</Color>
+    <SolidColorBrush x:Key="Independence" Color="{DynamicResource IndependenceColor}" PresentationOptions:Freeze="True" />
     <!--#endregion-->
 
     

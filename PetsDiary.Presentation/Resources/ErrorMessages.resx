@@ -117,64 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Add" xml:space="preserve">
-    <value>Add</value>
-  </data>
-  <data name="Age" xml:space="preserve">
-    <value>Add</value>
-  </data>
-  <data name="AnimalType" xml:space="preserve">
-    <value>Animal type</value>
-  </data>
-  <data name="BelongsTo" xml:space="preserve">
-    <value>Belongs to</value>
-  </data>
-  <data name="BirthDate" xml:space="preserve">
-    <value>Birth date</value>
-  </data>
-  <data name="Breed" xml:space="preserve">
-    <value>Breed</value>
-  </data>
-  <data name="Cat" xml:space="preserve">
-    <value>Cat</value>
-  </data>
-  <data name="Delete" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="Dog" xml:space="preserve">
-    <value>Dog</value>
-  </data>
-  <data name="Edit" xml:space="preserve">
-    <value>Edit</value>
-  </data>
-  <data name="Female" xml:space="preserve">
-    <value>Female</value>
-  </data>
-  <data name="Gender" xml:space="preserve">
-    <value>Gender</value>
-  </data>
-  <data name="LastModified" xml:space="preserve">
-    <value>Last modified</value>
-  </data>
-  <data name="Male" xml:space="preserve">
-    <value>Male</value>
-  </data>
-  <data name="Name" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="Open" xml:space="preserve">
-    <value>Open</value>
-  </data>
-  <data name="Save" xml:space="preserve">
-    <value>Save</value>
-  </data>
-  <data name="Warning" xml:space="preserve">
-    <value>Warning</value>
-  </data>
-  <data name="Weight" xml:space="preserve">
-    <value>Weight</value>
-  </data>
-  <data name="Welcome" xml:space="preserve">
-    <value>Welcome</value>
+  <data name="ValidationErrorRequiredField" xml:space="preserve">
+    <value>This field is required</value>
   </data>
 </root>

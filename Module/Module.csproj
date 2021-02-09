@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PetsDiary.Common\PetsDiary.Common.csproj" />
     <ProjectReference Include="..\PetsDiary.Presentation\PetsDiary.Presentation.csproj" />
   </ItemGroup>
 

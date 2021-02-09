@@ -1,4 +1,4 @@
-﻿using PetsDiary.Presentation.Interfaces;
+﻿using PetsDiary.Common.Constants;
 using PetsDiary.Presentation.Views;
 using Prism.Ioc;
 using Prism.Modularity;
@@ -12,12 +12,12 @@ namespace Module
         {
             var regionManager = containerProvider.Resolve<IRegionManager>();
 
-            regionManager.RegisterViewWithRegion("ContentRegion", typeof(HomeView));
+            regionManager.RegisterViewWithRegion(RegionNames.Content, typeof(HomeView));
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterForNavigation<AnimalView>();
+            containerRegistry.RegisterForNavigation<AnimalView>(ViewNames.Animal);
         }
     }
 }

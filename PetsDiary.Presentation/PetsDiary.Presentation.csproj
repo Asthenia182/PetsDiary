@@ -40,6 +40,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PetsDiary.Common\PetsDiary.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Resources\fonts\NotoSans-BoldItalic.ttf" />
     <Resource Include="Resources\fonts\NotoSans-Italic.ttf" />
     <Resource Include="Resources\img\pug.png" />

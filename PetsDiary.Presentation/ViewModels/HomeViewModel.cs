@@ -1,4 +1,6 @@
-﻿using PetsDiary.Presentation.Views;
+﻿using PetsDiary.Common.Constants;
+using PetsDiary.Common.Models;
+using PetsDiary.Presentation.Views;
 using Prism.Commands;
 using Prism.Regions;
 using System.Collections.ObjectModel;
@@ -17,7 +19,7 @@ namespace PetsDiary.Presentation.ViewModels
 
         private void Add()
         {
-            regionManager.RequestNavigate("ContentRegion", "AnimalView");
+            regionManager.RequestNavigate(RegionNames.Content, ViewNames.Animal);
         }
 
         public DelegateCommand AddCommand { get; private set; }
@@ -26,7 +28,7 @@ namespace PetsDiary.Presentation.ViewModels
         {
             base.OnNavigatedFrom(navigationContext);
 
-            regionManager.RegisterViewWithRegion("NavRegion", typeof(NavigationBarView));
+            regionManager.RegisterViewWithRegion(RegionNames.Navigation, typeof(NavigationBarView));
         }
 
         public AnimalModel SelectedItem { get; set; }

@@ -4,14 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
+        xmlns:constans="clr-namespace:PetsDiary.Common.Constants;assembly=PetsDiary.Common"
         xmlns:prism="http://prismlibrary.com/" Height="600" Width="700">
     <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <ContentControl prism:RegionManager.RegionName="NavRegion"/>
-        <ContentControl Grid.Row="1" prism:RegionManager.RegionName="ContentRegion"/>        
+        <ContentControl prism:RegionManager.RegionName="{x:Static constans:RegionNames.Navigation}"/>
+        <ContentControl Grid.Row="1" prism:RegionManager.RegionName="{x:Static constans:RegionNames.Content}"/>        
     </Grid>
 </Window>
 

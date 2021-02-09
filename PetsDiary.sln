@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetsDiary.Data", "PetsDiary
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetsDiary.Presentation", "PetsDiary.Presentation\PetsDiary.Presentation.csproj", "{55169C51-5208-4619-AC7F-D0AF4318B742}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetsDiary.Core", "PetsDiary.Core\PetsDiary.Core.csproj", "{021C8640-861F-4286-A316-512074E3F188}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetsDiary.Core", "PetsDiary.Core\PetsDiary.Core.csproj", "{021C8640-861F-4286-A316-512074E3F188}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetsDiary.Common", "PetsDiary.Common\PetsDiary.Common.csproj", "{3E9A615B-C948-4575-A068-38A8E5E0FC65}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{021C8640-861F-4286-A316-512074E3F188}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{021C8640-861F-4286-A316-512074E3F188}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{021C8640-861F-4286-A316-512074E3F188}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E9A615B-C948-4575-A068-38A8E5E0FC65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E9A615B-C948-4575-A068-38A8E5E0FC65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E9A615B-C948-4575-A068-38A8E5E0FC65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E9A615B-C948-4575-A068-38A8E5E0FC65}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

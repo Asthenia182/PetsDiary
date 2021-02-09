@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PetsDiary.Presentation
+namespace PetsDiary.Common.Models
 {
     public class AnimalModel
     {

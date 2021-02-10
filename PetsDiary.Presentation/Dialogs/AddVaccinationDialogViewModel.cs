@@ -17,9 +17,9 @@ namespace PetsDiary.Presentation.Dialogs
         {
         }
 
-        private DateTime shotDate;
+        private DateTime? shotDate;
 
-        public DateTime ShotDate
+        public DateTime? ShotDate
         {
             get { return shotDate; }
             set 
@@ -29,9 +29,9 @@ namespace PetsDiary.Presentation.Dialogs
             }
         }
 
-        private DateTime nextShotDate;
+        private DateTime? nextShotDate;
 
-        public DateTime NextShotDate
+        public DateTime? NextShotDate
         {
             get { return nextShotDate; }
             set 

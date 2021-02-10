@@ -24,8 +24,10 @@ namespace Module
             containerRegistry.RegisterForNavigation<AnimalView>(ViewNames.Animal);
             containerRegistry.RegisterForNavigation<HomeView>(ViewNames.Home);
             containerRegistry.RegisterForNavigation<VaccinationsView>(ViewNames.Vaccinations);
+            containerRegistry.RegisterForNavigation<VisitsView>(ViewNames.Visits);
 
             containerRegistry.RegisterDialog<AddVaccinationDialog, AddVaccinationDialogViewModel>();
+            containerRegistry.RegisterDialog<AddVisitDialog, AddVisitDialogViewModel>();
 
             containerRegistry.RegisterSingleton<IPetsData, PetsData>();
             containerRegistry.RegisterSingleton<IPetDescription, PetDescription>();

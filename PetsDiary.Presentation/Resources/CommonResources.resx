@@ -144,8 +144,14 @@
   <data name="Cat" xml:space="preserve">
     <value>Cat</value>
   </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
   </data>
   <data name="Dog" xml:space="preserve">
     <value>Dog</value>

@@ -42,7 +42,7 @@
         <Setter Property="FontFamily" Value="{StaticResource NotoSans-Bold}"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
         <Setter Property="Height" Value="30"/>
-        <Setter Property="Foreground" Value="{StaticResource GreenSheen}"/>
+        <Setter Property="Foreground" Value="{StaticResource Independence}"/>
         <Setter Property="Margin" Value="20,10"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Right"/>

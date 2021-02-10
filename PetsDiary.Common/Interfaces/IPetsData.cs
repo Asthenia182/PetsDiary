@@ -22,5 +22,13 @@ namespace PetsDiary.Common.Interfaces
         void DeleteVaccinationById(int id);
 
         VaccinationModel UpdateVaccination(VaccinationModel updatedVaccination);
+
+        VisitModel UpdateVisit(VisitModel updatedVisit);
+
+        void DeleteVisitById(int id);
+
+        VisitModel AddVisit(VisitModel model);
+
+        IEnumerable<VisitModel> GetVisits(int petId);
     }
 }

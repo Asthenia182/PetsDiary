@@ -15,7 +15,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <DockPanel VerticalAlignment="Bottom"  MaxWidth="300" HorizontalAlignment="Center">
+                <DockPanel VerticalAlignment="Center"  MaxWidth="300" HorizontalAlignment="Center">
                     <TextBlock DockPanel.Dock="Left" Text="{Binding Name}" Style="{StaticResource MediumTextBlockStyle}" FontWeight="Bold" />
                     <controls:IconButton VerticalAlignment="Center" HorizontalAlignment="Right" DockPanel.Dock="Right" 
                                      IconHeight="10" IconWidth="10"
@@ -23,7 +23,7 @@
                                      Style="{StaticResource IconButtonTemplate}"
                                      Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.DeleteCommand}" CommandParameter="{Binding Id}"/>
                     <controls:IconButton VerticalAlignment="Center" HorizontalAlignment="Right"  DockPanel.Dock="Right"
-                                     IconHeight="15" IconWidth="15"
+                                     IconHeight="15" IconWidth="15" Margin="5,0,0,0"
                                      IconSource="{StaticResource editIcon}" 
                                      Style="{StaticResource IconButtonTemplate}"
                                      Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.EditCommand}" CommandParameter="{Binding Id}"/>
@@ -66,7 +66,7 @@
         
 
         <controls:IconButton VerticalAlignment="Top" HorizontalAlignment="Right" Margin="20"
-                                     IconHeight="40" IconWidth="40"
+                                     IconHeight="30" IconWidth="30"
                                      Text="{x:Static res:CommonResources.Add}"
                                      IconSource="{StaticResource plusIcon}" 
                                      Style="{StaticResource IconButtonTemplate}"

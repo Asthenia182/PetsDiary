@@ -21,5 +21,6 @@
     public class DialogNames
     {
         public const string AddVaccinationDialog = "AddVaccinationDialog";
+        public const string AddVisitDialog = "AddVisitDialog";
     }
 }

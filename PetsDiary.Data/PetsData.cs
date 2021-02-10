@@ -10,6 +10,7 @@ namespace PetsDiary.Data
     {
         private readonly List<AnimalModel> animals;
         private readonly List<VaccinationModel> vaccinations;
+        private readonly List<VisitModel> visits;
 
         public PetsData()
         {
@@ -25,6 +26,53 @@ namespace PetsDiary.Data
                 new VaccinationModel {Id =1, PetId = 1, Address="Warszawa, Marszalkowska 134", Name = "Przeciw wsciekliznie", NextShotDate = DateTime.Now, ShotDate = DateTime.Now, ShotInformation = "Firma szczepionki taka i numer szczepionki taki" },
                 new VaccinationModel {Id =2, PetId = 1, Address="Warszawa, Marszalkowska 134", Name = "Przeciw wsciekliznie !!", NextShotDate = DateTime.Now, ShotDate = DateTime.Now, ShotInformation = "fdshr tewt sfd ewr takiefsfdsfsdg h" },
             };
+
+            visits = new List<VisitModel>()
+            {
+                new VisitModel(){Id=1, PetId=1, Description = "Lorem ipsum lorem ipsum lorem ipsum", Date = DateTime.Today.AddDays(-1)},
+                new VisitModel(){Id=2, PetId = 1, Description = "Przykladowy tekst", Date = DateTime.Today.AddDays(-10)},
+                new VisitModel(){Id=3, PetId = 1, Description = "dsablalba", Date = DateTime.Today.AddDays(-7)},
+                new VisitModel(){Id=4, PetId = 1, Description = "ggeelablalba", Date = DateTime.Today.AddDays(-7)},
+                new VisitModel(){Id=5, PetId = 1, Description = "ttttblalba", Date = DateTime.Today.AddDays(-7)},
+            };
+        }
+
+        public IEnumerable<VisitModel> GetVisits(int petId)
+        {
+            return visits
+                .Where(x => x.PetId == petId)
+                .OrderByDescending(x => x.Date);
+        }
+
+        public VisitModel AddVisit(VisitModel model)
+        {
+            visits.Add(model);
+            model.Id = visits.Max(r => r.Id) + 1;
+            return model;
+        }
+
+        public void DeleteVisitById(int id)
+        {
+            var visit = visits.FirstOrDefault(r => r.Id == id);
+            if (visit != null)
+            {
+                visits.Remove(visit);
+            }
+        }
+
+        public VisitModel UpdateVisit(VisitModel updatedVisit)
+        {
+            var visit = visits.SingleOrDefault(r => r.Id == updatedVisit.Id);
+
+            if (visit != null)
+            {
+                visit.Id = updatedVisit.Id;
+                visit.PetId = updatedVisit.PetId;
+                visit.Description = updatedVisit.Description;
+                visit.Date = updatedVisit.Date;
+            }
+
+            return visit;
         }
 
         public IEnumerable<VaccinationModel> GetVaccinations(int petId)

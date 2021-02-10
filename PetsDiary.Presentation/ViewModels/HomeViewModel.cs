@@ -6,6 +6,7 @@ using PetsDiary.Presentation.Events;
 using PetsDiary.Presentation.Views;
 using Prism.Commands;
 using Prism.Events;
+using Prism.Mvvm;
 using Prism.Regions;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -21,23 +22,52 @@ namespace PetsDiary.Presentation.ViewModels
         public HomeViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IPetsData petsData)
         {
             AddCommand = new DelegateCommand(Add);
+            OpenCommand = new DelegateCommand(Open);
+            DeleteCommand = new DelegateCommand(Delete);
             this.regionManager = regionManager;
             this.eventAggregator = eventAggregator;
             this.petsData = petsData;
 
+            Pets = new ObservableCollection<PetDescription>();
+
             LoadData();
+        }
+
+        private void Delete()
+        {
+            petsData.DeleteAnimalById(SelectedItem.Id);
+
+            Pets.Remove(SelectedItem);
+        }
+
+        private void Open()
+        {
+            var navigationParams = new NavigationParameters
+            {
+                { NavigationParameterKeys.PetId, SelectedItem.Id}
+            };
+
+            regionManager.RequestNavigate(RegionNames.Content, ViewNames.Animal, navigationParams);
         }
 
         private void LoadData()
         {
-            Animals = new ObservableCollection<AnimalModel>(petsData.GetPets());
+            Pets.Clear();
+
+            var petModels = petsData.GetPets();
+
+            foreach (var model in petModels)
+            {
+                var petDescription = new PetDescription { Id = model.Id, IsSelected = false, Name = model.Name };
+                Pets.Add(petDescription);
+            }
         }
 
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
 
-            Animals = null;
+            Pets = null;
         }
 
         private void Add()
@@ -51,6 +81,8 @@ namespace PetsDiary.Presentation.ViewModels
         }
 
         public DelegateCommand AddCommand { get; private set; }
+        public DelegateCommand OpenCommand { get; private set; }
+        public DelegateCommand DeleteCommand { get; private set; }
 
         public override void OnNavigatedFrom(NavigationContext navigationContext)
         {
@@ -73,10 +105,59 @@ namespace PetsDiary.Presentation.ViewModels
             var navRegion = regionManager.Regions[RegionNames.Navigation];
             var navView = regionManager.Regions[RegionNames.Navigation].ActiveViews.First();
             navRegion.Remove(navView);
+
+            LoadData();
         }
 
-        public AnimalModel SelectedItem { get; set; }
+        private PetDescription selectedItem;
 
-        public ObservableCollection<AnimalModel> Animals { get; set; }
+        public PetDescription SelectedItem
+        {
+            get { return selectedItem; }
+            set
+            {
+                selectedItem = value;
+
+                if (SelectedItem != null)
+                {
+                    SelectedItem.IsSelected = true;
+                    var others = Pets.ToList().Where(x => x.Id != SelectedItem.Id);
+                    others.ToList().ForEach(p => p.IsSelected = false);
+                }
+
+                RaisePropertyChanged(nameof(SelectedItem));
+            }
+        }
+
+        private ObservableCollection<PetDescription> pets;
+
+        public ObservableCollection<PetDescription> Pets
+        {
+            get { return pets; }
+            set
+            {
+                pets = value;
+                RaisePropertyChanged(nameof(Pets));
+            }
+        }
+
+        public class PetDescription : BindableBase
+        {
+            private bool isSelected;
+
+            public bool IsSelected
+            {
+                get { return isSelected; }
+                set
+                {
+                    isSelected = value;
+                    RaisePropertyChanged(nameof(isSelected));
+                }
+            }
+
+            public string Name { get; set; }
+
+            public int Id { get; set; }
+        }
     }
 }

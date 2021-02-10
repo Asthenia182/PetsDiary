@@ -14,7 +14,7 @@ namespace PetsDiary.Common.Models
 
         public int Gender { get; set; }
 
-        public DateTime BirthDate { get; set; }
+        public DateTime? BirthDate { get; set; }
 
         public DateTime LastModified { get; set; }
 

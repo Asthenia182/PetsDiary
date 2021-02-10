@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:constans="clr-namespace:PetsDiary.Common.Constants;assembly=PetsDiary.Common"
              xmlns:prism="http://prismlibrary.com/"
+             xmlns:controls="clr-namespace:PetsDiary.Presentation.Controls"
              xmlns:res="clr-namespace:PetsDiary.Presentation.Resources"
              prism:ViewModelLocator.AutoWireViewModel="True">
     <Grid>
@@ -12,38 +13,35 @@
         </Grid.RowDefinitions>
         <DockPanel HorizontalAlignment="Stretch" LastChildFill="False" Background="{StaticResource GreenSheen}">
 
-            <Button DockPanel.Dock="Left" Style="{StaticResource IconButtonStyle}" 
-                        VerticalAlignment="Center"
-                        Margin="0,0,0,5"
-                        Command="{Binding NavigateCommand}" CommandParameter="{x:Static constans:ViewNames.Home}">
-                    <Viewbox Stretch="Fill"
-                         Margin="10,0,0,0"
-                         Height="30"
-                         Width="30" >
-                        <Path  Fill="White" 
-                         Data="{StaticResource Home}">
-                        </Path>
-                    </Viewbox>                  
-            </Button>
+            <controls:IconButton VerticalAlignment="Center" HorizontalAlignment="Right"  Margin="10,-2,0,0"
+                                     IconHeight="30" IconWidth="30"
+                                     IconSource="{StaticResource Home}" 
+                                     Style="{StaticResource IconButtonTemplate}"
+                                     Command="{Binding NavigateCommand}" CommandParameter="{x:Static constans:ViewNames.Home}"/>
+
 
             <RadioButton DockPanel.Dock="Right" GroupName="Nav" 
-                                 Content="Dane podstawowe" 
+                                 Content="{x:Static res:CommonResources.Profile}" 
                                  Style="{StaticResource NavRadioButtonStyle}"
                                  IsChecked="True"/>
             <RadioButton DockPanel.Dock="Right"  GroupName="Nav" 
-                                 Content="Szczepienia" 
+                                 Content="{x:Static res:CommonResources.Vaccinations}" 
                                  Style="{StaticResource NavRadioButtonStyle}"
                                  IsEnabled="{Binding IsNavigationEnabled}"/>
             <RadioButton DockPanel.Dock="Right"  GroupName="Nav" 
-                                 Content="Wizyty" 
+                                 Content="{x:Static res:CommonResources.Visits}" 
                                  Style="{StaticResource NavRadioButtonStyle}"
                                  IsEnabled="{Binding IsNavigationEnabled}"/>
             <RadioButton DockPanel.Dock="Right"  GroupName="Nav" 
-                                 Content="Powiadomienia" 
+                                 Content="{x:Static res:CommonResources.Notifications}" 
                                  Style="{StaticResource NavRadioButtonStyle}"
                                  IsEnabled="{Binding IsNavigationEnabled}"/>
             <RadioButton DockPanel.Dock="Right"  GroupName="Nav" 
-                                 Content="Dodatkowe" 
+                                 Content="{x:Static res:CommonResources.Notes}" 
+                                 Style="{StaticResource NavRadioButtonStyle}"
+                                 IsEnabled="{Binding IsNavigationEnabled}"/>
+            <RadioButton DockPanel.Dock="Right"  GroupName="Nav" 
+                                 Content="{x:Static res:CommonResources.Weights}" 
                                  Style="{StaticResource NavRadioButtonStyle}"
                                  IsEnabled="{Binding IsNavigationEnabled}"/>
         </DockPanel>

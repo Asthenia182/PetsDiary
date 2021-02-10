@@ -70,7 +70,16 @@ namespace PetsDiary.Presentation.ViewModels
             }
         }
 
-        public string Breed { get; set; }
+        private string breed;
+        public string Breed
+        {
+            get { return breed; }
+            set
+            {
+                breed = value;
+                RaisePropertyChanged();
+            }
+        }
 
         private AnimalType animalType;
 
@@ -109,12 +118,12 @@ namespace PetsDiary.Presentation.ViewModels
             }
         }
 
-        private DateTime lastModified;
+        private DateTime? lastModified;
 
         private readonly IPetsData petsData;
         private readonly IEventAggregator eventAggregator;
 
-        public DateTime LastModified
+        public DateTime? LastModified
         {
             get { return lastModified; }
             set
@@ -131,10 +140,41 @@ namespace PetsDiary.Presentation.ViewModels
 
         public override void OnNavigatedTo(NavigationContext navigationContext)
         {
-            if (navigationContext.Parameters != null &&
-                navigationContext.Parameters.ContainsKey(NavigationParameterKeys.IsInEdit))
+            if (navigationContext.Parameters == null)
+            {
+                ///TODO
+                throw new NullReferenceException();
+            }
+
+            // Creating new 
+            if (navigationContext.Parameters.ContainsKey(NavigationParameterKeys.IsInEdit))
             {
                 IsInEdit = navigationContext.Parameters.GetValue<bool>(NavigationParameterKeys.IsInEdit);
+
+                AnimalType = AnimalType.Unknown;
+                BirthDate = null;
+                Name = string.Empty;
+                Breed = string.Empty;
+                Gender = (Gender)Gender.Unknown;
+                LastModified = null;
+            }
+            // Reading saved
+            if (navigationContext.Parameters.ContainsKey(NavigationParameterKeys.PetId))
+            {
+                var petId = navigationContext.Parameters.GetValue<int>(NavigationParameterKeys.PetId);
+                var model = petsData.GetAnimalById(petId);
+
+                AnimalType = (AnimalType)model.AnimalType;
+                BirthDate = model.BirthDate;
+                Name = model.Name;
+                Breed = model.Breed;
+                Gender = (Gender)model.Gender;
+                LastModified = model.LastModified;
+                IsInEdit = false;
+
+                var args = new PetChangedEventArgs(Name, true);
+                eventAggregator.GetEvent<PetChangedEvent>()
+                    .Publish(args);
             }
         }
 
@@ -150,7 +190,7 @@ namespace PetsDiary.Presentation.ViewModels
                 Breed = Breed,
                 Name = Name,
                 Gender = (int)Gender,
-                BirthDate = BirthDate.Value,
+                BirthDate = BirthDate,
                 LastModified = DateTime.Now
             };
 

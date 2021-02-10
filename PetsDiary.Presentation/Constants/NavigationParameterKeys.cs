@@ -4,6 +4,6 @@
     {
         public const string IsInEdit = "IsInEdit";
 
-        public const string AnimalId = "AnimalId";
+        public const string PetId = "PetModel";
     }
 }

@@ -196,6 +196,24 @@ namespace PetsDiary.Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Notes.
+        /// </summary>
+        public static string Notes {
+            get {
+                return ResourceManager.GetString("Notes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notifications.
+        /// </summary>
+        public static string Notifications {
+            get {
+                return ResourceManager.GetString("Notifications", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open.
         /// </summary>
         public static string Open {
@@ -205,11 +223,38 @@ namespace PetsDiary.Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Profile.
+        /// </summary>
+        public static string Profile {
+            get {
+                return ResourceManager.GetString("Profile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vaccinations.
+        /// </summary>
+        public static string Vaccinations {
+            get {
+                return ResourceManager.GetString("Vaccinations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Visits.
+        /// </summary>
+        public static string Visits {
+            get {
+                return ResourceManager.GetString("Visits", resourceCulture);
             }
         }
         
@@ -228,6 +273,15 @@ namespace PetsDiary.Presentation.Resources {
         public static string Weight {
             get {
                 return ResourceManager.GetString("Weight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weights.
+        /// </summary>
+        public static string Weights {
+            get {
+                return ResourceManager.GetString("Weights", resourceCulture);
             }
         }
         

@@ -2,7 +2,6 @@
 using PetsDiary.Common.Models;
 using PetsDiary.Presentation.Constants;
 using PetsDiary.Presentation.Enums;
-using PetsDiary.Presentation.Events;
 using PetsDiary.Presentation.Interfaces;
 using PetsDiary.Presentation.Resources;
 using Prism.Commands;
@@ -14,13 +13,14 @@ namespace PetsDiary.Presentation.ViewModels
 {
     public class AnimalViewModel : BaseViewModel, IAnimalViewModel
     {
-        public AnimalViewModel(IPetsData petsData, IEventAggregator eventAggregator)
+        public AnimalViewModel(IPetsData petsData, IEventAggregator eventAggregator, IPetDescription petDescription)
         {
             SaveCommand = new DelegateCommand(Save);
             EditCommand = new DelegateCommand(Edit);
             ValidateName();
             this.petsData = petsData;
             this.eventAggregator = eventAggregator;
+            this.petDescription = petDescription;
         }
 
         protected override void OnErrorsChanged(string propertyName)
@@ -122,6 +122,7 @@ namespace PetsDiary.Presentation.ViewModels
 
         private readonly IPetsData petsData;
         private readonly IEventAggregator eventAggregator;
+        private readonly IPetDescription petDescription;
 
         public DateTime? LastModified
         {
@@ -147,35 +148,28 @@ namespace PetsDiary.Presentation.ViewModels
             }
 
             // Creating new 
-            if (navigationContext.Parameters.ContainsKey(NavigationParameterKeys.IsInEdit))
+            if (navigationContext.Parameters.ContainsKey(NavigationParameterKeys.IsNew))
             {
-                IsInEdit = navigationContext.Parameters.GetValue<bool>(NavigationParameterKeys.IsInEdit);
-
-                AnimalType = AnimalType.Unknown;
-                BirthDate = null;
-                Name = string.Empty;
-                Breed = string.Empty;
-                Gender = (Gender)Gender.Unknown;
-                LastModified = null;
+                IsInEdit = true;
             }
-            // Reading saved
-            if (navigationContext.Parameters.ContainsKey(NavigationParameterKeys.PetId))
+            else
             {
-                var petId = navigationContext.Parameters.GetValue<int>(NavigationParameterKeys.PetId);
-                var model = petsData.GetAnimalById(petId);
+                // Reading saved
+                var model = petsData.GetAnimalById(petDescription.Id.Value);
+                SetProps(model);
+                IsInEdit = false;
+            }                      
+        }
 
+        private void SetProps(AnimalModel model)
+        {
                 AnimalType = (AnimalType)model.AnimalType;
                 BirthDate = model.BirthDate;
                 Name = model.Name;
                 Breed = model.Breed;
                 Gender = (Gender)model.Gender;
                 LastModified = model.LastModified;
-                IsInEdit = false;
-
-                var args = new PetChangedEventArgs(Name, true);
-                eventAggregator.GetEvent<PetChangedEvent>()
-                    .Publish(args);
-            }
+                Id = model.Id;            
         }
 
         public DelegateCommand SaveCommand { get; private set; }
@@ -194,15 +188,22 @@ namespace PetsDiary.Presentation.ViewModels
                 LastModified = DateTime.Now
             };
 
-            petsData.AddAnimal(animal);
+            if (Id.HasValue)
+            {
+                animal.Id = Id.Value;
+                petsData.UpdateAnimal(animal);
+            }
+            else
+            {
+                petsData.AddAnimal(animal);
+            }                      
 
             LastModified = animal.LastModified;
 
             IsInEdit = false;
 
-            var args = new PetChangedEventArgs(Name, true);
-            eventAggregator.GetEvent<PetChangedEvent>()
-                .Publish(args);
+            petDescription.Name = Name;
+            petDescription.Id = animal.Id;
 
             //return new Task(() =>
             //{

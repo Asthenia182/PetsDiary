@@ -2,7 +2,7 @@
 {
     public class NavigationParameterKeys
     {
-        public const string IsInEdit = "IsInEdit";
+        public const string IsNew = "IsInEdit";
 
         public const string PetId = "PetModel";
     }

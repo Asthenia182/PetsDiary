@@ -23,11 +23,13 @@
             <RadioButton DockPanel.Dock="Right" GroupName="Nav" 
                                  Content="{x:Static res:CommonResources.Profile}" 
                                  Style="{StaticResource NavRadioButtonStyle}"
-                                 IsChecked="True"/>
+                                 IsChecked="True"
+                                 Command="{Binding NavigateCommand}" CommandParameter="{x:Static constans:ViewNames.Animal}"/>
             <RadioButton DockPanel.Dock="Right"  GroupName="Nav" 
                                  Content="{x:Static res:CommonResources.Vaccinations}" 
                                  Style="{StaticResource NavRadioButtonStyle}"
-                                 IsEnabled="{Binding IsNavigationEnabled}"/>
+                                 IsEnabled="{Binding IsNavigationEnabled}"
+                                 Command="{Binding NavigateCommand}" CommandParameter="{x:Static constans:ViewNames.Vaccinations}"/>
             <RadioButton DockPanel.Dock="Right"  GroupName="Nav" 
                                  Content="{x:Static res:CommonResources.Visits}" 
                                  Style="{StaticResource NavRadioButtonStyle}"

@@ -120,6 +120,9 @@
   <data name="Add" xml:space="preserve">
     <value>Add</value>
   </data>
+  <data name="Address" xml:space="preserve">
+    <value>Address</value>
+  </data>
   <data name="Age" xml:space="preserve">
     <value>Add</value>
   </data>
@@ -134,6 +137,9 @@
   </data>
   <data name="Breed" xml:space="preserve">
     <value>Breed</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
   </data>
   <data name="Cat" xml:space="preserve">
     <value>Cat</value>
@@ -162,6 +168,9 @@
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="NextShotDate" xml:space="preserve">
+    <value>Next injection date</value>
+  </data>
   <data name="Notes" xml:space="preserve">
     <value>Notes</value>
   </data>
@@ -176,6 +185,12 @@
   </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
+  </data>
+  <data name="ShotDate" xml:space="preserve">
+    <value>Injection date</value>
+  </data>
+  <data name="VaccinationInformation" xml:space="preserve">
+    <value>Vaccination information</value>
   </data>
   <data name="Vaccinations" xml:space="preserve">
     <value>Vaccinations</value>

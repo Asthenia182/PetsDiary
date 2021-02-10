@@ -70,6 +70,15 @@ namespace PetsDiary.Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Address.
+        /// </summary>
+        public static string Address {
+            get {
+                return ResourceManager.GetString("Address", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add.
         /// </summary>
         public static string Age {
@@ -111,6 +120,15 @@ namespace PetsDiary.Presentation.Resources {
         public static string Breed {
             get {
                 return ResourceManager.GetString("Breed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
             }
         }
         
@@ -196,6 +214,15 @@ namespace PetsDiary.Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Next injection date.
+        /// </summary>
+        public static string NextShotDate {
+            get {
+                return ResourceManager.GetString("NextShotDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Notes.
         /// </summary>
         public static string Notes {
@@ -237,6 +264,24 @@ namespace PetsDiary.Presentation.Resources {
         public static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Injection date.
+        /// </summary>
+        public static string ShotDate {
+            get {
+                return ResourceManager.GetString("ShotDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vaccination information.
+        /// </summary>
+        public static string VaccinationInformation {
+            get {
+                return ResourceManager.GetString("VaccinationInformation", resourceCulture);
             }
         }
         

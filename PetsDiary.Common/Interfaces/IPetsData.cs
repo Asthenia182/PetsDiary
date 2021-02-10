@@ -7,12 +7,20 @@ namespace PetsDiary.Common.Interfaces
     {
         AnimalModel AddAnimal(AnimalModel model);
 
-        AnimalModel DeleteAnimalById(int id);
+        void DeleteAnimalById(int id);
 
         IEnumerable<AnimalModel> GetPets();
 
         AnimalModel GetAnimalById(int id);
 
         AnimalModel UpdateAnimal(AnimalModel updatedAnimal);
+
+        IEnumerable<VaccinationModel> GetVaccinations(int petId);
+
+        VaccinationModel AddVacination(VaccinationModel model);
+
+        void DeleteVaccinationById(int id);
+
+        VaccinationModel UpdateVaccination(VaccinationModel updatedVaccination);
     }
 }

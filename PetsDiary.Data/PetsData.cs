@@ -9,6 +9,7 @@ namespace PetsDiary.Data
     public class PetsData : IPetsData
     {
         private readonly List<AnimalModel> animals;
+        private readonly List<VaccinationModel> vaccinations;
 
         public PetsData()
         {
@@ -18,6 +19,19 @@ namespace PetsDiary.Data
                 new AnimalModel { Id = 2, Name = "Kicia", AnimalType=2, Breed="Mix", Gender=1, BirthDate= DateTime.Now, LastModified = DateTime.Now },
                 new AnimalModel { Id = 3, Name = "Kotalke", AnimalType=2, Breed="Mix", Gender=2, BirthDate= DateTime.Now, LastModified = DateTime.Now },
             };
+
+            vaccinations = new List<VaccinationModel>()
+            {
+                new VaccinationModel {Id =1, PetId = 1, Address="Warszawa, Marszalkowska 134", Name = "Przeciw wsciekliznie", NextShotDate = DateTime.Now, ShotDate = DateTime.Now, ShotInformation = "Firma szczepionki taka i numer szczepionki taki" },
+                new VaccinationModel {Id =2, PetId = 1, Address="Warszawa, Marszalkowska 134", Name = "Przeciw wsciekliznie !!", NextShotDate = DateTime.Now, ShotDate = DateTime.Now, ShotInformation = "fdshr tewt sfd ewr takiefsfdsfsdg h" },
+            };
+        }
+
+        public IEnumerable<VaccinationModel> GetVaccinations(int petId)
+        {
+            return vaccinations
+                .Where(x => x.PetId == petId)
+                .OrderBy(x => x.ShotDate);
         }
 
         public IEnumerable<AnimalModel> GetPets()
@@ -53,14 +67,44 @@ namespace PetsDiary.Data
             return animal;
         }
 
-        public AnimalModel DeleteAnimalById(int id)
+        public void DeleteAnimalById(int id)
         {
             var animal = animals.FirstOrDefault(r => r.Id == id);
             if (animal != null)
             {
                 animals.Remove(animal);
             }
-            return null;
+        }
+
+        public VaccinationModel AddVacination(VaccinationModel model)
+        {
+            vaccinations.Add(model);
+            model.Id = vaccinations.Max(r => r.Id) + 1;
+            return model;
+        }
+
+        public void DeleteVaccinationById(int id)
+        {
+            var vaccination = vaccinations.FirstOrDefault(r => r.Id == id);
+            if (vaccination != null)
+            {
+                vaccinations.Remove(vaccination);
+            }
+        }
+
+        public VaccinationModel UpdateVaccination(VaccinationModel updatedVaccination)
+        {
+            var vaccination = vaccinations.SingleOrDefault(r => r.Id == updatedVaccination.Id);
+            if (vaccination != null)
+            {
+                vaccination.Id = updatedVaccination.Id;
+                vaccination.Name = updatedVaccination.Name;
+                vaccination.NextShotDate = updatedVaccination.NextShotDate;
+                vaccination.ShotDate = updatedVaccination.ShotDate;
+                vaccination.ShotInformation = updatedVaccination.ShotInformation;
+                vaccination.Address = updatedVaccination.Address;
+            }
+            return vaccination;
         }
     }
 }

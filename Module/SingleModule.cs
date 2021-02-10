@@ -1,6 +1,8 @@
 ﻿using PetsDiary.Common.Constants;
 using PetsDiary.Common.Interfaces;
 using PetsDiary.Data;
+using PetsDiary.Presentation;
+using PetsDiary.Presentation.Dialogs;
 using PetsDiary.Presentation.Views;
 using Prism.Ioc;
 using Prism.Modularity;
@@ -21,8 +23,12 @@ namespace Module
         {
             containerRegistry.RegisterForNavigation<AnimalView>(ViewNames.Animal);
             containerRegistry.RegisterForNavigation<HomeView>(ViewNames.Home);
+            containerRegistry.RegisterForNavigation<VaccinationsView>(ViewNames.Vaccinations);
+
+            containerRegistry.RegisterDialog<AddVaccinationDialog, AddVaccinationDialogViewModel>();
 
             containerRegistry.RegisterSingleton<IPetsData, PetsData>();
+            containerRegistry.RegisterSingleton<IPetDescription, PetDescription>();
         }
     }
 }

@@ -1,26 +1,55 @@
 ﻿using PetsDiary.Common.Constants;
-using PetsDiary.Presentation.Events;
 using Prism.Commands;
-using Prism.Events;
 using Prism.Regions;
-using System;
+using System.ComponentModel;
 
 namespace PetsDiary.Presentation.ViewModels
 {
     public class NavigationBarViewModel : BaseViewModel
     {
-        private readonly IEventAggregator eventAggregator;
         private readonly IRegionManager regionManager;
+        private readonly IPetDescription petDescription;
 
-        public NavigationBarViewModel(IEventAggregator eventAggregator, IRegionManager regionManager)
+        public NavigationBarViewModel(IRegionManager regionManager, IPetDescription petDescription)
         {
-            this.eventAggregator = eventAggregator;
             this.regionManager = regionManager;
-            this.eventAggregator
-                .GetEvent<PetChangedEvent>()
-                .Subscribe(UpdateName);
-
+            this.petDescription = petDescription;
             NavigateCommand = new DelegateCommand<string>(Navigate);
+
+            PetName = petDescription.Name;
+
+            IsNavigationEnabled = petDescription.Id.HasValue; 
+
+            petDescription.PropertyChanged += PetDescription_PropertyChanged;
+        }
+
+        private void PetDescription_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(petDescription.Name))
+            {
+                PetName = petDescription.Name;
+            }
+
+            if (e.PropertyName == nameof(petDescription.Id))
+            {
+                if (petDescription.Id.HasValue)
+                {
+                    IsNavigationEnabled = true;
+                }
+                else
+                {
+                    isNavigationEnabled = false;
+                }
+            }
+        }
+
+        public override void OnNavigatedTo(NavigationContext navigationContext)
+        {
+            ///check navigationFrom uri?
+            base.OnNavigatedTo(navigationContext);
+
+            PetName = petDescription.Name;
+            IsNavigationEnabled = false;
         }
 
         private void Navigate(string viewName)
@@ -30,27 +59,11 @@ namespace PetsDiary.Presentation.ViewModels
 
         public DelegateCommand<string> NavigateCommand { get; set; }
 
-        private void UpdateName(PetChangedEventArgs args)
-        {
-            PetName = args.PetName;
-
-            if (args.IsSaved)
-            {
-                IsNavigationEnabled = true;
-            }
-            else
-            {
-                isNavigationEnabled = false;
-            }
-        }
-
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
 
-            this.eventAggregator
-                .GetEvent<PetChangedEvent>()
-                .Unsubscribe(UpdateName);
+            petDescription.PropertyChanged -= PetDescription_PropertyChanged;
         }
 
         private string petName { get; set; }
@@ -76,6 +89,5 @@ namespace PetsDiary.Presentation.ViewModels
                 RaisePropertyChanged(nameof(IsNavigationEnabled));
             }
         }
-
     }
 }

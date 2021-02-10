@@ -6,14 +6,29 @@
     <Style x:Key="RadioButtonStyle" TargetType="RadioButton">
         <Setter Property="Foreground" Value="{StaticResource Independence}"/>
         <Setter Property="FontSize" Value="14"/>
-        <Setter Property="FontFamily" Value="{StaticResource BloggerSans-Regular}"/>       
+        <Setter Property="FontFamily" Value="{StaticResource NotoSans-Regular}"/>       
     </Style>
     
     <Style x:Key="DatePickerStyle" TargetType="DatePicker">
         <Setter Property="BorderBrush" Value="{StaticResource GreenSheen}"/>
         <Setter Property="Foreground" Value="{StaticResource Independence}"/>
         <Setter Property="FontSize" Value="14"/>
-        <Setter Property="FontFamily" Value="{StaticResource BloggerSans-Regular}"/>
+        <Setter Property="FontFamily" Value="{StaticResource NotoSans-Regular}"/>
+    </Style>
+
+    <Style x:Key="MediumLabelStyle" TargetType="Label">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontFamily" Value="{StaticResource NotoSans-Bold}"/>
+        <Setter Property="Foreground" Value="{StaticResource Independence}"/>
+    </Style>
+
+    <Style x:Key="MediumTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontFamily" Value="{StaticResource NotoSans-Bold}"/>
+        <Setter Property="Foreground" Value="{StaticResource Independence}"/>
+        <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
     </Style>
 
     <Style x:Key="SmallLabelStyle" TargetType="Label">

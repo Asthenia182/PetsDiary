@@ -17,4 +17,9 @@
         public const string Weights = "Weights";
         public const string Navigation = "Navigation";
     }
+
+    public class DialogNames
+    {
+        public const string AddVaccinationDialog = "AddVaccinationDialog";
+    }
 }

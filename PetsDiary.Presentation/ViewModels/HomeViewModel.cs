@@ -1,12 +1,8 @@
 ﻿using PetsDiary.Common.Constants;
 using PetsDiary.Common.Interfaces;
-using PetsDiary.Common.Models;
 using PetsDiary.Presentation.Constants;
-using PetsDiary.Presentation.Events;
 using PetsDiary.Presentation.Views;
 using Prism.Commands;
-using Prism.Events;
-using Prism.Mvvm;
 using Prism.Regions;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -16,26 +12,29 @@ namespace PetsDiary.Presentation.ViewModels
     public class HomeViewModel : BaseViewModel
     {
         private readonly IRegionManager regionManager;
-        private readonly IEventAggregator eventAggregator;
+
+        //private readonly IEventAggregator eventAggregator;
         private readonly IPetsData petsData;
 
-        public HomeViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IPetsData petsData)
+        private readonly IPetDescription petDescription;
+
+        public HomeViewModel(IRegionManager regionManager, IPetsData petsData, IPetDescription petDescription)
         {
             AddCommand = new DelegateCommand(Add);
             OpenCommand = new DelegateCommand(Open);
             DeleteCommand = new DelegateCommand(Delete);
             this.regionManager = regionManager;
-            this.eventAggregator = eventAggregator;
             this.petsData = petsData;
+            this.petDescription = petDescription;
 
-            Pets = new ObservableCollection<PetDescription>();
+            Pets = new ObservableCollection<IPetDescription>();
 
             LoadData();
         }
 
         private void Delete()
         {
-            petsData.DeleteAnimalById(SelectedItem.Id);
+            petsData.DeleteAnimalById(SelectedItem.Id.Value);
 
             Pets.Remove(SelectedItem);
         }
@@ -46,6 +45,10 @@ namespace PetsDiary.Presentation.ViewModels
             {
                 { NavigationParameterKeys.PetId, SelectedItem.Id}
             };
+
+            petDescription.Id = SelectedItem.Id;
+            petDescription.Name = SelectedItem.Name;
+            petDescription.IsSelected = SelectedItem.IsSelected;
 
             regionManager.RequestNavigate(RegionNames.Content, ViewNames.Animal, navigationParams);
         }
@@ -74,7 +77,7 @@ namespace PetsDiary.Presentation.ViewModels
         {
             var navigationParams = new NavigationParameters
             {
-                { NavigationParameterKeys.IsInEdit, true}
+                { NavigationParameterKeys.IsNew, true}
             };
 
             regionManager.RequestNavigate(RegionNames.Content, ViewNames.Animal, navigationParams);
@@ -89,13 +92,6 @@ namespace PetsDiary.Presentation.ViewModels
             base.OnNavigatedFrom(navigationContext);
 
             regionManager.RegisterViewWithRegion(RegionNames.Navigation, typeof(NavigationBarView));
-
-            var name = SelectedItem == null ? string.Empty : SelectedItem.Name;
-            int? id = SelectedItem?.Id;
-
-            var args = new PetChangedEventArgs(name, SelectedItem == null ? false : true);
-            eventAggregator.GetEvent<PetChangedEvent>()
-                .Publish(args);
         }
 
         public override void OnNavigatedTo(NavigationContext navigationContext)
@@ -106,12 +102,16 @@ namespace PetsDiary.Presentation.ViewModels
             var navView = regionManager.Regions[RegionNames.Navigation].ActiveViews.First();
             navRegion.Remove(navView);
 
+            petDescription.Id = null;
+            petDescription.IsSelected = false;
+            petDescription.Name = string.Empty;
+
             LoadData();
         }
 
-        private PetDescription selectedItem;
+        private IPetDescription selectedItem;
 
-        public PetDescription SelectedItem
+        public IPetDescription SelectedItem
         {
             get { return selectedItem; }
             set
@@ -129,9 +129,9 @@ namespace PetsDiary.Presentation.ViewModels
             }
         }
 
-        private ObservableCollection<PetDescription> pets;
+        private ObservableCollection<IPetDescription> pets;
 
-        public ObservableCollection<PetDescription> Pets
+        public ObservableCollection<IPetDescription> Pets
         {
             get { return pets; }
             set
@@ -139,25 +139,6 @@ namespace PetsDiary.Presentation.ViewModels
                 pets = value;
                 RaisePropertyChanged(nameof(Pets));
             }
-        }
-
-        public class PetDescription : BindableBase
-        {
-            private bool isSelected;
-
-            public bool IsSelected
-            {
-                get { return isSelected; }
-                set
-                {
-                    isSelected = value;
-                    RaisePropertyChanged(nameof(isSelected));
-                }
-            }
-
-            public string Name { get; set; }
-
-            public int Id { get; set; }
         }
     }
 }

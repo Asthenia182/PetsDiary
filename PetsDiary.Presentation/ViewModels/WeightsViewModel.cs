@@ -73,12 +73,17 @@ namespace PetsDiary.Presentation.ViewModels
         }
 
         protected override void Dispose(bool disposing)
-        {
-            base.Dispose(disposing);
-
+        {         
             AddCommand = null;
             EditCommand = null;
+
+            Weights.ToList().ForEach(w => w.Dispose());
             Weights = null;
+
+            InitializedWeight.Dispose();
+            InitializedWeight = null;
+
+            base.Dispose(disposing);
         }
 
         public void Delete(int? visitId)

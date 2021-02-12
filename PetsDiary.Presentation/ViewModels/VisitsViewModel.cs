@@ -55,12 +55,15 @@ namespace PetsDiary.Presentation.ViewModels
         }
 
         protected override void Dispose(bool disposing)
-        {
-            base.Dispose(disposing);
-
+        {           
             AddCommand = null;
             DeleteCommand = null;
+            EditCommand = null;
+
+            Visits.ToList().ForEach(v => v.Dispose());
             Visits = null;
+
+            base.Dispose(disposing);
         }
 
         public void Delete(int? visitId)

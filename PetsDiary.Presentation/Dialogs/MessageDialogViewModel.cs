@@ -1,5 +1,4 @@
-﻿using PetsDiary.Presentation.Resources;
-using Prism.Commands;
+﻿using Prism.Commands;
 using Prism.Services.Dialogs;
 using System;
 
@@ -31,7 +30,6 @@ namespace PetsDiary.Presentation.Dialogs
             get { return title; }
             set { SetProperty(ref title, value); }
         }
-
 
         public event Action<IDialogResult> RequestClose;
 

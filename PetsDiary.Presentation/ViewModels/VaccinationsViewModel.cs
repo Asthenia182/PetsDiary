@@ -56,11 +56,18 @@ namespace PetsDiary.Presentation.ViewModels
 
         protected override void Dispose(bool disposing)
         {
-            base.Dispose(disposing);
-
             AddCommand = null;
             DeleteCommand = null;
+
+            foreach (var vaccination in vaccinations)
+            {
+              ///todo change on vm lists
+
+            }
+
             Vaccinations = null;
+
+            base.Dispose(disposing);
         }
 
         public void Delete(int? vaccinationId)

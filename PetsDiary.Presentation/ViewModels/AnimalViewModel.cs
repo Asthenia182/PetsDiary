@@ -1,6 +1,5 @@
 ﻿using PetsDiary.Common.Interfaces;
 using PetsDiary.Common.Models;
-using PetsDiary.Presentation.Constants;
 using PetsDiary.Presentation.Enums;
 using PetsDiary.Presentation.Interfaces;
 using PetsDiary.Presentation.Resources;
@@ -11,18 +10,15 @@ using System;
 
 namespace PetsDiary.Presentation.ViewModels
 {
-    public class AnimalViewModel : BaseViewModel, IAnimalViewModel
+    public class AnimalViewModel: BaseViewModel, IAnimalViewModel
     {
-        public AnimalViewModel(IPetsData petsData, IEventAggregator eventAggregator, IPetDescription petDescription)
+        public AnimalViewModel(IPetsData petsData, IPetDescription petDescription)
         {
             SaveCommand = new DelegateCommand(Save);
             EditCommand = new DelegateCommand(Edit);
             ValidateName();
             this.petsData = petsData;
-            this.eventAggregator = eventAggregator;
             this.petDescription = petDescription;
-
-            
         }
 
         protected override void OnErrorsChanged(string propertyName)
@@ -34,10 +30,10 @@ namespace PetsDiary.Presentation.ViewModels
 
         protected override void Dispose(bool disposing)
         {
-            base.Dispose(disposing);
-
             SaveCommand = null;
-            EditCommand = null;            
+            EditCommand = null;
+
+            base.Dispose(disposing);
         }
 
         private bool canSave;
@@ -81,6 +77,7 @@ namespace PetsDiary.Presentation.ViewModels
         }
 
         private string breed;
+
         public string Breed
         {
             get { return breed; }
@@ -157,7 +154,7 @@ namespace PetsDiary.Presentation.ViewModels
                 throw new NullReferenceException();
             }
 
-            // Creating new 
+            // Creating new
             if (navigationContext.Parameters.ContainsKey(Constants.ParametersKeys.IsNew))
             {
                 IsInEdit = true;
@@ -168,26 +165,26 @@ namespace PetsDiary.Presentation.ViewModels
                 var model = petsData.GetAnimalById(petDescription.Id.Value);
                 SetProps(model);
                 IsInEdit = false;
-            }                      
+            }
         }
 
         private void SetProps(AnimalModel model)
         {
-                AnimalType = (AnimalType)model.AnimalType;
-                BirthDate = model.BirthDate;
-                Name = model.Name;
-                Breed = model.Breed;
-                Gender = (Gender)model.Gender;
-                LastModified = model.LastModified;
-                Id = model.Id;            
-        }
+            AnimalType = (AnimalType)model.AnimalType;
+            BirthDate = model.BirthDate;
+            Name = model.Name;
+            Breed = model.Breed;
+            Gender = (Gender)model.Gender;
+            LastModified = model.LastModified;
+            Id = model.Id;
+        }               
 
         public DelegateCommand SaveCommand { get; private set; }
 
         public DelegateCommand EditCommand { get; private set; }
 
         private void Save()
-        {
+        {           
             var animal = new AnimalModel()
             {
                 AnimalType = (int)AnimalType,
@@ -209,7 +206,7 @@ namespace PetsDiary.Presentation.ViewModels
             {
                 savedAnimal = petsData.AddAnimal(animal);
                 this.Id = savedAnimal.Id;
-            }                      
+            }
 
             LastModified = animal.LastModified;
 
@@ -217,21 +214,6 @@ namespace PetsDiary.Presentation.ViewModels
 
             petDescription.Name = Name;
             petDescription.Id = savedAnimal.Id;
-
-            //return new Task(() =>
-            //{
-            //    var animal = new AnimalModel()
-            //    {
-            //        AnimalType = (int)AnimalType,
-            //        Breed = Breed,
-            //        Name = Name,
-            //        Gender =(int)Gender,
-            //        BirthDate = BirthDate.Value,
-            //        LastModified = DateTime.Now
-            //    };
-
-            //    animalData.AddAnimal(animal);
-            //});
-        }      
+        }
     }
 }

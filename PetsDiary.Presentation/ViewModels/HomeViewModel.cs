@@ -53,7 +53,7 @@ namespace PetsDiary.Presentation.ViewModels
         {
             var navigationParams = new NavigationParameters
             {
-                { Constants.ParametersKeys.PetId, SelectedItem.Id}
+                { ParametersKeys.PetId, SelectedItem.Id}
             };
 
             petDescription.Id = SelectedItem.Id;
@@ -78,16 +78,19 @@ namespace PetsDiary.Presentation.ViewModels
 
         protected override void Dispose(bool disposing)
         {
-            base.Dispose(disposing);
-
+            AddCommand = null;
+            OpenCommand = null;
+            DeleteCommand = null;
             Pets = null;
+
+            base.Dispose(disposing);
         }
 
         private void Add()
         {
             var navigationParams = new NavigationParameters
             {
-                { Constants.ParametersKeys.IsNew, true}
+                { ParametersKeys.IsNew, true}
             };
 
             regionManager.RequestNavigate(RegionNames.Content, ViewNames.Animal, navigationParams);

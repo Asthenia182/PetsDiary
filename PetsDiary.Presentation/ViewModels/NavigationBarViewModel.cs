@@ -61,9 +61,10 @@ namespace PetsDiary.Presentation.ViewModels
 
         protected override void Dispose(bool disposing)
         {
-            base.Dispose(disposing);
-
             petDescription.PropertyChanged -= PetDescription_PropertyChanged;
+            NavigateCommand = null;
+
+            base.Dispose(disposing);
         }
 
         private string petName { get; set; }

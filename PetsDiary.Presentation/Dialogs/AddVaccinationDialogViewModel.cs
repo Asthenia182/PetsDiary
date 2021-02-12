@@ -1,12 +1,11 @@
 ﻿using PetsDiary.Presentation.Resources;
 using Prism.Commands;
-using Prism.Mvvm;
 using Prism.Services.Dialogs;
 using System;
 
 namespace PetsDiary.Presentation.Dialogs
 {
-    public class AddVaccinationDialogViewModel : BindableBase, IDialogAware
+    public class AddVaccinationDialogViewModel : BaseViewModel, IDialogAware
     {
         private DelegateCommand<string> _closeDialogCommand;
 
@@ -22,7 +21,7 @@ namespace PetsDiary.Presentation.Dialogs
         public DateTime? ShotDate
         {
             get { return shotDate; }
-            set 
+            set
             {
                 shotDate = value == null ? DateTime.Now : value;
                 SetProperty(ref shotDate, value);
@@ -34,7 +33,7 @@ namespace PetsDiary.Presentation.Dialogs
         public DateTime? NextShotDate
         {
             get { return nextShotDate; }
-            set 
+            set
             {
                 nextShotDate = value == null ? DateTime.Now : value;
                 SetProperty(ref nextShotDate, value);
@@ -101,7 +100,6 @@ namespace PetsDiary.Presentation.Dialogs
 
         public void OnDialogClosed()
         {
-            //throw new NotImplementedException();
         }
 
         public void OnDialogOpened(IDialogParameters parameters)

@@ -1,7 +1,6 @@
 ﻿using PetsDiary.Presentation.Resources;
 using PetsDiary.Presentation.ViewModels;
 using Prism.Commands;
-using Prism.Mvvm;
 using Prism.Services.Dialogs;
 using System;
 using System.Collections.ObjectModel;
@@ -9,7 +8,7 @@ using System.Linq;
 
 namespace PetsDiary.Presentation.Dialogs
 {
-    public class EditWeightsDialogViewModel:BindableBase, IDialogAware
+    public class EditWeightsDialogViewModel : BaseViewModel, IDialogAware
     {
         private DelegateCommand<string> _closeDialogCommand;
 
@@ -71,8 +70,17 @@ namespace PetsDiary.Presentation.Dialogs
             }
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            Weights.ToList().ForEach(w => w.Dispose());
+            Weights = null;
+
+            base.Dispose(disposing);
+        }
+
         public void OnDialogClosed()
         {
+            
         }
 
         public void OnDialogOpened(IDialogParameters parameters)

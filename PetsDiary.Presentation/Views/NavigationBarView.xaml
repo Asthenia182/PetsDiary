@@ -34,11 +34,7 @@
                                  Content="{x:Static res:CommonResources.Visits}" 
                                  Style="{StaticResource NavRadioButtonStyle}"
                                  IsEnabled="{Binding IsNavigationEnabled}"
-                                 Command="{Binding NavigateCommand}" CommandParameter="{x:Static constans:ViewNames.Visits}"/>
-            <RadioButton DockPanel.Dock="Right"  GroupName="Nav" 
-                                 Content="{x:Static res:CommonResources.Notifications}" 
-                                 Style="{StaticResource NavRadioButtonStyle}"
-                                 IsEnabled="{Binding IsNavigationEnabled}"/>
+                                 Command="{Binding NavigateCommand}" CommandParameter="{x:Static constans:ViewNames.Visits}"/>          
             <RadioButton DockPanel.Dock="Right"  GroupName="Nav" 
                                  Content="{x:Static res:CommonResources.Notes}" 
                                  Style="{StaticResource NavRadioButtonStyle}"
@@ -46,7 +42,8 @@
             <RadioButton DockPanel.Dock="Right"  GroupName="Nav" 
                                  Content="{x:Static res:CommonResources.Weights}" 
                                  Style="{StaticResource NavRadioButtonStyle}"
-                                 IsEnabled="{Binding IsNavigationEnabled}"/>
+                                 IsEnabled="{Binding IsNavigationEnabled}"
+                                 Command="{Binding NavigateCommand}" CommandParameter="{x:Static constans:ViewNames.Weights}"/>
         </DockPanel>
         <DockPanel Grid.Row="1" LastChildFill="False" Background="{StaticResource RussianGreen}">
             <TextBlock DockPanel.Dock="Right" Text="{Binding PetName}" Foreground="white" Padding="0,5,20,5" Margin="0,0,20,0"/>

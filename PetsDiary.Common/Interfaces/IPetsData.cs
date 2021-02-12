@@ -30,5 +30,13 @@ namespace PetsDiary.Common.Interfaces
         VisitModel AddVisit(VisitModel model);
 
         IEnumerable<VisitModel> GetVisits(int petId);
+
+        IEnumerable<WeightModel> GetWeights(int petId);
+
+        WeightModel AddWeight(WeightModel model);
+
+        void DeleteWeightById(int id);
+
+        WeightModel UpdateWeight(WeightModel updatedWeight);
     }
 }

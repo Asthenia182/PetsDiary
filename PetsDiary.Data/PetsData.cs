@@ -11,6 +11,7 @@ namespace PetsDiary.Data
         private readonly List<AnimalModel> animals;
         private readonly List<VaccinationModel> vaccinations;
         private readonly List<VisitModel> visits;
+        private readonly List<WeightModel> weights;
 
         public PetsData()
         {
@@ -35,6 +36,51 @@ namespace PetsDiary.Data
                 new VisitModel(){Id=4, PetId = 1, Description = "ggeelablalba", Date = DateTime.Today.AddDays(-7)},
                 new VisitModel(){Id=5, PetId = 1, Description = "ttttblalba", Date = DateTime.Today.AddDays(-7)},
             };
+
+            weights = new List<WeightModel>()
+            { 
+                new WeightModel() {Id = 1, PetId = 1, Date = DateTime.Today, Weight = 10},
+                new WeightModel() {Id = 2, PetId = 1, Date = DateTime.Today.AddDays(-10), Weight = 5},
+                new WeightModel() {Id = 3, PetId = 1, Date = DateTime.Today.AddDays(-5), Weight = 7},
+            };
+        }
+
+        public IEnumerable<WeightModel> GetWeights(int petId)
+        {
+            return weights
+                .Where(x => x.PetId == petId)
+                .OrderByDescending(x => x.Date);
+        }
+
+        public WeightModel AddWeight(WeightModel model)
+        {
+            weights.Add(model);
+            model.Id = weights.Max(r => r.Id) + 1;
+            return model;
+        }
+
+        public void DeleteWeightById(int id)
+        {
+            var weight = weights.FirstOrDefault(r => r.Id == id);
+            if (weight != null)
+            {
+                weights.Remove(weight);
+            }
+        }
+
+        public WeightModel UpdateWeight(WeightModel updatedWeight)
+        {
+            var weight = weights.SingleOrDefault(r => r.Id == updatedWeight.Id);
+
+            if (weight != null)
+            {
+                weight.Id = updatedWeight.Id;
+                weight.PetId = updatedWeight.PetId;
+                weight.Weight = updatedWeight.Weight;
+                weight.Date = updatedWeight.Date;
+            }
+
+            return weight;
         }
 
         public IEnumerable<VisitModel> GetVisits(int petId)

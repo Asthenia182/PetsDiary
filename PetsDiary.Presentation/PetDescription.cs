@@ -36,7 +36,7 @@ namespace PetsDiary.Presentation
             set
             {
                 id = value;
-                RaisePropertyChanged(nameof(id));
+                RaisePropertyChanged(nameof(Id));
             }
         }
     }

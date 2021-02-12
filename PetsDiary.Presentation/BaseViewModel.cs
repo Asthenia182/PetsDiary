@@ -5,7 +5,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.InteropServices;
 
@@ -102,8 +101,10 @@ namespace PetsDiary.Presentation
 
         public IEnumerable GetErrors(string propertyName)
         {
-            return _errorsByPropertyName.ContainsKey(propertyName) ?
-           _errorsByPropertyName[propertyName] : null;
+            return string.IsNullOrEmpty(propertyName) ||
+             !this._errorsByPropertyName.ContainsKey(propertyName)
+                ? null
+                : (IEnumerable)this._errorsByPropertyName[propertyName];
         }
     }
 }

@@ -1,44 +1,44 @@
-﻿using Microsoft.Win32.SafeHandles;
-using PetsDiary.Presentation.Resources;
+﻿using PetsDiary.Presentation.Resources;
+using PetsDiary.Presentation.ViewModels;
 using Prism.Commands;
+using Prism.Mvvm;
 using Prism.Services.Dialogs;
 using System;
-using System.Runtime.InteropServices;
+using System.Collections.ObjectModel;
 
 namespace PetsDiary.Presentation.Dialogs
 {
-    public class AddVisitDialogViewModel : BaseViewModel, IDialogAware
+    public class EditWeightsDialogViewModel:BindableBase, IDialogAware
     {
         private DelegateCommand<string> _closeDialogCommand;
 
         public DelegateCommand<string> CloseDialogCommand =>
         _closeDialogCommand ?? (_closeDialogCommand = new DelegateCommand<string>(CloseDialog));
 
-        public AddVisitDialogViewModel()
+        public DelegateCommand<object> DeleteCommand { get; set; }
+        public string Title => CommonResources.Edit;
+
+        public EditWeightsDialogViewModel()
         {
+            DeleteCommand = new DelegateCommand<object>(Delete);
         }
 
-        private DateTime? date;
-
-        public DateTime? Date
+        private void Delete(object obj)
         {
-            get { return date; }
+            Weights.Remove((WeightViewModel)obj);
+        }
+
+        private ObservableCollection<WeightViewModel> weights;
+
+        public ObservableCollection<WeightViewModel> Weights
+        {
+            get { return weights; }
             set
             {
-                date = value == null ? DateTime.Now : value;
-                SetProperty(ref date, value);
+                weights = value;
+                RaisePropertyChanged(nameof(Weights));
             }
         }
-
-        private string description;
-
-        public string Description
-        {
-            get { return description; }
-            set { SetProperty(ref description, value); }
-        }
-
-        public string Title => CommonResources.Add;
 
         public event Action<IDialogResult> RequestClose;
 
@@ -56,8 +56,7 @@ namespace PetsDiary.Presentation.Dialogs
                 result = ButtonResult.OK;
 
                 var parameters = new DialogParameters();
-                parameters.Add(nameof(Description), Description);
-                parameters.Add(nameof(Date), Date);
+                parameters.Add(nameof(Weights), Weights);
 
                 RaiseRequestClose(new DialogResult(result, parameters));
             }
@@ -75,8 +74,7 @@ namespace PetsDiary.Presentation.Dialogs
 
         public void OnDialogOpened(IDialogParameters parameters)
         {
-            Description = parameters.GetValue<string>(nameof(Description));
-            Date = parameters.GetValue<DateTime>(nameof(Date));
+            Weights = parameters.GetValue<ObservableCollection<WeightViewModel>>(nameof(Weights));
         }
 
         public virtual void RaiseRequestClose(IDialogResult dialogResult)

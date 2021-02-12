@@ -61,11 +61,29 @@ namespace PetsDiary.Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Weight with this date is already saved.
+        /// </summary>
+        internal static string ValidationErrorDateWeight {
+            get {
+                return ResourceManager.GetString("ValidationErrorDateWeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This field is required.
         /// </summary>
         internal static string ValidationErrorRequiredField {
             get {
                 return ResourceManager.GetString("ValidationErrorRequiredField", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weight cannot contain any letters.
+        /// </summary>
+        internal static string ValidationErrorWeightValueType {
+            get {
+                return ResourceManager.GetString("ValidationErrorWeightValueType", resourceCulture);
             }
         }
     }

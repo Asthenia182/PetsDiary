@@ -94,6 +94,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Behaviours\" />
     <Folder Include="Selectors\" />
   </ItemGroup>
 

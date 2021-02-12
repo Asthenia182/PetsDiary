@@ -21,6 +21,8 @@ namespace PetsDiary.Presentation.ViewModels
             this.petsData = petsData;
             this.eventAggregator = eventAggregator;
             this.petDescription = petDescription;
+
+            
         }
 
         protected override void OnErrorsChanged(string propertyName)
@@ -28,6 +30,14 @@ namespace PetsDiary.Presentation.ViewModels
             base.OnErrorsChanged(propertyName);
 
             CanSave = !HasErrors;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+
+            SaveCommand = null;
+            EditCommand = null;            
         }
 
         private bool canSave;
@@ -148,7 +158,7 @@ namespace PetsDiary.Presentation.ViewModels
             }
 
             // Creating new 
-            if (navigationContext.Parameters.ContainsKey(NavigationParameterKeys.IsNew))
+            if (navigationContext.Parameters.ContainsKey(Constants.ParametersKeys.IsNew))
             {
                 IsInEdit = true;
             }
@@ -188,14 +198,17 @@ namespace PetsDiary.Presentation.ViewModels
                 LastModified = DateTime.Now
             };
 
+            AnimalModel savedAnimal;
+
             if (Id.HasValue)
             {
                 animal.Id = Id.Value;
-                petsData.UpdateAnimal(animal);
+                savedAnimal = petsData.UpdateAnimal(animal);
             }
             else
             {
-                petsData.AddAnimal(animal);
+                savedAnimal = petsData.AddAnimal(animal);
+                this.Id = savedAnimal.Id;
             }                      
 
             LastModified = animal.LastModified;
@@ -203,7 +216,7 @@ namespace PetsDiary.Presentation.ViewModels
             IsInEdit = false;
 
             petDescription.Name = Name;
-            petDescription.Id = animal.Id;
+            petDescription.Id = savedAnimal.Id;
 
             //return new Task(() =>
             //{

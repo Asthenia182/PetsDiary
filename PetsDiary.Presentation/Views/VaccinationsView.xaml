@@ -67,7 +67,6 @@
 
         <controls:IconButton VerticalAlignment="Top" HorizontalAlignment="Right" Margin="20"
                                      IconHeight="30" IconWidth="30"
-                                     Text="{x:Static res:CommonResources.Add}"
                                      IconSource="{StaticResource plusIcon}" 
                                      Style="{StaticResource IconButtonTemplate}"
                                      Command="{Binding AddCommand}"/>

@@ -13,7 +13,6 @@
         public const string Vaccinations = "Vaccinations";
         public const string Visits = "Visits";
         public const string Notes = "Notes";
-        public const string Notifications = "Notifications";
         public const string Weights = "Weights";
         public const string Navigation = "Navigation";
     }
@@ -22,5 +21,7 @@
     {
         public const string AddVaccinationDialog = "AddVaccinationDialog";
         public const string AddVisitDialog = "AddVisitDialog";
+        public const string MessageDialog = "MessageDialog";
+        public const string EditWeightsDialog = "EditWeightsDialog";
     }
 }

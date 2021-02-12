@@ -34,7 +34,7 @@
                     Style="{StaticResource DatePickerStyle}"
                     Grid.Row="0" Grid.Column="2" 
                     Height="25" Width="200"            
-                    SelectedDate="{Binding Date,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>        
+                    SelectedDate="{Binding Date, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnNotifyDataErrors=True}"/>        
 
         <Label Grid.Row="1" Content="{x:Static res:CommonResources.Description}"
                Style="{StaticResource FormLabelStyle}" FontSize="12"/>

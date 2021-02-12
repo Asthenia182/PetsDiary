@@ -16,10 +16,10 @@
     
     
     <!--#region  ______________________________FONTFAMILIES-->
-    <FontFamily x:Key="Monsterrat-Bold">/fonts/Monsterrat-Bold.ttf#Monsterrat</FontFamily>
-    <FontFamily x:Key="NotoSans-Regular">/fonts/NotoSans-Regular.ttf#Noto Sans</FontFamily>
-    <FontFamily x:Key="NotoSans-Bold">/fonts/NotoSans-Bold.ttf#Noto Sans</FontFamily>
-    <FontFamily x:Key="BloggerSans-Regular">/fonts/BloggerSans.ttf#BloggerSans</FontFamily>
+    <FontFamily x:Key="Monsterrat-Bold">fonts/Monsterrat-Bold.ttf#Montserrat-Bold</FontFamily>
+    <FontFamily x:Key="NotoSans-Regular">fonts/NotoSans-Regular.ttf#NotoSans-Regular</FontFamily>
+    <FontFamily x:Key="NotoSans-Bold">fonts/NotoSans-Bold.ttf#NotoSans-Bold</FontFamily>
+    <FontFamily x:Key="BloggerSans-Regular">fonts/BloggerSans.ttf#BloggerSans</FontFamily>
     <!--#endregion-->
 
     

@@ -1,9 +1,11 @@
 ﻿using PetsDiary.Common.Constants;
 using PetsDiary.Common.Interfaces;
 using PetsDiary.Presentation.Constants;
+using PetsDiary.Presentation.Resources;
 using PetsDiary.Presentation.Views;
 using Prism.Commands;
 using Prism.Regions;
+using Prism.Services.Dialogs;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -12,13 +14,11 @@ namespace PetsDiary.Presentation.ViewModels
     public class HomeViewModel : BaseViewModel
     {
         private readonly IRegionManager regionManager;
-
-        //private readonly IEventAggregator eventAggregator;
         private readonly IPetsData petsData;
-
         private readonly IPetDescription petDescription;
+        private readonly IDialogService dialogService;
 
-        public HomeViewModel(IRegionManager regionManager, IPetsData petsData, IPetDescription petDescription)
+        public HomeViewModel(IRegionManager regionManager, IPetsData petsData, IPetDescription petDescription, IDialogService dialogService)
         {
             AddCommand = new DelegateCommand(Add);
             OpenCommand = new DelegateCommand(Open);
@@ -26,7 +26,7 @@ namespace PetsDiary.Presentation.ViewModels
             this.regionManager = regionManager;
             this.petsData = petsData;
             this.petDescription = petDescription;
-
+            this.dialogService = dialogService;
             Pets = new ObservableCollection<IPetDescription>();
 
             LoadData();
@@ -34,16 +34,26 @@ namespace PetsDiary.Presentation.ViewModels
 
         private void Delete()
         {
-            petsData.DeleteAnimalById(SelectedItem.Id.Value);
+            var parameters = new DialogParameters();
+            parameters.Add(ParametersKeys.Message, CommonResources.WarningDelete);
+            parameters.Add(ParametersKeys.Title, CommonResources.Warning);
+            dialogService.ShowDialog(DialogNames.MessageDialog, parameters, (r) =>
+            {
+                if (r.Result == ButtonResult.OK)
+                {
+                    petsData.DeleteAnimalById(SelectedItem.Id.Value);
 
-            Pets.Remove(SelectedItem);
+                    Pets.Remove(SelectedItem);
+                }
+            }
+            );
         }
 
         private void Open()
         {
             var navigationParams = new NavigationParameters
             {
-                { NavigationParameterKeys.PetId, SelectedItem.Id}
+                { Constants.ParametersKeys.PetId, SelectedItem.Id}
             };
 
             petDescription.Id = SelectedItem.Id;
@@ -77,7 +87,7 @@ namespace PetsDiary.Presentation.ViewModels
         {
             var navigationParams = new NavigationParameters
             {
-                { NavigationParameterKeys.IsNew, true}
+                { Constants.ParametersKeys.IsNew, true}
             };
 
             regionManager.RequestNavigate(RegionNames.Content, ViewNames.Animal, navigationParams);

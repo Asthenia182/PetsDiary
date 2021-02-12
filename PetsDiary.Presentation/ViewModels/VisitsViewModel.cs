@@ -1,6 +1,8 @@
 ﻿using PetsDiary.Common.Constants;
 using PetsDiary.Common.Interfaces;
 using PetsDiary.Common.Models;
+using PetsDiary.Presentation.Constants;
+using PetsDiary.Presentation.Resources;
 using Prism.Commands;
 using Prism.Services.Dialogs;
 using System;
@@ -64,9 +66,19 @@ namespace PetsDiary.Presentation.ViewModels
         {
             if (visitId.HasValue)
             {
-                petsData.DeleteVisitById(visitId.Value);
-                var visit = Visits.FirstOrDefault(x => x.Id == visitId.Value);
-                Visits.Remove(visit);
+                var parameters = new DialogParameters();
+                parameters.Add(ParametersKeys.Message, CommonResources.WarningDelete);
+                parameters.Add(ParametersKeys.Title, CommonResources.Warning);
+                dialogService.ShowDialog(DialogNames.MessageDialog, parameters, (r) =>
+                    {
+                        if (r.Result == ButtonResult.OK)
+                        {
+                            petsData.DeleteVisitById(visitId.Value);
+                            var visit = Visits.FirstOrDefault(x => x.Id == visitId.Value);
+                            Visits.Remove(visit);
+                        }
+                    }
+                );
             }
         }
 
@@ -84,7 +96,7 @@ namespace PetsDiary.Presentation.ViewModels
                     if (r.Result == ButtonResult.OK)
                     {
                         visit.Description = r.Parameters.GetValue<string>(nameof(visit.Description));
-                        
+
                         visit.Date = r.Parameters.GetValue<DateTime>(nameof(visit.Date));
 
                         petsData.UpdateVisit(visit);

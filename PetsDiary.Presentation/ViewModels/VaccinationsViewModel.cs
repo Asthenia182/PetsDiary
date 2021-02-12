@@ -1,6 +1,8 @@
 ﻿using PetsDiary.Common.Constants;
 using PetsDiary.Common.Interfaces;
 using PetsDiary.Common.Models;
+using PetsDiary.Presentation.Constants;
+using PetsDiary.Presentation.Resources;
 using Prism.Commands;
 using Prism.Services.Dialogs;
 using System;
@@ -51,6 +53,7 @@ namespace PetsDiary.Presentation.ViewModels
                 }
             });
         }
+
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
@@ -59,13 +62,24 @@ namespace PetsDiary.Presentation.ViewModels
             DeleteCommand = null;
             Vaccinations = null;
         }
+
         public void Delete(int? vaccinationId)
         {
             if (vaccinationId.HasValue)
             {
-                petsData.DeleteVaccinationById(vaccinationId.Value);
-                var vaccination = Vaccinations.FirstOrDefault(x => x.Id == vaccinationId.Value);
-                Vaccinations.Remove(vaccination);
+                var parameters = new DialogParameters();
+                parameters.Add(ParametersKeys.Message, CommonResources.WarningDelete);
+                parameters.Add(ParametersKeys.Title, CommonResources.Warning);
+                dialogService.ShowDialog(DialogNames.MessageDialog, parameters, (r) =>
+                    {
+                        if (r.Result == ButtonResult.OK)
+                        {
+                            petsData.DeleteVaccinationById(vaccinationId.Value);
+                            var vaccination = Vaccinations.FirstOrDefault(x => x.Id == vaccinationId.Value);
+                            Vaccinations.Remove(vaccination);
+                        }
+                    }
+                );
             }
         }
 
@@ -84,7 +98,7 @@ namespace PetsDiary.Presentation.ViewModels
                 dialogService.ShowDialog(DialogNames.AddVaccinationDialog, parameters, r =>
                 {
                     if (r.Result == ButtonResult.OK)
-                    {                        
+                    {
                         vaccination.Address = r.Parameters.GetValue<string>(nameof(vaccination.Address));
                         vaccination.Name = r.Parameters.GetValue<string>(nameof(vaccination.Name));
                         vaccination.ShotInformation = r.Parameters.GetValue<string>(nameof(vaccination.ShotInformation));
@@ -122,6 +136,5 @@ namespace PetsDiary.Presentation.ViewModels
         }
 
         public DelegateCommand AddCommand { get; set; }
-
     }
 }

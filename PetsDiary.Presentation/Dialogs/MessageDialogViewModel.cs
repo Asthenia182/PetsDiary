@@ -1,44 +1,37 @@
-﻿using Microsoft.Win32.SafeHandles;
-using PetsDiary.Presentation.Resources;
+﻿using PetsDiary.Presentation.Resources;
 using Prism.Commands;
 using Prism.Services.Dialogs;
 using System;
-using System.Runtime.InteropServices;
 
 namespace PetsDiary.Presentation.Dialogs
 {
-    public class AddVisitDialogViewModel : BaseViewModel, IDialogAware
+    public class MessageDialogViewModel : BaseViewModel, IDialogAware
     {
         private DelegateCommand<string> _closeDialogCommand;
 
         public DelegateCommand<string> CloseDialogCommand =>
         _closeDialogCommand ?? (_closeDialogCommand = new DelegateCommand<string>(CloseDialog));
 
-        public AddVisitDialogViewModel()
+        public MessageDialogViewModel()
         {
         }
 
-        private DateTime? date;
+        private string message;
 
-        public DateTime? Date
+        public string Message
         {
-            get { return date; }
-            set
-            {
-                date = value == null ? DateTime.Now : value;
-                SetProperty(ref date, value);
-            }
+            get { return message; }
+            set { SetProperty(ref message, value); }
         }
 
-        private string description;
+        private string title;
 
-        public string Description
+        public string Title
         {
-            get { return description; }
-            set { SetProperty(ref description, value); }
+            get { return title; }
+            set { SetProperty(ref title, value); }
         }
 
-        public string Title => CommonResources.Add;
 
         public event Action<IDialogResult> RequestClose;
 
@@ -55,11 +48,7 @@ namespace PetsDiary.Presentation.Dialogs
             {
                 result = ButtonResult.OK;
 
-                var parameters = new DialogParameters();
-                parameters.Add(nameof(Description), Description);
-                parameters.Add(nameof(Date), Date);
-
-                RaiseRequestClose(new DialogResult(result, parameters));
+                RaiseRequestClose(new DialogResult(result));
             }
             else if (parameter?.ToLower() == "false")
             {
@@ -75,8 +64,8 @@ namespace PetsDiary.Presentation.Dialogs
 
         public void OnDialogOpened(IDialogParameters parameters)
         {
-            Description = parameters.GetValue<string>(nameof(Description));
-            Date = parameters.GetValue<DateTime>(nameof(Date));
+            Message = parameters.GetValue<string>(nameof(Message));
+            Title = parameters.GetValue<string>(nameof(Title));
         }
 
         public virtual void RaiseRequestClose(IDialogResult dialogResult)

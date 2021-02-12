@@ -40,35 +40,36 @@
 
 
     </UserControl.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <controls:IconButton VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,20,20,0"
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <controls:IconButton VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,20,20,0"
                                      IconHeight="30" IconWidth="30"
-                                     Text="{x:Static res:CommonResources.Add}"
                                      IconSource="{StaticResource plusIcon}" 
                                      Style="{StaticResource IconButtonTemplate}"
                                      Command="{Binding AddCommand}"/>
-        <ItemsControl Grid.Row="1" ItemTemplate="{StaticResource itemtp}" HorizontalAlignment="Center" ItemsSource="{Binding Source={StaticResource TimelineItems}}">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel Orientation="Vertical"></WrapPanel>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.GroupStyle>
-                <GroupStyle>
-                <GroupStyle.HeaderTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal" Grid.Row="0">
-                                <Ellipse Height="8" Width="8" Fill="{StaticResource GreenSheen}"/>
-                                <TextBlock Margin="6,5,0,5" Text="{Binding Name, StringFormat=dd MMMM yyyy}" FontSize="14" FontWeight="SemiBold"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </GroupStyle.HeaderTemplate>
-                </GroupStyle>
-            </ItemsControl.GroupStyle>
-        </ItemsControl>
-    </Grid>
+            <ItemsControl Grid.Row="1" ItemTemplate="{StaticResource itemtp}" HorizontalAlignment="Center" ItemsSource="{Binding Source={StaticResource TimelineItems}}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Vertical"></WrapPanel>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.HeaderTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Grid.Row="0">
+                                    <Ellipse Height="8" Width="8" Fill="{StaticResource GreenSheen}"/>
+                                    <TextBlock Margin="6,5,0,5" Text="{Binding Name, StringFormat=dd MMMM yyyy}" FontSize="14" FontWeight="SemiBold"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GroupStyle.HeaderTemplate>
+                    </GroupStyle>
+                </ItemsControl.GroupStyle>
+            </ItemsControl>
+        </Grid>
+    </ScrollViewer>
 </UserControl>

@@ -331,6 +331,15 @@ namespace PetsDiary.Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure want to delete?.
+        /// </summary>
+        public static string WarningDelete {
+            get {
+                return ResourceManager.GetString("WarningDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Weight.
         /// </summary>
         public static string Weight {

@@ -86,5 +86,14 @@ namespace PetsDiary.Presentation.Resources {
                 return ResourceManager.GetString("ValidationErrorWeightValueType", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weight must be greather than 0.
+        /// </summary>
+        internal static string ValidationWeightZero {
+            get {
+                return ResourceManager.GetString("ValidationWeightZero", resourceCulture);
+            }
+        }
     }
 }

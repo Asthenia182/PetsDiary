@@ -13,14 +13,19 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"  >
-            <controls:IconButton VerticalAlignment="Bottom" HorizontalAlignment="Left"  
-                                     IconHeight="25" IconWidth="25" Margin="20,0,0,0"
+        <DockPanel  HorizontalAlignment="Right"  >
+            <controls:IconButton VerticalAlignment="Bottom" HorizontalAlignment="Left"  DockPanel.Dock="Left" Margin="0,0,20,0"
+                                     IconHeight="25" IconWidth="25" 
                                      IconSource="{StaticResource editIcon}" 
-                                     Style="{StaticResource IconButtonTemplate}"
+                                     Style="{StaticResource EllipseIconButtonTemplate}"
                                      Command="{Binding EditCommand}" />
-            <Border BorderBrush="{StaticResource Independence}" VerticalAlignment="Bottom"  Background="{StaticResource Independence}" BorderThickness="1" CornerRadius="5" 
-                Margin="100,20,0,0">
+            <controls:IconButton VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10,20,20,0" DockPanel.Dock="Right"
+                                     IconHeight="25" IconWidth="25"
+                                     IconSource="{StaticResource plusIcon}" 
+                                     Style="{StaticResource EllipseIconButtonTemplate}"
+                                     Command="{Binding AddCommand}"
+                                     IsEnabled="{Binding CanSave}"/>
+            <Border DockPanel.Dock="Right" BorderBrush="{StaticResource Independence}" VerticalAlignment="Bottom"  Background="{StaticResource Independence}" BorderThickness="1" CornerRadius="5">
                 <StackPanel Orientation="Horizontal">
                 <TextBlock Style="{StaticResource MediumTextBlockStyle}" Margin="10,0,0,0" Text="{x:Static res:CommonResources.Weight}" Foreground="White"/>
                     <TextBox Style="{StaticResource FormTextBoxStyle}" Text="{Binding InitializedWeight.WeightText , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnNotifyDataErrors=True, Delay=500}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
@@ -29,13 +34,8 @@
                 </StackPanel>
             </Border>
 
-        <controls:IconButton VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10,20,20,0"
-                                     IconHeight="25" IconWidth="25"
-                                     IconSource="{StaticResource plusIcon}" 
-                                     Style="{StaticResource IconButtonTemplate}"
-                                     Command="{Binding AddCommand}"
-                                     IsEnabled="{Binding CanSave}"/>
-        </StackPanel>
+
+        </DockPanel>
         
         <controls:LineChart  Grid.Row="1" Weights="{Binding Weights}"/>
 

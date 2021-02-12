@@ -2,18 +2,18 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="clr-namespace:PetsDiary.Presentation.Controls">
 
-
     <Style x:Key="RadioButtonStyle" TargetType="RadioButton">
         <Setter Property="Foreground" Value="{StaticResource Independence}"/>
-        <Setter Property="FontSize" Value="14"/>
-        <Setter Property="FontFamily" Value="{StaticResource NotoSans-Regular}"/>       
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontFamily" Value="{StaticResource Quicksand}"/>
+        <Setter Property="FontWeight" Value="Light"/>
     </Style>
     
     <Style x:Key="DatePickerStyle" TargetType="DatePicker">
         <Setter Property="BorderBrush" Value="{StaticResource GreenSheen}"/>
         <Setter Property="Foreground" Value="{StaticResource Independence}"/>
-        <Setter Property="FontSize" Value="14"/>
-        <Setter Property="FontFamily" Value="{StaticResource NotoSans-Regular}"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontFamily" Value="{StaticResource Quicksand}"/>
         <Setter Property="Validation.ErrorTemplate">
             <Setter.Value>
                 <ControlTemplate>
@@ -22,7 +22,9 @@
                         <ItemsControl ItemsSource="{Binding}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock Margin="0,4,0,0" Text="{Binding ErrorContent}" Foreground="Red" />
+                                    <TextBlock Margin="0,4,0,0" MaxWidth="120" FontFamily="{StaticResource Quicksand}"
+                                               TextWrapping="WrapWithOverflow" Background="White"
+                                               Text="{Binding ErrorContent}" Foreground="Red" />
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
@@ -35,27 +37,27 @@
     <Style x:Key="MediumLabelStyle" TargetType="Label">
         <Setter Property="FontSize" Value="12"/>
         <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="FontFamily" Value="{StaticResource NotoSans-Bold}"/>
+        <Setter Property="FontFamily" Value="{StaticResource Quicksand}"/>
         <Setter Property="Foreground" Value="{StaticResource Independence}"/>
     </Style>
 
     <Style x:Key="MediumTextBlockStyle" TargetType="TextBlock">
         <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="FontSize" Value="12"/>
-        <Setter Property="FontFamily" Value="{StaticResource NotoSans-Bold}"/>
+        <Setter Property="FontSize" Value="11"/>
+        <Setter Property="FontFamily" Value="{StaticResource Quicksand}"/>
         <Setter Property="Foreground" Value="{StaticResource Independence}"/>
         <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
     </Style>
 
     <Style x:Key="SmallLabelStyle" TargetType="Label">
         <Setter Property="FontSize" Value="10"/>
-        <Setter Property="FontFamily" Value="{StaticResource NotoSans-Bold}"/>
+        <Setter Property="FontFamily" Value="{StaticResource Quicksand}"/>
         <Setter Property="Foreground" Value="{StaticResource Independence}"/>        
     </Style>
     
     <Style x:Key="FormLabelStyle" TargetType="Label">
-        <Setter Property="FontSize" Value="14"/>
-        <Setter Property="FontFamily" Value="{StaticResource NotoSans-Bold}"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="FontFamily" Value="{StaticResource Quicksand}"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
         <Setter Property="Height" Value="30"/>
         <Setter Property="Foreground" Value="{StaticResource Independence}"/>
@@ -65,12 +67,14 @@
     </Style>
 
     <Style x:Key="FormTextBoxStyle" TargetType="TextBox">
-        <Setter Property="FontSize" Value="14"/>
-        <Setter Property="FontFamily" Value="{StaticResource BloggerSans-Regular}"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="FontFamily" Value="{StaticResource Quicksand}"/>
         <Setter Property="Foreground" Value="{StaticResource Independence}"/>
         <Setter Property="BorderBrush" Value="{StaticResource GreenSheen}"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Margin" Value="4,4" />
         <Setter Property="Template">
             <Setter.Value>
@@ -100,7 +104,6 @@
                             <Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource Independence}"></Setter>
                             <Setter TargetName="Bd" Property="BorderThickness" Value="2"></Setter>
                         </Trigger>
-
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -113,7 +116,9 @@
                         <ItemsControl ItemsSource="{Binding}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock Margin="0,4,0,0" Text="{Binding ErrorContent}" Foreground="Red" />
+                                    <TextBlock Margin="0,4,0,0" MaxWidth="120" FontFamily="{StaticResource Quicksand}"
+                                               TextWrapping="WrapWithOverflow" Background="White"
+                                               Text="{Binding ErrorContent}" Foreground="Red" />
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
@@ -128,7 +133,7 @@
            TargetType="Button">
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="FontSize" Value="14"/>
-        <Setter Property="FontFamily" Value="{StaticResource NotoSans-Regular}"/>
+        <Setter Property="FontFamily" Value="{StaticResource Quicksand}"/>
         <Setter Property="Padding" Value="20,5,20,5"/>
         <Setter Property="Margin" Value="5,10"/>
         <Setter Property="Template">
@@ -173,7 +178,7 @@
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="{StaticResource GreenSheen}"/>
         <Setter Property="FontSize" Value="14"/>
-        <Setter Property="FontFamily" Value="{StaticResource NotoSans-Regular}"/>
+        <Setter Property="FontFamily" Value="{StaticResource Quicksand}"/>
         <Setter Property="Padding" Value="20,5,20,5"/>
         <Setter Property="Margin" Value="5,10"/>
         <Setter Property="Template">
@@ -212,9 +217,9 @@
            TargetType="Button">
         <Setter Property="BorderBrush" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Background" Value="Transparent"/>        
+        <Setter Property="Background" Value="Transparent"/>
     </Style>
-
+    
     <Style x:Key="IconButtonTemplate" TargetType="{x:Type controls:IconButton}">
         <Setter Property="Template">
             <Setter.Value>
@@ -223,7 +228,7 @@
                         <Viewbox Stretch="Fill"
                          Height="{TemplateBinding IconHeight}"
                          Width="{TemplateBinding IconWidth}">
-                            <Path x:Name="icon" Fill="{StaticResource Independence}"
+                            <Path x:Name="icon" Fill="{StaticResource Independence}" 
                            Data="{TemplateBinding IconSource}">
                             </Path>
                         </Viewbox>
@@ -232,9 +237,49 @@
                            VerticalAlignment="Center"
                            Margin="5,0,0,0"
                            Foreground="{StaticResource Independence}"
-                           FontFamily="{StaticResource BloggerSans-Regular}" />
+                           FontFamily="{StaticResource Quicksand}" />
                     </StackPanel>
                                   
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="icon" Property="Fill" Value="#B33d405b"/>
+                            <Setter TargetName="txt" Property="Foreground" Value="#B33d405b"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="icon" Property="Fill" Value="#AA808080"/>
+                            <Setter TargetName="txt" Property="Foreground" Value="#AA808080"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="icon" Property="Fill" Value="#80808080"/>
+                            <Setter TargetName="txt" Property="Foreground" Value="#80808080"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="EllipseIconButtonTemplate" TargetType="{x:Type controls:IconButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:IconButton}">
+                    <StackPanel Orientation="Horizontal">
+                        <Border Background="White" BorderThickness="2" BorderBrush="White" CornerRadius="1000">
+                            <Viewbox Stretch="Fill" x:Name="Icon" Margin="5"
+                             Height="{TemplateBinding IconHeight}"
+                             Width="{TemplateBinding IconWidth}">
+                                <Path x:Name="icon" Fill="{StaticResource Independence}"  StrokeThickness="1"
+                               Data="{TemplateBinding IconSource}">
+                                </Path>
+                            </Viewbox>
+                        </Border>
+                        <TextBlock x:Name="txt" Text="{TemplateBinding Text}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Margin="5,0,0,0"
+                           Foreground="{StaticResource Independence}"
+                           FontFamily="{StaticResource Quicksand}" />
+                    </StackPanel>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="icon" Property="Fill" Value="#B33d405b"/>
@@ -284,8 +329,8 @@
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="White"/>
-        <Setter Property="FontSize" Value="14"/>
-        <Setter Property="FontFamily" Value="{StaticResource NotoSans-Regular}"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="FontFamily" Value="{StaticResource Quicksand}"/>
         <Setter Property="Height" Value="40"/>
         <Setter Property="Padding" Value="12,0,12,0"/>
         <Setter Property="Template">

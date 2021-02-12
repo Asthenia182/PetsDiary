@@ -1,9 +1,7 @@
-﻿using Microsoft.Win32.SafeHandles;
-using PetsDiary.Presentation.Resources;
+﻿using PetsDiary.Presentation.Resources;
 using Prism.Commands;
 using Prism.Services.Dialogs;
 using System;
-using System.Runtime.InteropServices;
 
 namespace PetsDiary.Presentation.Dialogs
 {

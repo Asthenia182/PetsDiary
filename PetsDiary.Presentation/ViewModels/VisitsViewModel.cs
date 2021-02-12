@@ -6,6 +6,7 @@ using PetsDiary.Presentation.Resources;
 using Prism.Commands;
 using Prism.Services.Dialogs;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -30,7 +31,7 @@ namespace PetsDiary.Presentation.ViewModels
             this.petDescription = petDescription;
             this.dialogService = dialogService;
 
-            Visits = new ObservableCollection<VisitModel>();
+            Visits = new ObservableCollection<VisitViewModel>();
 
             LoadData();
         }
@@ -40,15 +41,15 @@ namespace PetsDiary.Presentation.ViewModels
             dialogService.ShowDialog(DialogNames.AddVisitDialog, r =>
             {
                 if (r.Result == ButtonResult.OK)
-                {
-                    var visit = new VisitModel();
-                    visit.Description = r.Parameters.GetValue<string>(nameof(visit.Description));
-                    visit.Date = r.Parameters.GetValue<DateTime>(nameof(visit.Date));
+                {                    
+                    var description = r.Parameters.GetValue<string>("Description");
+                    var date  = r.Parameters.GetValue<DateTime>("Date");
 
-                    visit.PetId = petDescription.Id.Value;
-                    var savedModel = petsData.AddVisit(visit);
+                    var visit = new VisitViewModel(petsData, date, petDescription.Id.Value, null, description) { IsDirty = true };
 
-                    Visits.Add(savedModel);
+                    visit.Save();                                       
+
+                    LoadData();
                 }
             });
         }
@@ -95,11 +96,11 @@ namespace PetsDiary.Presentation.ViewModels
                 {
                     if (r.Result == ButtonResult.OK)
                     {
+                        visit.IsDirty = true;
                         visit.Description = r.Parameters.GetValue<string>(nameof(visit.Description));
-
                         visit.Date = r.Parameters.GetValue<DateTime>(nameof(visit.Date));
 
-                        petsData.UpdateVisit(visit);
+                        visit.Update();
 
                         Visits.Clear();
                         LoadData();
@@ -112,16 +113,27 @@ namespace PetsDiary.Presentation.ViewModels
         {
             Visits.Clear();
 
-            var visitModels = petsData.GetVisits(petDescription.Id.Value);
+            var models = petsData.GetVisits(petDescription.Id.Value);
 
-            Visits.AddRange(visitModels);
+            var vms = new List<VisitViewModel>();
+
+            foreach (var model in models)
+            {
+                vms.Add(new VisitViewModel(petsData, model.Date, model.PetId, model.Id, model.Description) { IsDirty = false });
+            }
+
+            Visits.AddRange(vms);
         }
 
-        private ObservableCollection<VisitModel> visits;
+        private ObservableCollection<VisitViewModel> visits;
 
-        public ObservableCollection<VisitModel> Visits
+        public ObservableCollection<VisitViewModel> Visits
         {
-            get { return visits; }
+            get
+            {
+                return visits;
+            }
+
             set
             {
                 visits = value;

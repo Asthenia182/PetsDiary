@@ -22,16 +22,16 @@
                     <Border BorderThickness="1" Margin="0,5,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" CornerRadius="3" BorderBrush="{StaticResource RussianGreen}">
                     <DockPanel>
                         <controls:IconButton VerticalAlignment="Center" HorizontalAlignment="Right" DockPanel.Dock="Right" 
-                                     IconHeight="10" IconWidth="10"
+                                     IconHeight="15" IconWidth="15"
                                      IconSource="{StaticResource closeIcon}" 
-                                     Style="{StaticResource IconButtonTemplate}"
+                                     Style="{StaticResource EllipseIconButtonTemplate}"
                                      Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.DeleteCommand}" CommandParameter="{Binding Id}"/>
                         <controls:IconButton VerticalAlignment="Center" HorizontalAlignment="Right"  DockPanel.Dock="Right" Margin="5,0,0,0"
                                      IconHeight="15" IconWidth="15"
                                      IconSource="{StaticResource editIcon}" 
-                                     Style="{StaticResource IconButtonTemplate}"
+                                     Style="{StaticResource EllipseIconButtonTemplate}"
                                      Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.EditCommand}" CommandParameter="{Binding Id}"/>
-                        <TextBlock DockPanel.Dock="Left" Text="{Binding Path=Description}" Width="300" FontSize="12" Margin="10"/>
+                        <TextBlock DockPanel.Dock="Left" Text="{Binding Path=Description}" Height="Auto" TextWrapping="WrapWithOverflow" Width="300" FontSize="12" Margin="10" FontFamily="{StaticResource Quicksand}"/>
                     </DockPanel>
                 </Border>
 
@@ -46,10 +46,10 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <controls:IconButton VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,20,20,0"
+            <controls:IconButton VerticalAlignment="Top" HorizontalAlignment="Right" Margin="13,13,13,0"
                                      IconHeight="30" IconWidth="30"
                                      IconSource="{StaticResource plusIcon}" 
-                                     Style="{StaticResource IconButtonTemplate}"
+                                     Style="{StaticResource EllipseIconButtonTemplate}"
                                      Command="{Binding AddCommand}"/>
             <ItemsControl Grid.Row="1" ItemTemplate="{StaticResource itemtp}" HorizontalAlignment="Center" ItemsSource="{Binding Source={StaticResource TimelineItems}}">
                 <ItemsControl.ItemsPanel>
@@ -63,7 +63,7 @@
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" Grid.Row="0">
                                     <Ellipse Height="8" Width="8" Fill="{StaticResource GreenSheen}"/>
-                                    <TextBlock Margin="6,5,0,5" Text="{Binding Name, StringFormat=dd MMMM yyyy}" FontSize="14" FontWeight="SemiBold"/>
+                                    <TextBlock Margin="6,5,0,5" Text="{Binding Name, StringFormat=dd MMMM yyyy}" FontSize="13" FontWeight="SemiBold" FontFamily="{StaticResource Quicksand}"/>
                                 </StackPanel>
                             </DataTemplate>
                         </GroupStyle.HeaderTemplate>

@@ -6,13 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\fonts\BloggerSans.ttf" />
     <None Remove="Resources\fonts\Montserrat-Bold.ttf" />
-    <None Remove="Resources\fonts\Mostra Nuova Bold.otf" />
-    <None Remove="Resources\fonts\NotoSans-Bold.ttf" />
-    <None Remove="Resources\fonts\NotoSans-BoldItalic.ttf" />
-    <None Remove="Resources\fonts\NotoSans-Italic.ttf" />
-    <None Remove="Resources\fonts\NotoSans-Regular.ttf" />
+    <None Remove="Resources\fonts\Quicksand-Light.ttf" />
+    <None Remove="Resources\fonts\Quicksand-Regular.ttf" />
+    <None Remove="Resources\fonts\Quicksand-SemiBold.ttf" />
     <None Remove="Resources\img\cat_icon.png" />
     <None Remove="Resources\img\dog_icon.png" />
     <None Remove="Resources\img\pug.png" />
@@ -21,19 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\fonts\BloggerSans.ttf">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="Resources\fonts\Montserrat-Bold.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\fonts\Mostra Nuova Bold.otf" />
-    <Resource Include="Resources\fonts\NotoSans-Bold.ttf">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Content Include="Resources\fonts\NotoSans-Regular.ttf">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -46,8 +33,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\fonts\NotoSans-BoldItalic.ttf" />
-    <Resource Include="Resources\fonts\NotoSans-Italic.ttf" />
+    <Resource Include="Resources\fonts\Quicksand-Light.ttf" />
+    <Resource Include="Resources\fonts\Quicksand-Regular.ttf" />
+    <Resource Include="Resources\fonts\Quicksand-SemiBold.ttf" />
     <Resource Include="Resources\img\cat_icon.png" />
     <Resource Include="Resources\img\dog_icon.png" />
     <Resource Include="Resources\img\pug.png" />
@@ -95,7 +83,6 @@
 
   <ItemGroup>
     <Folder Include="Behaviours\" />
-    <Folder Include="Selectors\" />
   </ItemGroup>
 
 </Project>

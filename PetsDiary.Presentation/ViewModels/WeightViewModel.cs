@@ -15,10 +15,10 @@ namespace PetsDiary.Presentation.ViewModels
             : base(petsData, petId, id)
         {
             this.petsData = petsData;
-            this.Date = date;
-            this.PetId = petId;
-            this.Id = id;
-            this.Weight = weight;
+            Date = date;
+            PetId = petId;
+            Id = id;
+            Weight = weight;
             WeightText = Weight.ToString();
         }
 
@@ -103,7 +103,7 @@ namespace PetsDiary.Presentation.ViewModels
             {
                 AddError(nameof(WeightText), ErrorMessages.ValidationErrorRequiredField);
                 return;
-            }
+            }                        
 
             var weightFormatted = WeightText.Replace(',', '.');
             double result;
@@ -115,6 +115,11 @@ namespace PetsDiary.Presentation.ViewModels
             {
                 Weight = double.Parse(weightFormatted, CultureInfo.InvariantCulture);
             }
+
+            if(result == 0)
+            {
+                AddError(nameof(WeightText), ErrorMessages.ValidationWeightZero);
+            }
         }
 
         private void ValidateDate()
@@ -123,13 +128,15 @@ namespace PetsDiary.Presentation.ViewModels
 
             if (IsDirty)
             {
-                if (petsData.GetWeights(PetId).Any(x => x.Date.ToString("MM/dd/yyyy") == Date.ToString("MM/dd/yyyy")))
+                if (petsData.GetWeights(PetId)
+                    .Any(x => x.Date.ToString("MM/dd/yyyy") == Date.ToString("MM/dd/yyyy")))
                 {
                     AddError(nameof(Date), ErrorMessages.ValidationErrorDateWeight);
                     return;
                 }
             }
-            else if (petsData.GetWeights(PetId).Any(x => x.Date.ToString("MM/dd/yyyy") == Date.ToString("MM/dd/yyyy") && x.Id != Id))
+            else if (petsData.GetWeights(PetId)
+                .Any(x => x.Date.ToString("MM/dd/yyyy") == Date.ToString("MM/dd/yyyy") && x.Id != Id))
             {
                 AddError(nameof(Date), ErrorMessages.ValidationErrorDateWeight);
                 return;

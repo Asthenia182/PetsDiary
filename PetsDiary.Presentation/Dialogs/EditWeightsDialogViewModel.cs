@@ -5,6 +5,7 @@ using Prism.Mvvm;
 using Prism.Services.Dialogs;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace PetsDiary.Presentation.Dialogs
 {
@@ -49,6 +50,8 @@ namespace PetsDiary.Presentation.Dialogs
 
         protected void CloseDialog(string parameter)
         {
+            if (Weights.Any(x => !x.IsValid())) return;
+
             ButtonResult result = ButtonResult.None;
 
             if (parameter?.ToLower() == "true")

@@ -126,4 +126,7 @@
   <data name="ValidationErrorWeightValueType" xml:space="preserve">
     <value>Weight cannot contain any letters</value>
   </data>
+  <data name="ValidationWeightZero" xml:space="preserve">
+    <value>Weight must be greather than 0</value>
+  </data>
 </root>

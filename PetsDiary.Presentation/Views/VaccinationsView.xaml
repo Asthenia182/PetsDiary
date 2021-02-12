@@ -18,14 +18,14 @@
                 <DockPanel VerticalAlignment="Center"  MaxWidth="300" HorizontalAlignment="Center">
                     <TextBlock DockPanel.Dock="Left" Text="{Binding Name}" Style="{StaticResource MediumTextBlockStyle}" FontWeight="Bold" />
                     <controls:IconButton VerticalAlignment="Center" HorizontalAlignment="Right" DockPanel.Dock="Right" 
-                                     IconHeight="10" IconWidth="10"
+                                     IconHeight="15" IconWidth="15"
                                      IconSource="{StaticResource closeIcon}" 
-                                     Style="{StaticResource IconButtonTemplate}"
+                                     Style="{StaticResource EllipseIconButtonTemplate}"
                                      Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.DeleteCommand}" CommandParameter="{Binding Id}"/>
                     <controls:IconButton VerticalAlignment="Center" HorizontalAlignment="Right"  DockPanel.Dock="Right"
                                      IconHeight="15" IconWidth="15" Margin="5,0,0,0"
                                      IconSource="{StaticResource editIcon}" 
-                                     Style="{StaticResource IconButtonTemplate}"
+                                     Style="{StaticResource EllipseIconButtonTemplate}"
                                      Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.EditCommand}" CommandParameter="{Binding Id}"/>
                 </DockPanel>
                 <Border MaxWidth="300" Grid.Row="1" BorderThickness="1" CornerRadius="4,4,4,4" BorderBrush="{StaticResource LightIndependence}">
@@ -65,10 +65,10 @@
         </Grid.RowDefinitions>
         
 
-        <controls:IconButton VerticalAlignment="Top" HorizontalAlignment="Right" Margin="20"
+        <controls:IconButton VerticalAlignment="Top" HorizontalAlignment="Right" Margin="13,13,13,0"
                                      IconHeight="30" IconWidth="30"
                                      IconSource="{StaticResource plusIcon}" 
-                                     Style="{StaticResource IconButtonTemplate}"
+                                     Style="{StaticResource EllipseIconButtonTemplate}"
                                      Command="{Binding AddCommand}"/>
         <ItemsControl Grid.Row="1" ItemTemplate="{StaticResource itemtp}" HorizontalAlignment="Center" ItemsSource="{Binding Vaccinations}">
             <ItemsControl.ItemsPanel>

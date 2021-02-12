@@ -46,8 +46,8 @@
                                  Command="{Binding NavigateCommand}" CommandParameter="{x:Static constans:ViewNames.Weights}"/>
         </DockPanel>
         <DockPanel Grid.Row="1" LastChildFill="False" Background="{StaticResource RussianGreen}">
-            <TextBlock DockPanel.Dock="Right" Text="{Binding PetName}" Foreground="white" Padding="0,5,20,5" Margin="0,0,20,0"/>
-            <Label DockPanel.Dock="Right" Content="{x:Static res:CommonResources.BelongsTo}" ContentStringFormat="{}{0}:" Foreground="white" Padding="5"/>            
+            <TextBlock DockPanel.Dock="Right" Text="{Binding PetName}" Foreground="white" Padding="0,5,20,5" Margin="0,0,20,0" FontFamily="{StaticResource Quicksand}" />
+            <Label DockPanel.Dock="Right" Content="{x:Static res:CommonResources.BelongsTo}" ContentStringFormat="{}{0}:" Foreground="white" FontFamily="{StaticResource Quicksand}" Padding="5"/>            
         </DockPanel>
     </Grid>
 </UserControl>

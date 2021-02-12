@@ -8,8 +8,8 @@ namespace PetsDiary.Presentation.ViewModels
         public SingleViewModel(IPetsData petsData, int petId, int? id)
         {
             PetsData = petsData;
-            this.PetId = petId;
-            this.Id = id;
+            PetId = petId;
+            Id = id;
         }
 
         public virtual bool IsValid() => true;

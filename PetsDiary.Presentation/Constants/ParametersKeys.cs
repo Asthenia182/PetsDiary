@@ -9,5 +9,7 @@
         public const string Message = "Message";
 
         public const string Title = "Title";
+
+        public const string ViewModel = "ViewModel";
     }
 }

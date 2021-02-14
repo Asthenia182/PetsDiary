@@ -1,4 +1,5 @@
-﻿using PetsDiary.Common.Interfaces;
+﻿using AutoMapper;
+using PetsDiary.Common.Interfaces;
 using PetsDiary.Common.Models;
 using PetsDiary.Presentation.Resources;
 using System;
@@ -11,14 +12,10 @@ namespace PetsDiary.Presentation.ViewModels
     {
         private readonly IPetsData petsData;
 
-        public WeightViewModel(IPetsData petsData, DateTime date, int petId, int? id, double weight)
-            : base(petsData, petId, id)
+        public WeightViewModel(IPetsData petsData, IMapper mapper)
+            : base(petsData, mapper)
         {
             this.petsData = petsData;
-            Date = date;
-            PetId = petId;
-            Id = id;
-            Weight = weight;
             WeightText = Weight.ToString();
         }
 
@@ -75,7 +72,7 @@ namespace PetsDiary.Presentation.ViewModels
         {
             if (!base.Save()) return false;
 
-            var weight = new WeightModel() { Date = Date, PetId = PetId, Weight = this.Weight };
+            var weight = mapper.Map<WeightModel>(this);
             petsData.AddWeight(weight);
 
             IsDirty = false;
@@ -87,7 +84,7 @@ namespace PetsDiary.Presentation.ViewModels
         {
             if (!base.Update()) return false;
 
-            var weight = new WeightModel() { Id = Id.Value, Date = Date, PetId = PetId, Weight = this.Weight };
+            var weight = mapper.Map<WeightModel>(this);
             petsData.UpdateWeight(weight);
 
             IsDirty = false;
@@ -146,6 +143,19 @@ namespace PetsDiary.Presentation.ViewModels
             {
                 AddError(nameof(Date), ErrorMessages.ValidationErrorRequiredField);
             }
+        }
+
+        protected override void SaveOriginValues()
+        {
+            originValues.Clear();
+            originValues.Add(nameof(Weight), Weight);
+            originValues.Add(nameof(Date), Date);
+        }
+
+        public override void SetValuesByOriginValues()
+        {
+            Weight = (double)originValues[nameof(Weight)];
+            Date = (DateTime)originValues[nameof(Date)];
         }
     }
 }

@@ -1,39 +1,33 @@
-﻿using PetsDiary.Presentation.Resources;
+﻿using PetsDiary.Presentation.Constants;
+using PetsDiary.Presentation.Resources;
+using PetsDiary.Presentation.ViewModels;
 using Prism.Commands;
 using Prism.Services.Dialogs;
 using System;
 
 namespace PetsDiary.Presentation.Dialogs
 {
-    public class AddVisitDialogViewModel : BaseViewModel, IDialogAware
+    public class VaccinationDialogViewModel : BaseViewModel, IDialogAware
     {
         private DelegateCommand<string> _closeDialogCommand;
 
         public DelegateCommand<string> CloseDialogCommand =>
         _closeDialogCommand ?? (_closeDialogCommand = new DelegateCommand<string>(CloseDialog));
 
-        public AddVisitDialogViewModel()
+        public VaccinationDialogViewModel()
         {
         }
 
-        private DateTime? date;
+        private VaccinationViewModel vaccination;
 
-        public DateTime? Date
+        public VaccinationViewModel Vaccination
         {
-            get { return date; }
+            get { return vaccination; }
             set
             {
-                date = value == null ? DateTime.Now : value;
-                SetProperty(ref date, value);
+                vaccination = value;
+                RaisePropertyChanged(nameof(Vaccination));
             }
-        }
-
-        private string description;
-
-        public string Description
-        {
-            get { return description; }
-            set { SetProperty(ref description, value); }
         }
 
         public string Title => CommonResources.Add;
@@ -52,19 +46,13 @@ namespace PetsDiary.Presentation.Dialogs
             if (parameter?.ToLower() == "true")
             {
                 result = ButtonResult.OK;
-
-                var parameters = new DialogParameters();
-                parameters.Add(nameof(Description), Description);
-                parameters.Add(nameof(Date), Date);
-
-                RaiseRequestClose(new DialogResult(result, parameters));
             }
             else if (parameter?.ToLower() == "false")
             {
                 result = ButtonResult.Cancel;
-
-                RaiseRequestClose(new DialogResult(result));
             }
+
+            RaiseRequestClose(new DialogResult(result));
         }
 
         public void OnDialogClosed()
@@ -73,8 +61,7 @@ namespace PetsDiary.Presentation.Dialogs
 
         public void OnDialogOpened(IDialogParameters parameters)
         {
-            Description = parameters.GetValue<string>(nameof(Description));
-            Date = parameters.GetValue<DateTime>(nameof(Date));
+            Vaccination = parameters.GetValue<VaccinationViewModel>(ParametersKeys.ViewModel);
         }
 
         public virtual void RaiseRequestClose(IDialogResult dialogResult)

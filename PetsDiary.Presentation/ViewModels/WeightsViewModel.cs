@@ -1,4 +1,5 @@
-﻿using PetsDiary.Common.Constants;
+﻿using AutoMapper;
+using PetsDiary.Common.Constants;
 using PetsDiary.Common.Interfaces;
 using Prism.Commands;
 using Prism.Regions;
@@ -16,10 +17,11 @@ namespace PetsDiary.Presentation.ViewModels
         private readonly IPetDescription petDescription;
         private readonly IDialogService dialogService;
         private readonly IRegionManager regionManager;
+        private readonly IMapper mapper;
 
         public DelegateCommand EditCommand { get; set; }
 
-        public WeightsViewModel(IPetsData petsData, IPetDescription petDescription, IDialogService dialogService, IRegionManager regionManager)
+        public WeightsViewModel(IPetsData petsData, IPetDescription petDescription, IDialogService dialogService, IRegionManager regionManager, IMapper mapper)
         {
             AddCommand = new DelegateCommand(Add);
             EditCommand = new DelegateCommand(Edit);
@@ -28,13 +30,24 @@ namespace PetsDiary.Presentation.ViewModels
             this.petDescription = petDescription;
             this.dialogService = dialogService;
             this.regionManager = regionManager;
+            this.mapper = mapper;
             Weights = new ObservableCollection<WeightViewModel>();
 
-            InitializedWeight = new WeightViewModel(petsData, new DateTime(DateTime.Now.Year,DateTime.Now.Month, DateTime.Now.Day), petDescription.Id.Value, null, 0);
-            initializedWeight.IsDirty = true;
+            InitializeWeight();
             InitializedWeight.PropertyChanged += InitializedWeight_PropertyChanged;
 
             LoadData();
+        }
+
+        private void InitializeWeight()
+        {
+            InitializedWeight = new WeightViewModel(petsData, mapper)
+            {
+                Date = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day),
+                PetId = petDescription.Id.Value,
+                Weight = 0,
+                IsDirty = true
+            };
         }
 
         private void InitializedWeight_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -54,8 +67,7 @@ namespace PetsDiary.Presentation.ViewModels
    
             initializedWeight.Dispose();
             initializedWeight = null;
-            InitializedWeight = new WeightViewModel(petsData, DateTime.Now, petDescription.Id.Value, null, 0);
-            InitializedWeight.IsDirty = true;
+            InitializeWeight();
 
             LoadData();
         }
@@ -115,7 +127,7 @@ namespace PetsDiary.Presentation.ViewModels
                      foreach (var wu in weightsToUpdate)
                      {
                          wu.IsDirty = true;
-                         wu.Update();
+                         wu.Update();                         
                      }
 
                      foreach (var wd in weightsToDelete)
@@ -148,7 +160,8 @@ namespace PetsDiary.Presentation.ViewModels
             var vms = new List<WeightViewModel>();
             foreach (var model in models)
             {
-                vms.Add(new WeightViewModel(petsData, model.Date, model.PetId, model.Id, model.Weight) { IsDirty = false });
+                var vm = mapper.Map(model, new WeightViewModel(petsData, mapper));
+                vms.Add(vm);
             }
             Weights = new ObservableCollection<WeightViewModel>(vms);
         }

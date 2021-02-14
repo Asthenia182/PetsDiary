@@ -34,5 +34,6 @@ namespace PetsDiary.Core
 
             regionBehaviors.AddIfMissing(nameof(DisposeClosedViewsBehavior), typeof(DisposeClosedViewsBehavior));
         }
+
     }
 }

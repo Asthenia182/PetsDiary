@@ -1,4 +1,5 @@
-﻿using PetsDiary.Common.Interfaces;
+﻿using AutoMapper;
+using PetsDiary.Common.Interfaces;
 using PetsDiary.Common.Models;
 using PetsDiary.Presentation.Resources;
 using System;
@@ -9,23 +10,19 @@ namespace PetsDiary.Presentation.ViewModels
     {
         private readonly IPetsData petsData;
 
-        public VisitViewModel(IPetsData petsData, DateTime date, int petId, int? id, string description)
-            : base(petsData, petId, id)
+        public VisitViewModel(IPetsData petsData, IMapper mapper)
+            : base(petsData, mapper)
         {
             this.petsData = petsData;
-            this.Date = date;
-            this.PetId = petId;
-            this.Id = id;
-            this.Description = description;
         }
 
         public override bool Save()
         {
             if (!base.Save()) return false;
 
-            var model = new VisitModel() { Date = Date, PetId = PetId, Description = this.Description };
+            var model = mapper.Map<VisitModel>(this);
             petsData.AddVisit(model);
-
+            Id = model.Id;
             IsDirty = false;
 
             return true;
@@ -35,11 +32,9 @@ namespace PetsDiary.Presentation.ViewModels
         {
             if (!base.Update()) return false;
 
-            var model = new VisitModel() { Id = Id.Value, Date = Date, PetId = PetId, Description = this.Description };
+            var model = mapper.Map<VisitModel>(this);
             petsData.UpdateVisit(model);
-
             IsDirty = false;
-
             return true;
         }
 
@@ -79,7 +74,6 @@ namespace PetsDiary.Presentation.ViewModels
         private void ValidateDate()
         {
             ClearErrors(nameof(Date));
-
             if (IsDirty)
             {
                 if (Date == null)
@@ -87,8 +81,20 @@ namespace PetsDiary.Presentation.ViewModels
                     AddError(nameof(Date), ErrorMessages.ValidationErrorRequiredField);
                     return;
                 }
-            }            
+            }                      
         }
 
+        protected override void SaveOriginValues()
+        {
+            originValues.Clear();
+            originValues.Add(nameof(Description), Description);
+            originValues.Add(nameof(Date), Date);
+        }
+
+        public override void SetValuesByOriginValues()
+        {
+            Description = (string)originValues[nameof(Description)];
+            Date = (DateTime)originValues[nameof(Date)];
+        }
     }
 }

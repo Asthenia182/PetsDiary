@@ -1,20 +1,50 @@
-﻿using PetsDiary.Common.Interfaces;
+﻿using AutoMapper;
+using PetsDiary.Common.Interfaces;
 using System;
+using System.Collections.Generic;
 
 namespace PetsDiary.Presentation.ViewModels
 {
     public abstract class SingleViewModel : BaseViewModel
     {
-        public SingleViewModel(IPetsData petsData, int petId, int? id)
+        public SingleViewModel(IPetsData petsData, IMapper mapper)
         {
             PetsData = petsData;
-            PetId = petId;
-            Id = id;
+            this.mapper = mapper;
+            originValues = new Dictionary<string, object>();
         }
+
+        protected Dictionary<string, object> originValues;
+        protected readonly IMapper mapper;
 
         public virtual bool IsValid() => true;
 
-        public bool IsDirty { get; set; }
+        protected override void Dispose(bool disposing)
+        {
+            originValues = null;
+
+            base.Dispose(disposing);
+        }
+
+        private bool isDirty;
+
+        public bool IsDirty
+        {
+            get { return isDirty; }
+            set
+            {
+                isDirty = value;
+
+                if (!IsDirty)
+                    SaveOriginValues();
+
+                    RaisePropertyChanged(nameof(IsDirty));
+            }
+        }
+
+        protected abstract void SaveOriginValues();
+
+        public abstract void SetValuesByOriginValues();
 
         protected IPetsData PetsData { get; }
 
@@ -22,9 +52,10 @@ namespace PetsDiary.Presentation.ViewModels
 
         public int? Id { get; set; }
 
+
         public virtual bool Save()
         {
-            if (!IsDirty)
+            if (Id.HasValue)
             {
                 throw new ArgumentException("Should be updated not saved");
             }
@@ -38,7 +69,7 @@ namespace PetsDiary.Presentation.ViewModels
 
         public virtual bool Update()
         {
-            if (!IsDirty || !Id.HasValue)
+            if (!Id.HasValue)
             {
                 throw new ArgumentException("Cannot update unsaved object");
             }

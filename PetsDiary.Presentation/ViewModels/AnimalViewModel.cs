@@ -1,23 +1,25 @@
-﻿using PetsDiary.Common.Interfaces;
+﻿using AutoMapper;
+using PetsDiary.Common.Interfaces;
 using PetsDiary.Common.Models;
 using PetsDiary.Presentation.Enums;
 using PetsDiary.Presentation.Interfaces;
 using PetsDiary.Presentation.Resources;
 using Prism.Commands;
-using Prism.Events;
 using Prism.Regions;
 using System;
 
 namespace PetsDiary.Presentation.ViewModels
 {
-    public class AnimalViewModel: BaseViewModel, IAnimalViewModel
+    public class AnimalViewModel : SingleViewModel, IAnimalViewModel
     {
-        public AnimalViewModel(IPetsData petsData, IPetDescription petDescription)
+        public AnimalViewModel(IPetsData petsData, IPetDescription petDescription, IMapper mapper) : base(petsData, mapper)
         {
-            SaveCommand = new DelegateCommand(Save);
+            SaveCommand = new DelegateCommand(SaveCommandExecute);
             EditCommand = new DelegateCommand(Edit);
+            CancelCommand = new DelegateCommand(Cancel);
+
             ValidateName();
-            this.petsData = petsData;
+            this.petDescription = petDescription;
             this.petDescription = petDescription;
         }
 
@@ -60,8 +62,6 @@ namespace PetsDiary.Presentation.ViewModels
         }
 
         private void Edit() => IsInEdit = true;
-
-        public int? Id { get; set; } = null;
 
         private string name { get; set; }
 
@@ -126,9 +126,6 @@ namespace PetsDiary.Presentation.ViewModels
         }
 
         private DateTime? lastModified;
-
-        private readonly IPetsData petsData;
-        private readonly IEventAggregator eventAggregator;
         private readonly IPetDescription petDescription;
 
         public DateTime? LastModified
@@ -158,13 +155,15 @@ namespace PetsDiary.Presentation.ViewModels
             if (navigationContext.Parameters.ContainsKey(Constants.ParametersKeys.IsNew))
             {
                 IsInEdit = true;
+                IsDirty = true;
             }
             else
             {
                 // Reading saved
-                var model = petsData.GetAnimalById(petDescription.Id.Value);
+                var model = PetsData.GetAnimalById(petDescription.Id.Value);
                 SetProps(model);
                 IsInEdit = false;
+                IsDirty = false;
             }
         }
 
@@ -177,43 +176,76 @@ namespace PetsDiary.Presentation.ViewModels
             Gender = (Gender)model.Gender;
             LastModified = model.LastModified;
             Id = model.Id;
-        }               
+        }
 
         public DelegateCommand SaveCommand { get; private set; }
 
         public DelegateCommand EditCommand { get; private set; }
 
-        private void Save()
-        {           
-            var animal = new AnimalModel()
-            {
-                AnimalType = (int)AnimalType,
-                Breed = Breed,
-                Name = Name,
-                Gender = (int)Gender,
-                BirthDate = BirthDate,
-                LastModified = DateTime.Now
-            };
+        public DelegateCommand CancelCommand { get; private set; }
 
-            AnimalModel savedAnimal;
-
-            if (Id.HasValue)
-            {
-                animal.Id = Id.Value;
-                savedAnimal = petsData.UpdateAnimal(animal);
-            }
-            else
-            {
-                savedAnimal = petsData.AddAnimal(animal);
-                this.Id = savedAnimal.Id;
-            }
-
-            LastModified = animal.LastModified;
+        private void SaveCommandExecute()
+        {
+            if (!Id.HasValue) Save(); else Update();
 
             IsInEdit = false;
 
             petDescription.Name = Name;
-            petDescription.Id = savedAnimal.Id;
+            petDescription.Id = Id;
+        }
+
+        public override bool Save()
+        {
+            if (!base.Save()) return false;
+
+            var model = mapper.Map<AnimalModel>(this);
+            PetsData.AddAnimal(model);
+
+            Id = model.Id;
+            LastModified = model.LastModified;
+            IsDirty = false;
+
+            return true;
+        }
+
+        public override bool Update()
+        {
+            if (!base.Update()) return false;
+
+            var model = mapper.Map<AnimalModel>(this);
+            PetsData.UpdateAnimal(model);
+
+            LastModified = model.LastModified;
+            IsDirty = false;
+
+            return true;
+        }
+
+        private void Cancel()
+        {
+            SetValuesByOriginValues();
+            IsInEdit = false;
+        }
+
+        protected override void SaveOriginValues()
+        {
+            originValues.Clear();
+            originValues.Add(nameof(Name), Name);
+            originValues.Add(nameof(Gender), Gender);
+            originValues.Add(nameof(Breed), Breed);
+            originValues.Add(nameof(BirthDate), BirthDate);
+            originValues.Add(nameof(AnimalType), AnimalType);
+            originValues.Add(nameof(FileName), FileName);
+        }
+
+        public override void SetValuesByOriginValues()
+        {
+            Name = (string)originValues[nameof(Name)];
+            Gender = (Gender)originValues[nameof(Gender)];
+            Breed = (string)originValues[nameof(Breed)];
+            BirthDate = (DateTime)originValues[nameof(BirthDate)];
+            AnimalType = (AnimalType)originValues[nameof(AnimalType)];
+            FileName = (string)originValues[nameof(FileName)];
         }
     }
 }

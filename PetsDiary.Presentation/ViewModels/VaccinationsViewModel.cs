@@ -1,11 +1,10 @@
-﻿using PetsDiary.Common.Constants;
+﻿using AutoMapper;
+using PetsDiary.Common.Constants;
 using PetsDiary.Common.Interfaces;
-using PetsDiary.Common.Models;
 using PetsDiary.Presentation.Constants;
 using PetsDiary.Presentation.Resources;
 using Prism.Commands;
 using Prism.Services.Dialogs;
-using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -16,11 +15,12 @@ namespace PetsDiary.Presentation.ViewModels
         private readonly IPetsData petsData;
         private readonly IPetDescription petDescription;
         private readonly IDialogService dialogService;
+        private readonly IMapper mapper;
 
         public DelegateCommand<int?> DeleteCommand { get; set; }
         public DelegateCommand<int?> EditCommand { get; set; }
 
-        public VaccinationsViewModel(IPetsData petsData, IPetDescription petDescription, IDialogService dialogService)
+        public VaccinationsViewModel(IPetsData petsData, IPetDescription petDescription, IDialogService dialogService, IMapper mapper)
         {
             AddCommand = new DelegateCommand(Add);
             DeleteCommand = new DelegateCommand<int?>(Delete);
@@ -29,27 +29,27 @@ namespace PetsDiary.Presentation.ViewModels
             this.petsData = petsData;
             this.petDescription = petDescription;
             this.dialogService = dialogService;
-            Vaccinations = new ObservableCollection<VaccinationModel>();
+            this.mapper = mapper;
+            Vaccinations = new ObservableCollection<VaccinationViewModel>();
 
             LoadData();
         }
 
         private void Add()
         {
-            dialogService.ShowDialog(DialogNames.AddVaccinationDialog, new DialogParameters("message"), r =>
+            var parameters = new DialogParameters();
+            var newVaccinaton = new VaccinationViewModel(petsData, mapper) { IsDirty = true, PetId = petDescription.Id.Value };
+
+            parameters.Add(ParametersKeys.ViewModel, newVaccinaton);
+
+            dialogService.ShowDialog(DialogNames.VaccinationDialog, parameters, r =>
             {
                 if (r.Result == ButtonResult.OK)
                 {
-                    var vaccination = new VaccinationModel();
-                    vaccination.Address = r.Parameters.GetValue<string>(nameof(vaccination.Address));
-                    vaccination.Name = r.Parameters.GetValue<string>(nameof(vaccination.Name));
-                    vaccination.ShotInformation = r.Parameters.GetValue<string>(nameof(vaccination.ShotInformation));
-                    vaccination.NextShotDate = r.Parameters.GetValue<DateTime>(nameof(vaccination.NextShotDate));
-                    vaccination.ShotDate = r.Parameters.GetValue<DateTime>(nameof(vaccination.ShotDate));
-                    vaccination.PetId = petDescription.Id.Value;
-                    var savedModel = petsData.AddVacination(vaccination);
-
-                    Vaccinations.Add(savedModel);
+                    if (newVaccinaton.Save())
+                    {
+                        Vaccinations.Add(newVaccinaton);
+                    }
                 }
             });
         }
@@ -61,8 +61,7 @@ namespace PetsDiary.Presentation.ViewModels
 
             foreach (var vaccination in vaccinations)
             {
-              ///todo change on vm lists
-
+                vaccination.Dispose();
             }
 
             Vaccinations = null;
@@ -96,26 +95,20 @@ namespace PetsDiary.Presentation.ViewModels
             {
                 var vaccination = Vaccinations.FirstOrDefault(x => x.Id == vaccinationId.Value);
                 var parameters = new DialogParameters();
-                parameters.Add(nameof(vaccination.Name), vaccination.Name);
-                parameters.Add(nameof(vaccination.ShotDate), vaccination.ShotDate);
-                parameters.Add(nameof(vaccination.NextShotDate), vaccination.NextShotDate);
-                parameters.Add(nameof(vaccination.Address), vaccination.Address);
-                parameters.Add(nameof(vaccination.ShotInformation), vaccination.ShotInformation);
+                parameters.Add(ParametersKeys.ViewModel, vaccination);
 
-                dialogService.ShowDialog(DialogNames.AddVaccinationDialog, parameters, r =>
+                dialogService.ShowDialog(DialogNames.VaccinationDialog, parameters, r =>
                 {
                     if (r.Result == ButtonResult.OK)
                     {
-                        vaccination.Address = r.Parameters.GetValue<string>(nameof(vaccination.Address));
-                        vaccination.Name = r.Parameters.GetValue<string>(nameof(vaccination.Name));
-                        vaccination.ShotInformation = r.Parameters.GetValue<string>(nameof(vaccination.ShotInformation));
-                        vaccination.NextShotDate = r.Parameters.GetValue<DateTime>(nameof(vaccination.NextShotDate));
-                        vaccination.ShotDate = r.Parameters.GetValue<DateTime>(nameof(vaccination.ShotDate));
+                        vaccination.IsDirty = true;
+                        vaccination.Update();
 
-                        petsData.UpdateVaccination(vaccination);
-
-                        Vaccinations.Clear();
                         LoadData();
+                    }
+                    else
+                    {
+                        vaccination.SetValuesByOriginValues();
                     }
                 });
             }
@@ -127,12 +120,17 @@ namespace PetsDiary.Presentation.ViewModels
 
             var vaccinationModels = petsData.GetVaccinations(petDescription.Id.Value);
 
-            Vaccinations.AddRange(vaccinationModels);
+            foreach (var model in vaccinationModels)
+            {
+                var vm = mapper.Map(model, new VaccinationViewModel(petsData, mapper));
+                vm.IsDirty = false;
+                Vaccinations.Add(vm);
+            }
         }
 
-        private ObservableCollection<VaccinationModel> vaccinations;
+        private ObservableCollection<VaccinationViewModel> vaccinations;
 
-        public ObservableCollection<VaccinationModel> Vaccinations
+        public ObservableCollection<VaccinationViewModel> Vaccinations
         {
             get { return vaccinations; }
             set

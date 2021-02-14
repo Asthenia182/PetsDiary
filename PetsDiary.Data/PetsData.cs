@@ -140,8 +140,11 @@ namespace PetsDiary.Data
 
         public AnimalModel AddAnimal(AnimalModel model)
         {
-            animals.Add(model);
             model.Id = animals.Max(r => r.Id) + 1;
+            model.LastModified = DateTime.Now;
+            animals.Add(model);
+            
+            
             return model;
         }
 

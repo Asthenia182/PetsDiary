@@ -10,6 +10,7 @@
              mc:Ignorable="d" >
     <UserControl.Resources>
         <converters:ComparisonConverter x:Key="ComparisonConverter"/>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
 
         <Style x:Key="Editbtn" TargetType="Button" BasedOn="{StaticResource FilledButtonStyle}">
             <Setter Property="Content" Value="{x:Static res:CommonResources.Edit}"/>
@@ -123,11 +124,14 @@
                  Width="300" Margin="0,10" 
                  Style="{StaticResource FormTextBoxStyle}" 
                  IsEnabled="{Binding IsInEdit}"
-                 Text="{Binding Breed,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>       
-        
-        <Button Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2"
-                HorizontalAlignment="Center"
-                Style="{Binding Path=IsInEdit, Converter={StaticResource ButtonStyleConverter}}"/>
+                 Text="{Binding Breed,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
+        <StackPanel Orientation="Horizontal" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Button Style="{Binding Path=IsInEdit, Converter={StaticResource ButtonStyleConverter}}"/>
+            <Button Content="{x:Static res:CommonResources.Cancel}" 
+                    Style="{StaticResource FilledButtonStyle}" 
+                    Visibility="{Binding IsInEdit, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVis}}"
+                    Command="{Binding CancelCommand}"/>
+        </StackPanel>
     </Grid>
 </UserControl>

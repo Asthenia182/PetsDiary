@@ -76,7 +76,7 @@ namespace PetsDiary.Presentation.ViewModels
             if (!base.Save()) return false;
 
             var model = mapper.Map<VaccinationModel>(this);
-            var savedModel = PetsData.AddVacination(model);
+            var savedModel = petsData.AddVacination(model);
             Id = savedModel.Id;
 
             IsDirty = false;
@@ -89,7 +89,7 @@ namespace PetsDiary.Presentation.ViewModels
             if (!base.Update()) return false;
 
             var model = mapper.Map<VaccinationModel>(this);
-            PetsData.UpdateVaccination(model);
+            petsData.UpdateVaccination(model);
 
             IsDirty = false;
 

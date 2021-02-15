@@ -213,6 +213,46 @@
         </Setter>
     </Style>
 
+    <Style x:Key="SmallEmptyButtonStyle"
+           TargetType="Button">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{StaticResource GreenSheen}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontFamily" Value="{StaticResource Quicksand}"/>
+        <Setter Property="Padding" Value="5,2"/>
+        <Setter Property="Margin" Value="2"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Bd" CornerRadius="5" Background="Transparent" BorderBrush="{StaticResource GreenSheen}" BorderThickness="1" >
+                        <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Background" Value="LightGray" TargetName="Bd"/>
+                            <Setter Property="Foreground" Value="DarkGray"/>
+                            <Setter TargetName="Bd" Property="BorderThickness" Value="0"></Setter>
+                        </Trigger>
+                        <Trigger Property="Width" Value="Auto">
+                            <Setter Property="MinWidth" Value="100"/>
+                        </Trigger>
+                        <Trigger Property="Height" Value="Auto">
+                            <Setter Property="MinHeight" Value="25"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bd" Property="BorderThickness" Value="2"/>
+
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="Bd" Property="Background" Value="{StaticResource GreenSheen}"/>
+                            <Setter Property="Foreground" Value="White"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="IconButtonStyle"
            TargetType="Button">
         <Setter Property="BorderBrush" Value="Transparent"/>

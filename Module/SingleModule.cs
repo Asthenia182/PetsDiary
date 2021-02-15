@@ -28,6 +28,7 @@ namespace Module
             containerRegistry.RegisterForNavigation<VaccinationsView>(ViewNames.Vaccinations);
             containerRegistry.RegisterForNavigation<VisitsView>(ViewNames.Visits);
             containerRegistry.RegisterForNavigation<WeightsView>(ViewNames.Weights);
+            containerRegistry.RegisterForNavigation<NotesView>(ViewNames.Notes);
 
             containerRegistry.RegisterDialog<VaccinationDialog, VaccinationDialogViewModel>();
             containerRegistry.RegisterDialog<VisitDialog, VisitDialogViewModel>();

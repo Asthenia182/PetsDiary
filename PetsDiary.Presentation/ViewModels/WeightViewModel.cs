@@ -10,12 +10,9 @@ namespace PetsDiary.Presentation.ViewModels
 {
     public class WeightViewModel : SingleViewModel
     {
-        private readonly IPetsData petsData;
-
         public WeightViewModel(IPetsData petsData, IMapper mapper)
             : base(petsData, mapper)
         {
-            this.petsData = petsData;
             WeightText = Weight.ToString();
         }
 

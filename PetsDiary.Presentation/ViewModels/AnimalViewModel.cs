@@ -34,6 +34,7 @@ namespace PetsDiary.Presentation.ViewModels
         {
             SaveCommand = null;
             EditCommand = null;
+            CancelCommand = null;
 
             base.Dispose(disposing);
         }
@@ -160,7 +161,7 @@ namespace PetsDiary.Presentation.ViewModels
             else
             {
                 // Reading saved
-                var model = PetsData.GetAnimalById(petDescription.Id.Value);
+                var model = petsData.GetAnimalById(petDescription.Id.Value);
                 SetProps(model);
                 IsInEdit = false;
                 IsDirty = false;
@@ -199,7 +200,7 @@ namespace PetsDiary.Presentation.ViewModels
             if (!base.Save()) return false;
 
             var model = mapper.Map<AnimalModel>(this);
-            PetsData.AddAnimal(model);
+            petsData.AddAnimal(model);
 
             Id = model.Id;
             LastModified = model.LastModified;
@@ -213,7 +214,7 @@ namespace PetsDiary.Presentation.ViewModels
             if (!base.Update()) return false;
 
             var model = mapper.Map<AnimalModel>(this);
-            PetsData.UpdateAnimal(model);
+            petsData.UpdateAnimal(model);
 
             LastModified = model.LastModified;
             IsDirty = false;

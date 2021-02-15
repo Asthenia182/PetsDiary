@@ -7,6 +7,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/PetsDiary.Presentation;component/Resources/resources.xaml" />
                 <ResourceDictionary Source="/PetsDiary.Presentation;component/Resources/styles.xaml" />
+                
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

@@ -8,12 +8,11 @@ namespace PetsDiary.Presentation.Utilities
     {
         public MappingProfile()
         {
-            CreateMap<VisitModel, VisitViewModel>()
-                .ForMember(x=>x.Id, opt=>opt.MapFrom(y=>y.Id))
-                .ReverseMap();
+            CreateMap<VisitModel, VisitViewModel>().ReverseMap();
             CreateMap<VaccinationModel, VaccinationViewModel>().ReverseMap();
             CreateMap<WeightModel, WeightViewModel>().ReverseMap();
             CreateMap<AnimalModel, AnimalViewModel>().ReverseMap();
+            CreateMap<NoteModel, NoteViewModel>().ReverseMap();
         }
     }
 }

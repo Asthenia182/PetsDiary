@@ -12,8 +12,6 @@
     <None Remove="Resources\fonts\Quicksand-SemiBold.ttf" />
     <None Remove="Resources\img\cat_icon.png" />
     <None Remove="Resources\img\dog_icon.png" />
-    <None Remove="Resources\img\pug.png" />
-    <None Remove="Resources\img\pug2.png" />
     <None Remove="Resources\img\pug3.png" />
   </ItemGroup>
 
@@ -39,8 +37,6 @@
     <Resource Include="Resources\fonts\Quicksand-SemiBold.ttf" />
     <Resource Include="Resources\img\cat_icon.png" />
     <Resource Include="Resources\img\dog_icon.png" />
-    <Resource Include="Resources\img\pug.png" />
-    <Resource Include="Resources\img\pug2.png" />
     <Resource Include="Resources\img\pug3.png" />
   </ItemGroup>
 

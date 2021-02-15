@@ -9,7 +9,7 @@ namespace PetsDiary.Presentation.ViewModels
     {
         public SingleViewModel(IPetsData petsData, IMapper mapper)
         {
-            PetsData = petsData;
+            this.petsData = petsData;
             this.mapper = mapper;
             originValues = new Dictionary<string, object>();
         }
@@ -46,7 +46,7 @@ namespace PetsDiary.Presentation.ViewModels
 
         public abstract void SetValuesByOriginValues();
 
-        protected IPetsData PetsData { get; }
+        protected IPetsData petsData { get; }
 
         public int PetId { get; set; }
 

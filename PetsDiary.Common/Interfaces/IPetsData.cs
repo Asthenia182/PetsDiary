@@ -38,5 +38,13 @@ namespace PetsDiary.Common.Interfaces
         void DeleteWeightById(int id);
 
         WeightModel UpdateWeight(WeightModel updatedWeight);
+
+        IEnumerable<NoteModel> GetNotes(int petId);
+
+        NoteModel AddNote(NoteModel model);
+
+        void DeleteNoteById(int id);
+
+        NoteModel UpdateNote(NoteModel updatedWeight);
     }
 }

@@ -12,6 +12,7 @@ namespace PetsDiary.Data
         private readonly List<VaccinationModel> vaccinations;
         private readonly List<VisitModel> visits;
         private readonly List<WeightModel> weights;
+        private readonly List<NoteModel> notes;
 
         public PetsData()
         {
@@ -38,11 +39,54 @@ namespace PetsDiary.Data
             };
 
             weights = new List<WeightModel>()
-            { 
+            {
                 new WeightModel() {Id = 1, PetId = 1, Date = DateTime.Today, Weight = 10},
                 new WeightModel() {Id = 2, PetId = 1, Date = DateTime.Today.AddDays(-10), Weight = 5},
                 new WeightModel() {Id = 3, PetId = 1, Date = DateTime.Today.AddDays(-5), Weight = 7},
             };
+
+            notes = new List<NoteModel>()
+            {
+            new NoteModel(){Id=1,PetId=1,Note=string.Empty},
+            new NoteModel(){Id=2,PetId=1,Note=string.Empty},
+            new NoteModel(){Id=3,PetId=1,Note=string.Empty},
+            };
+        }
+
+        public IEnumerable<NoteModel> GetNotes(int petId)
+        {
+            return notes
+                .Where(x => x.PetId == petId);
+        }
+
+        public NoteModel AddNote(NoteModel model)
+        {
+            notes.Add(model);
+            model.Id = notes.Max(r => r.Id) + 1;
+            return model;
+        }
+
+        public void DeleteNoteById(int id)
+        {
+            var note = notes.FirstOrDefault(r => r.Id == id);
+            if (note != null)
+            {
+                notes.Remove(note);
+            }
+        }
+
+        public NoteModel UpdateNote(NoteModel updatedWeight)
+        {
+            var note = notes.SingleOrDefault(r => r.Id == updatedWeight.Id);
+
+            if (note != null)
+            {
+                note.Id = updatedWeight.Id;
+                note.PetId = updatedWeight.PetId;
+                note.Note = updatedWeight.Note;
+            }
+
+            return note;
         }
 
         public IEnumerable<WeightModel> GetWeights(int petId)
@@ -143,8 +187,7 @@ namespace PetsDiary.Data
             model.Id = animals.Max(r => r.Id) + 1;
             model.LastModified = DateTime.Now;
             animals.Add(model);
-            
-            
+
             return model;
         }
 

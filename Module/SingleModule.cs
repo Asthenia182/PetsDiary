@@ -30,7 +30,6 @@ namespace Module
             containerRegistry.RegisterForNavigation<WeightsView>(ViewNames.Weights);
             containerRegistry.RegisterForNavigation<NotesView>(ViewNames.Notes);
 
-            containerRegistry.RegisterDialog<VaccinationDialog, VaccinationDialogViewModel>();
             containerRegistry.RegisterDialog<VisitDialog, VisitDialogViewModel>();
             containerRegistry.RegisterDialog<MessageDialog, MessageDialogViewModel>();
             containerRegistry.RegisterDialog<EditWeightsDialog, EditWeightsDialogViewModel>();

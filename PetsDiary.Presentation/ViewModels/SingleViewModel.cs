@@ -14,6 +14,13 @@ namespace PetsDiary.Presentation.ViewModels
             originValues = new Dictionary<string, object>();
         }
 
+        public void Cancel()
+        {
+            if (Id.HasValue) SetValuesByOriginValues();
+
+            IsInEdit = false;
+        }
+
         protected Dictionary<string, object> originValues;
         protected readonly IMapper mapper;
 

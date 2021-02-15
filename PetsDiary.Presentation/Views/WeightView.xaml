@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="PetsDiary.Presentation.Views.WeightView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:res="clr-namespace:PetsDiary.Presentation.Resources"
+             mc:Ignorable="d" >
+    <Grid>
+        <Border DockPanel.Dock="Right" BorderBrush="{StaticResource Independence}" VerticalAlignment="Bottom"  Background="{StaticResource Independence}" BorderThickness="1" CornerRadius="5">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Style="{StaticResource MediumTextBlockStyle}" Margin="10,0,0,0" Text="{x:Static res:CommonResources.Weight}" Foreground="White"/>
+                <TextBox Style="{StaticResource FormTextBoxStyle}" Text="{Binding WeightText , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnNotifyDataErrors=True, Delay=500}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <TextBlock Margin="20,0,0,0" Style="{StaticResource MediumTextBlockStyle}" Foreground="White" Text="{x:Static res:CommonResources.Date}"/>
+                <DatePicker Style="{StaticResource DatePickerStyle}" SelectedDate="{Binding Date, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnNotifyDataErrors=True}" BorderBrush="{StaticResource Independence}" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

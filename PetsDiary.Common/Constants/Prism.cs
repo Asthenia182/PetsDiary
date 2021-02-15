@@ -19,7 +19,6 @@
 
     public class DialogNames
     {
-        public const string VaccinationDialog = "VaccinationDialog";
         public const string VisitDialog = "VisitDialog";
         public const string MessageDialog = "MessageDialog";
         public const string EditWeightsDialog = "EditWeightsDialog";

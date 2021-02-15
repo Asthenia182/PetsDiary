@@ -6,6 +6,7 @@
              mc:Ignorable="d" 
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:views="clr-namespace:PetsDiary.Presentation.Views"
              xmlns:res="clr-namespace:PetsDiary.Presentation.Resources"
              Width="400" >
     <prism:Dialog.WindowStyle>
@@ -20,27 +21,9 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        
 
-        <Label Grid.Row="0" Content="{x:Static res:CommonResources.Date}" FontSize="12" Margin="10,0"
-               Style="{StaticResource FormLabelStyle}"/>
-        <DatePicker HorizontalAlignment="Left" Margin="4,0,0,0"
-                    Style="{StaticResource DatePickerStyle}"
-                    Grid.Row="0" Grid.Column="2" 
-                    Height="25" Width="200"            
-                    SelectedDate="{Binding Visit.Date, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnNotifyDataErrors=True}"/>        
-
-        <Label Grid.Row="1" Content="{x:Static res:CommonResources.Description}"
-               Style="{StaticResource FormLabelStyle}" FontSize="12"/>
-        <TextBox Grid.Column="1" Grid.Row="1" Style="{StaticResource FormTextBoxStyle}" HorizontalAlignment="Left" Margin="4,10,0,0"         
-               Text="{Binding Visit.Description, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Height="80" Width="250" TextWrapping="WrapWithOverflow"/>
-
+        <views:VisitView DataContext="{Binding Visit}"/>
         <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Command="{Binding CloseDialogCommand}" 
                 CommandParameter="false" 

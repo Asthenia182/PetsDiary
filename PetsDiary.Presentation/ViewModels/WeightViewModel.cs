@@ -13,7 +13,6 @@ namespace PetsDiary.Presentation.ViewModels
         public WeightViewModel(IPetsData petsData, IMapper mapper)
             : base(petsData, mapper)
         {
-            WeightText = Weight.ToString();
         }
 
         private DateTime date;

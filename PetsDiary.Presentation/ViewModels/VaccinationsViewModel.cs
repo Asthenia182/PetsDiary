@@ -19,12 +19,16 @@ namespace PetsDiary.Presentation.ViewModels
 
         public DelegateCommand<int?> DeleteCommand { get; set; }
         public DelegateCommand<int?> EditCommand { get; set; }
+        public DelegateCommand<int?> SaveCommand { get; set; }
+        public DelegateCommand<int?> CancelCommand { get; set; }
 
         public VaccinationsViewModel(IPetsData petsData, IPetDescription petDescription, IDialogService dialogService, IMapper mapper)
         {
             AddCommand = new DelegateCommand(Add);
             DeleteCommand = new DelegateCommand<int?>(Delete);
             EditCommand = new DelegateCommand<int?>(Edit);
+            SaveCommand = new DelegateCommand<int?>(Save);
+            CancelCommand = new DelegateCommand<int?>(Cancel);
 
             this.petsData = petsData;
             this.petDescription = petDescription;
@@ -35,29 +39,49 @@ namespace PetsDiary.Presentation.ViewModels
             LoadData();
         }
 
-        private void Add()
+        public void Cancel(int? vaccinationId)
         {
-            var parameters = new DialogParameters();
-            var newVaccinaton = new VaccinationViewModel(petsData, mapper) { IsDirty = true, PetId = petDescription.Id.Value };
+            var vaccination = Vaccinations.FirstOrDefault(x => x.Id == vaccinationId);
 
-            parameters.Add(ParametersKeys.ViewModel, newVaccinaton);
-
-            dialogService.ShowDialog(DialogNames.VaccinationDialog, parameters, r =>
+            if (vaccinationId.HasValue)
             {
-                if (r.Result == ButtonResult.OK)
-                {
-                    if (newVaccinaton.Save())
-                    {
-                        Vaccinations.Add(newVaccinaton);
-                    }
-                }
-            });
+                vaccination.Cancel();
+            }
+            else
+            {
+                Vaccinations.Remove(vaccination);
+            }
+        }
+
+        public void Save(int? vaccinationId)
+        {
+            var note = Vaccinations.FirstOrDefault(x => x.Id == vaccinationId);
+
+            if (vaccinationId.HasValue)
+            {
+                note.Update();
+            }
+            else
+            {
+                note.Save();
+            }
+        }
+
+        public void Add()
+        {
+            if (Vaccinations.Any(v => !v.Id.HasValue)) return;
+
+            var newVaccinaton = new VaccinationViewModel(petsData, mapper) { IsDirty = true, PetId = petDescription.Id.Value, IsInEdit = true };
+            Vaccinations.Insert(0, newVaccinaton);
         }
 
         protected override void Dispose(bool disposing)
         {
             AddCommand = null;
             DeleteCommand = null;
+            CancelCommand = null;
+            EditCommand = null;
+            CancelCommand = null;
 
             foreach (var vaccination in vaccinations)
             {
@@ -94,23 +118,7 @@ namespace PetsDiary.Presentation.ViewModels
             if (vaccinationId.HasValue)
             {
                 var vaccination = Vaccinations.FirstOrDefault(x => x.Id == vaccinationId.Value);
-                var parameters = new DialogParameters();
-                parameters.Add(ParametersKeys.ViewModel, vaccination);
-
-                dialogService.ShowDialog(DialogNames.VaccinationDialog, parameters, r =>
-                {
-                    if (r.Result == ButtonResult.OK)
-                    {
-                        vaccination.IsDirty = true;
-                        vaccination.Update();
-
-                        LoadData();
-                    }
-                    else
-                    {
-                        vaccination.SetValuesByOriginValues();
-                    }
-                });
+                vaccination.IsInEdit = true;
             }
         }
 

@@ -40,16 +40,21 @@ namespace PetsDiary.Presentation.ViewModels
 
         private void Cancel(int? noteId)
         {
+            var note = Notes.FirstOrDefault(x => x.Id == noteId);
+
             if (noteId.HasValue)
-            {
-                var note = Notes.FirstOrDefault(x => x.Id == noteId.Value);
+            {                
                 note.Cancel();
+            }
+            else
+            {
+                Notes.Remove(note);
             }
         }
 
         private void Save(int? noteId)
         {
-            var note = Notes.FirstOrDefault(x => x.Id == noteId.Value);
+            var note = Notes.FirstOrDefault(x => x.Id == noteId);
 
             if (noteId.HasValue)
             {                
@@ -63,6 +68,8 @@ namespace PetsDiary.Presentation.ViewModels
 
         private void Add()
         {
+            if (Notes.Any(n => !n.Id.HasValue)) return;
+
             var note = new NoteViewModel(petsData, mapper) { IsDirty = true, IsInEdit = true };
             Notes.Insert(0, note);
         }

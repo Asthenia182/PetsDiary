@@ -65,7 +65,7 @@
                 </Button>
 
             </ToolBar>
-            <RichTextBox DockPanel.Dock="Top" helpers:RichTextBoxHelper.DocumentXaml="{Binding Note}"  Name="mainRTB" Background="LightYellow" Height="200"  BorderBrush="Orange" BorderThickness="1" 
+            <RichTextBox DockPanel.Dock="Top" helpers:RichTextBoxHelper.DocumentXaml="{Binding Note, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Name="mainRTB" Background="LightYellow" Height="200"  BorderBrush="Orange" BorderThickness="1" 
                          IsEnabled="{Binding IsInEdit}"/>           
         </DockPanel>
     </Grid>

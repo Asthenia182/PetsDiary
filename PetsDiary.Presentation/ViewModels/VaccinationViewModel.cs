@@ -80,6 +80,7 @@ namespace PetsDiary.Presentation.ViewModels
             Id = savedModel.Id;
 
             IsDirty = false;
+            IsInEdit = false;
 
             return true;
         }
@@ -92,6 +93,7 @@ namespace PetsDiary.Presentation.ViewModels
             petsData.UpdateVaccination(model);
 
             IsDirty = false;
+            IsInEdit = false;
 
             return true;
         }

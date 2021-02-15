@@ -12,6 +12,10 @@ namespace PetsDiary.Presentation.Helpers
 {
     public class RichTextBoxHelper : DependencyObject
     {
+        public RichTextBoxHelper()
+        {
+
+        }
         private static HashSet<Thread> recursionProtection = new HashSet<Thread>();
 
         public static string GetDocumentXaml(DependencyObject obj)

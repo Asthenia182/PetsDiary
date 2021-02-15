@@ -4,12 +4,12 @@ using System.Windows.Controls;
 namespace PetsDiary.Presentation.Views
 {
     /// <summary>
-    /// Interaction logic for NotesView.xaml
+    /// Interaction logic for VaccinationView.xaml
     /// </summary>
     [RegionMemberLifetime(KeepAlive = false)]
-    public partial class NotesView : UserControl
+    public partial class VaccinationView : UserControl
     {
-        public NotesView()
+        public VaccinationView()
         {
             InitializeComponent();
         }

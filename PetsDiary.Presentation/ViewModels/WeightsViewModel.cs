@@ -16,12 +16,11 @@ namespace PetsDiary.Presentation.ViewModels
         private readonly IPetsData petsData;
         private readonly IPetDescription petDescription;
         private readonly IDialogService dialogService;
-        private readonly IRegionManager regionManager;
         private readonly IMapper mapper;
 
         public DelegateCommand EditCommand { get; set; }
 
-        public WeightsViewModel(IPetsData petsData, IPetDescription petDescription, IDialogService dialogService, IRegionManager regionManager, IMapper mapper)
+        public WeightsViewModel(IPetsData petsData, IPetDescription petDescription, IDialogService dialogService, IMapper mapper)
         {
             AddCommand = new DelegateCommand(Add);
             EditCommand = new DelegateCommand(Edit);
@@ -29,7 +28,6 @@ namespace PetsDiary.Presentation.ViewModels
             this.petsData = petsData;
             this.petDescription = petDescription;
             this.dialogService = dialogService;
-            this.regionManager = regionManager;
             this.mapper = mapper;
             Weights = new ObservableCollection<WeightViewModel>();
 
@@ -111,8 +109,12 @@ namespace PetsDiary.Presentation.ViewModels
         public void Edit()
         {
             var parameters = new DialogParameters();
+            foreach (var weight in Weights)
+            {
+                weight.WeightText = weight.Weight.ToString();
+            }
             var clonedWeights = new ObservableCollection<WeightViewModel>(Weights);
-
+            
             parameters.Add(nameof(Weights), clonedWeights);
 
             dialogService.ShowDialog(DialogNames.EditWeightsDialog, parameters, (r) =>

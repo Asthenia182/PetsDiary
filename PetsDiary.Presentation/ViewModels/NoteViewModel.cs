@@ -9,14 +9,7 @@ namespace PetsDiary.Presentation.ViewModels
         public NoteViewModel(IPetsData petsData, IMapper mapper)
             : base(petsData, mapper)
         {
-        }
-
-        public void Cancel()
-        {
-            if (Id.HasValue) SetValuesByOriginValues();
-
-            IsInEdit = false;
-        }
+        }        
 
         private string note;
 

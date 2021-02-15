@@ -5,58 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:res="clr-namespace:PetsDiary.Presentation.Resources"
              xmlns:controls="clr-namespace:PetsDiary.Presentation.Controls"
+             xmlns:views="clr-namespace:PetsDiary.Presentation.Views"
              mc:Ignorable="d"
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True">
-    <UserControl.Resources>
-        <DataTemplate x:Key="itemtp">
-            <Grid Margin="10,10,0,0" >
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <DockPanel VerticalAlignment="Center"  MaxWidth="300" HorizontalAlignment="Center">
-                    <TextBlock DockPanel.Dock="Left" Text="{Binding Name}" Style="{StaticResource MediumTextBlockStyle}" FontWeight="Bold" />
-                    <controls:IconButton VerticalAlignment="Center" HorizontalAlignment="Right" DockPanel.Dock="Right" 
-                                     IconHeight="15" IconWidth="15"
-                                     IconSource="{StaticResource closeIcon}" 
-                                     Style="{StaticResource EllipseIconButtonTemplate}"
-                                     Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.DeleteCommand}" CommandParameter="{Binding Id}"/>
-                    <controls:IconButton VerticalAlignment="Center" HorizontalAlignment="Right"  DockPanel.Dock="Right"
-                                     IconHeight="15" IconWidth="15" Margin="5,0,0,0"
-                                     IconSource="{StaticResource editIcon}" 
-                                     Style="{StaticResource EllipseIconButtonTemplate}"
-                                     Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.EditCommand}" CommandParameter="{Binding Id}"/>
-                </DockPanel>
-                <Border MaxWidth="300" Grid.Row="1" BorderThickness="1" CornerRadius="4,4,4,4" BorderBrush="{StaticResource LightIndependence}">
-                    <StackPanel Orientation="Vertical">
-                        <StackPanel Orientation="Horizontal" MinWidth="400">
-                            <Label Content="Data:" Style="{StaticResource MediumLabelStyle}"/>
-                            <TextBlock Text="{Binding ShotDate}" Style="{StaticResource MediumTextBlockStyle}"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" MinWidth="300">
-                            <Label Content="Data kolejnego:" Style="{StaticResource MediumLabelStyle}"/>
-                            <TextBlock Text="{Binding NextShotDate}" Style="{StaticResource MediumTextBlockStyle}"/>
-                        </StackPanel>
-                        <Border BorderBrush="{StaticResource LightIndependence}" BorderThickness="0,1,0,0">
-                            <StackPanel Orientation="Vertical" MinWidth="300">
-                                <Label Content="Użyta szczepionka" Height="Auto" Style="{StaticResource MediumLabelStyle}"/>
-                                <TextBlock Text="{Binding ShotInformation}" Style="{StaticResource MediumTextBlockStyle}" Margin="5,0,0,0"/>
-                            </StackPanel>
-                        </Border>
-                        <Border BorderBrush="{StaticResource LightIndependence}" BorderThickness="0,1,0,0">
-                            <StackPanel Orientation="Vertical" MinWidth="300">
-                                <Label Content="Adres" Height="Auto"  Style="{StaticResource MediumLabelStyle}"/>
-                                <TextBlock Text="{Binding Address}" Style="{StaticResource MediumTextBlockStyle}" Margin="5,0,0,0"/>
-                            </StackPanel>
-                        </Border>
-                    </StackPanel>
-                </Border>
-            </Grid>
-
-        </DataTemplate>
-
-    </UserControl.Resources>
     <ScrollViewer VerticalScrollBarVisibility="Auto">
     <Grid Background="White">
         <Grid.RowDefinitions>
@@ -70,7 +22,15 @@
                                      IconSource="{StaticResource plusIcon}" 
                                      Style="{StaticResource EllipseIconButtonTemplate}"
                                      Command="{Binding AddCommand}"/>
-        <ItemsControl Grid.Row="1" ItemTemplate="{StaticResource itemtp}" HorizontalAlignment="Center" ItemsSource="{Binding Vaccinations}">
+        <ItemsControl Grid.Row="1"  HorizontalAlignment="Center" ItemsSource="{Binding Vaccinations}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical">
+                            <controls:EditButtons Margin="0,0,0,-10" />
+                            <views:VaccinationView />
+                        </StackPanel>                        
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Horizontal"></WrapPanel>

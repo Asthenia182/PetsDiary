@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.Win32;
 using PetsDiary.Common.Interfaces;
 using PetsDiary.Common.Models;
 using PetsDiary.Presentation.Enums;
@@ -7,6 +8,7 @@ using PetsDiary.Presentation.Resources;
 using Prism.Commands;
 using Prism.Regions;
 using System;
+using System.IO;
 
 namespace PetsDiary.Presentation.ViewModels
 {
@@ -17,10 +19,27 @@ namespace PetsDiary.Presentation.ViewModels
             SaveCommand = new DelegateCommand(SaveCommandExecute);
             EditCommand = new DelegateCommand(Edit);
             CancelCommand = new DelegateCommand(Cancel);
+            ChangeImageCommand = new DelegateCommand<EventArgs>(ChangeImage);
 
             ValidateName();
             this.petDescription = petDescription;
-            this.petDescription = petDescription;
+        }
+
+        private void ChangeImage(EventArgs parameter)
+        {
+            if (!IsInEdit) return;
+
+            OpenFileDialog open = new OpenFileDialog();
+            open.Multiselect = false;
+            open.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
+            bool? result = open.ShowDialog();
+
+            if (result == true)
+            {
+                var filepath = open.FileName;
+                //get byte array
+                Image = ReadImageFile(filepath);
+            }
         }
 
         protected override void OnErrorsChanged(string propertyName)
@@ -35,6 +54,7 @@ namespace PetsDiary.Presentation.ViewModels
             SaveCommand = null;
             EditCommand = null;
             CancelCommand = null;
+            ChangeImageCommand = null;
 
             base.Dispose(disposing);
         }
@@ -139,10 +159,29 @@ namespace PetsDiary.Presentation.ViewModels
             }
         }
 
-        /// <summary>
-        /// Picture's file name
-        /// </summary>
-        public string FileName { get; set; }
+        private byte[] image { get; set; }
+
+        public byte[] Image
+        {
+            get { return image; }
+            set
+            {
+                image = value;
+
+                RaisePropertyChanged();
+            }
+        }
+
+        private static byte[] ReadImageFile(string imageLocation)
+        {
+            byte[] imageData = null;
+            FileInfo fileInfo = new FileInfo(imageLocation);
+            long imageFileLength = fileInfo.Length;
+            FileStream fs = new FileStream(imageLocation, FileMode.Open, FileAccess.Read);
+            BinaryReader br = new BinaryReader(fs);
+            imageData = br.ReadBytes((int)imageFileLength);
+            return imageData;
+        }
 
         public override void OnNavigatedTo(NavigationContext navigationContext)
         {
@@ -177,6 +216,7 @@ namespace PetsDiary.Presentation.ViewModels
             Gender = (Gender)model.Gender;
             LastModified = model.LastModified;
             Id = model.Id;
+            Image = model.Image;
         }
 
         public DelegateCommand SaveCommand { get; private set; }
@@ -184,6 +224,8 @@ namespace PetsDiary.Presentation.ViewModels
         public DelegateCommand EditCommand { get; private set; }
 
         public DelegateCommand CancelCommand { get; private set; }
+
+        public DelegateCommand<EventArgs> ChangeImageCommand { get; private set; }
 
         private void SaveCommandExecute()
         {
@@ -230,7 +272,7 @@ namespace PetsDiary.Presentation.ViewModels
             originValues.Add(nameof(Breed), Breed);
             originValues.Add(nameof(BirthDate), BirthDate);
             originValues.Add(nameof(AnimalType), AnimalType);
-            originValues.Add(nameof(FileName), FileName);
+            originValues.Add(nameof(Image), Image);
         }
 
         public override void SetValuesByOriginValues()
@@ -240,7 +282,7 @@ namespace PetsDiary.Presentation.ViewModels
             Breed = (string)originValues[nameof(Breed)];
             BirthDate = (DateTime)originValues[nameof(BirthDate)];
             AnimalType = (AnimalType)originValues[nameof(AnimalType)];
-            FileName = (string)originValues[nameof(FileName)];
+            Image = (byte[])originValues[nameof(Image)];
         }
     }
 }

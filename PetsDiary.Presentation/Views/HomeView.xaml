@@ -12,6 +12,7 @@
     <UserControl.Resources>
         <converters:NullBooleanConverter x:Key="NullBooleanConverter" />
         <converters:SelectedItemColorConverter x:Key="SelectedItemColorConverter"/>
+        <BitmapImage x:Key='defaultImage' UriSource='/PetsDiary.Presentation;component/Resources/img/dog_icon.png' />
         <DataTemplate x:Key="dtPets">
             <Canvas HorizontalAlignment="Left"  Height="50" Margin="0,10,0,0">
                 <Border Background="{Binding IsSelected, Converter={StaticResource SelectedItemColorConverter}}" CornerRadius="10"  Height="45"  Width="425">
@@ -25,8 +26,10 @@
                 </Border>
                 <Border Height="50" Width="50"
                             Background="White"
-                            BorderBrush="{StaticResource GreenSheen}" BorderThickness="2" CornerRadius="10"
-                            Canvas.Top="-10" Canvas.Left="6" />
+                            BorderBrush="{StaticResource GreenSheen}" BorderThickness="3" Padding="2" CornerRadius="5"
+                            Canvas.Top="-10" Canvas.Left="6">
+                    <Image Source="{Binding Image ,TargetNullValue={StaticResource defaultImage}}"/>
+                </Border>
             </Canvas>
         </DataTemplate>
     </UserControl.Resources>

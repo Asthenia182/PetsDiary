@@ -39,5 +39,18 @@ namespace PetsDiary.Presentation
                 RaisePropertyChanged(nameof(Id));
             }
         }
+
+        private byte[] image { get; set; }
+
+        public byte[] Image
+        {
+            get { return image; }
+            set
+            {
+                image = value;
+
+                RaisePropertyChanged(nameof(Image));
+            }
+        }
     }
 }

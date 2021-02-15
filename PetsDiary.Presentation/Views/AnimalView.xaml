@@ -3,10 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:res="clr-namespace:PetsDiary.Presentation.Resources"
-             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:res="clr-namespace:PetsDiary.Presentation.Resources"          
              xmlns:converters ="clr-namespace:PetsDiary.Presentation.Convertes"
-             xmlns:enums ="clr-namespace:PetsDiary.Presentation.Enums"
+             xmlns:enums ="clr-namespace:PetsDiary.Presentation.Enums" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:prism="http://prismlibrary.com/"
              mc:Ignorable="d" >
     <UserControl.Resources>
         <converters:ComparisonConverter x:Key="ComparisonConverter"/>
@@ -24,6 +25,8 @@
         <converters:ButtonStyleConverter x:Key="ButtonStyleConverter" 
                                               EditButtonStyle="{StaticResource Editbtn}"                                       
                                               SaveButtonStyle="{StaticResource Savebtn}"/>
+
+        <BitmapImage x:Key='defaultImage' UriSource='/PetsDiary.Presentation;component/Resources/img/dog_icon.png' />
     </UserControl.Resources>
     
     <Grid Background="White" HorizontalAlignment="Center">
@@ -50,13 +53,19 @@
                 Content="{Binding LastModified}"
                 Style="{StaticResource SmallLabelStyle}"/>
         </StackPanel>
-        
-        <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
-                Height="100" Width="100"
+
+        <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Width="100" Height="100" Background="{StaticResource GreenSheen}"             
                 CornerRadius="5"
-                BorderThickness="2"
-                BorderBrush="{StaticResource GreenSheen}"
-                Margin="10">            
+                BorderThickness="2" Padding="3"
+                BorderBrush="{StaticResource RussianGreen}"
+                Margin="10">
+            <Image Source="{Binding Path=Image, TargetNullValue={StaticResource defaultImage}}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                        <prism:InvokeCommandAction Command="{Binding ChangeImageCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Image>
         </Border>
 
         <Label Grid.Row="2" Grid.Column="0" 

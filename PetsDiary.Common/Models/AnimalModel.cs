@@ -18,9 +18,6 @@ namespace PetsDiary.Common.Models
 
         public DateTime LastModified { get; set; }
 
-        /// <summary>
-        /// Picture's file name
-        /// </summary>
-        public string FileName { get; set; }
+        public byte[] Image { get; set; }
     }
 }

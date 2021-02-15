@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using PetsDiary.Common.Interfaces;
 using PetsDiary.Common.Models;
-using System.Xml.Linq;
 
 namespace PetsDiary.Presentation.ViewModels
 {
@@ -10,7 +9,7 @@ namespace PetsDiary.Presentation.ViewModels
         public NoteViewModel(IPetsData petsData, IMapper mapper)
             : base(petsData, mapper)
         {
-        }        
+        }
 
         private string note;
 

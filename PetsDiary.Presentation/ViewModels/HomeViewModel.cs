@@ -71,7 +71,7 @@ namespace PetsDiary.Presentation.ViewModels
 
             foreach (var model in petModels)
             {
-                var petDescription = new PetDescription { Id = model.Id, IsSelected = false, Name = model.Name };
+                var petDescription = new PetDescription { Id = model.Id, IsSelected = false, Name = model.Name, Image=model.Image };
                 Pets.Add(petDescription);
             }
         }

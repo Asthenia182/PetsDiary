@@ -203,6 +203,7 @@ namespace PetsDiary.Data
                 animal.LastModified = DateTime.Now;
                 animal.BirthDate = updatedAnimal.BirthDate;
                 animal.Gender = updatedAnimal.Gender;
+                animal.Image = updatedAnimal.Image;
             }
             return animal;
         }

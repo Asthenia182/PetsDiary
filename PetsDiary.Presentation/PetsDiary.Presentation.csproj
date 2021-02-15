@@ -23,13 +23,6 @@
     <None Remove="Resources\img\pug3.png" />
     <None Remove="Resources\img\redoIcon.png" />
     <None Remove="Resources\img\undoIcon.png" />
-    <None Remove="Resources\SampleData\note.xml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\SampleData\note.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
@@ -59,7 +52,9 @@
     <Resource Include="Resources\img\bulletIcon.png" />
     <Resource Include="Resources\img\cat_icon.png" />
     <Resource Include="Resources\img\decreaseFontIcon.png" />
-    <Resource Include="Resources\img\dog_icon.png" />
+    <Resource Include="Resources\img\dog_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\img\increaseFontIcon.png" />
     <Resource Include="Resources\img\justifyIcon.png" />
     <Resource Include="Resources\img\numberingIcon.png" />

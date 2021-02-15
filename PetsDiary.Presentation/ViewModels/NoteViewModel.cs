@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using PetsDiary.Common.Interfaces;
 using PetsDiary.Common.Models;
+using System.Xml.Linq;
 
 namespace PetsDiary.Presentation.ViewModels
 {

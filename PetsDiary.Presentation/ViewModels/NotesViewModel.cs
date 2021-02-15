@@ -70,7 +70,7 @@ namespace PetsDiary.Presentation.ViewModels
         {
             if (Notes.Any(n => !n.Id.HasValue)) return;
 
-            var note = new NoteViewModel(petsData, mapper) { IsDirty = true, IsInEdit = true };
+            var note = new NoteViewModel(petsData, mapper) { IsDirty = true, IsInEdit = true, PetId = petDescription.Id.Value };
             Notes.Insert(0, note);
         }
 

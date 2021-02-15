@@ -3,30 +3,32 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:helpers="clr-namespace:PetsDiary.Presentation.Helpers"
+             xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:controls="clr-namespace:PetsDiary.Presentation.Controls"
              mc:Ignorable="d" >
     <Grid>
         <Grid.Resources>
             <Style TargetType="{x:Type Button}" x:Key="formatTextStyle">
-                <Setter Property="FontFamily" Value="Palatino Linotype"></Setter>
                 <Setter Property="Width" Value="20"></Setter>
                 <Setter Property="FontSize" Value ="12"></Setter>
+                <Setter Property="Foreground" Value ="{StaticResource Independence}"></Setter>
                 <Setter Property="CommandTarget" Value="{Binding ElementName=mainRTB}"></Setter>
             </Style>
             <Style TargetType="{x:Type Button}" x:Key="formatImageStyle">
                 <Setter Property="Width" Value="20"></Setter>
+                <Setter Property="Height" Value="20"></Setter>
                 <Setter Property="CommandTarget" Value="{Binding ElementName=mainRTB}"></Setter>
             </Style>
             <BooleanToVisibilityConverter x:Key="BoolToVis"/>
         </Grid.Resources>
         <DockPanel Name="mainPanel" Grid.Row="1" Width="200">
-            <ToolBar Name="mainToolBar" Height="30" DockPanel.Dock="Top" IsEnabled="{Binding IsInEdit}" Background="White"
+            <ToolBar Name="mainToolBar" Height="30" DockPanel.Dock="Top" IsEnabled="{Binding IsInEdit}" Background="Transparent" BorderBrush="{StaticResource LightIndependence}" BorderThickness="1"
                      Visibility="{Binding IsInEdit, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVis}}">
                 <Button Style="{StaticResource formatImageStyle}" Command="ApplicationCommands.Undo" ToolTip="Undo">
-                    <Image Source="Images\EditUndo.png"></Image>
+                    <Image Source="/PetsDiary.Presentation;component/Resources/img/undoIcon.png" RenderOptions.BitmapScalingMode="HighQuality"></Image>
                 </Button>
                 <Button Style="{StaticResource formatImageStyle}" Command="ApplicationCommands.Redo" ToolTip="Redo">
-                    <Image Source="Images\EditRedo.png"></Image>
+                    <Image Source="/PetsDiary.Presentation;component/Resources/img/redoIcon.png" Stretch="Fill" RenderOptions.BitmapScalingMode="HighQuality"></Image>                  
                 </Button>
 
                 <Button Style="{StaticResource formatTextStyle}" Command="EditingCommands.ToggleBold" ToolTip="Bold">
@@ -39,34 +41,35 @@
                     <TextBlock TextDecorations="Underline" FontWeight="Bold">U</TextBlock>
                 </Button>
                 <Button Style="{StaticResource formatImageStyle}" Command="EditingCommands.IncreaseFontSize" ToolTip="Grow Font">
-                    <Image Source="Images\CharacterGrowFont.png"></Image>
+                    <Image Source="/PetsDiary.Presentation;component/Resources/img/increaseFontIcon.png" RenderOptions.BitmapScalingMode="HighQuality"></Image>
                 </Button>
                 <Button Style="{StaticResource formatImageStyle}" Command="EditingCommands.DecreaseFontSize" ToolTip="Shrink Font">
-                    <Image Source="Images\CharacterShrinkFont.png"></Image>
+                    <Image Source="/PetsDiary.Presentation;component/Resources/img/decreaseFontIcon.png" RenderOptions.BitmapScalingMode="HighQuality" Width="14"></Image>
                 </Button>
 
                 <Button Style="{StaticResource formatImageStyle}" Command="EditingCommands.ToggleBullets" ToolTip="Bullets">
-                    <Image Source="Images\ListBullets.png"></Image>
+                    <Image Source="/PetsDiary.Presentation;component/Resources/img/bulletIcon.png" RenderOptions.BitmapScalingMode="HighQuality"></Image>
                 </Button>
                 <Button Style="{StaticResource formatImageStyle}" Command="EditingCommands.ToggleNumbering" ToolTip="Numbering">
-                    <Image Source="Images/ListNumbering.png"></Image>
+                    <Image Source="/PetsDiary.Presentation;component/Resources/img/numberingIcon.png" RenderOptions.BitmapScalingMode="HighQuality"></Image>
                 </Button>
                 <Button Style="{StaticResource formatImageStyle}" Command="EditingCommands.AlignLeft" ToolTip="Align Left">
-                    <Image Source="Images\ParagraphLeftJustify.png"></Image>
+                    <Image Source="/PetsDiary.Presentation;component/Resources/img/alignLeftIcon.png" RenderOptions.BitmapScalingMode="HighQuality"></Image>
                 </Button>
                 <Button Style="{StaticResource formatImageStyle}" Command="EditingCommands.AlignCenter" ToolTip="Align Center">
-                    <Image Source="Images\ParagraphCenterJustify.png"></Image>
+                    <Image Source="/PetsDiary.Presentation;component/Resources/img/alignCenter.png" RenderOptions.BitmapScalingMode="HighQuality"></Image>
                 </Button>
                 <Button Style="{StaticResource formatImageStyle}" Command="EditingCommands.AlignRight" ToolTip="Align Right">
-                    <Image Source="Images\ParagraphRightJustify.png"></Image>
+                    <Image Source="/PetsDiary.Presentation;component/Resources/img/alignRightIcon.png" RenderOptions.BitmapScalingMode="HighQuality"></Image>
                 </Button>
                 <Button Style="{StaticResource formatImageStyle}" Command="EditingCommands.AlignJustify" ToolTip="Align Justify">
-                    <Image Source="Images\ParagraphFullJustify.png"></Image>
+                    <Image Source="/PetsDiary.Presentation;component/Resources/img/justifyIcon.png" RenderOptions.BitmapScalingMode="HighQuality"></Image>
                 </Button>
 
             </ToolBar>
-            <RichTextBox DockPanel.Dock="Top" helpers:RichTextBoxHelper.DocumentXaml="{Binding Note, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Name="mainRTB" Background="LightYellow" Height="200"  BorderBrush="Orange" BorderThickness="1" 
-                         IsEnabled="{Binding IsInEdit}"/>           
+            <toolkit:RichTextBox Name="mainRTB" Text="{Binding Note, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                 Background="#fff3b0" Height="200" DockPanel.Dock="Bottom"  BorderBrush="#e09f3e" BorderThickness="1" IsEnabled="{Binding IsInEdit}" />
+            
         </DockPanel>
     </Grid>
 </UserControl>

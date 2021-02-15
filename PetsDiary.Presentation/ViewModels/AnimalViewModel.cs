@@ -222,12 +222,6 @@ namespace PetsDiary.Presentation.ViewModels
             return true;
         }
 
-        private void Cancel()
-        {
-            SetValuesByOriginValues();
-            IsInEdit = false;
-        }
-
         protected override void SaveOriginValues()
         {
             originValues.Clear();

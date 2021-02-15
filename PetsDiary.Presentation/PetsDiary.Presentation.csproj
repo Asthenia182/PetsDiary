@@ -10,9 +10,26 @@
     <None Remove="Resources\fonts\Quicksand-Light.ttf" />
     <None Remove="Resources\fonts\Quicksand-Regular.ttf" />
     <None Remove="Resources\fonts\Quicksand-SemiBold.ttf" />
+    <None Remove="Resources\img\alignCenter.png" />
+    <None Remove="Resources\img\alignLeftIcon.png" />
+    <None Remove="Resources\img\alignRightIcon.png" />
+    <None Remove="Resources\img\bulletIcon.png" />
     <None Remove="Resources\img\cat_icon.png" />
+    <None Remove="Resources\img\decreaseFontIcon.png" />
     <None Remove="Resources\img\dog_icon.png" />
+    <None Remove="Resources\img\increaseFontIcon.png" />
+    <None Remove="Resources\img\justifyIcon.png" />
+    <None Remove="Resources\img\numberingIcon.png" />
     <None Remove="Resources\img\pug3.png" />
+    <None Remove="Resources\img\redoIcon.png" />
+    <None Remove="Resources\img\undoIcon.png" />
+    <None Remove="Resources\SampleData\note.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\SampleData\note.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
@@ -23,6 +40,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.0.2" />
     <PackageReference Include="Prism.Core" Version="8.0.0.1909" />
     <PackageReference Include="Prism.Wpf" Version="8.0.0.1909" />
   </ItemGroup>
@@ -35,9 +53,19 @@
     <Resource Include="Resources\fonts\Quicksand-Light.ttf" />
     <Resource Include="Resources\fonts\Quicksand-Regular.ttf" />
     <Resource Include="Resources\fonts\Quicksand-SemiBold.ttf" />
+    <Resource Include="Resources\img\alignCenter.png" />
+    <Resource Include="Resources\img\alignLeftIcon.png" />
+    <Resource Include="Resources\img\alignRightIcon.png" />
+    <Resource Include="Resources\img\bulletIcon.png" />
     <Resource Include="Resources\img\cat_icon.png" />
+    <Resource Include="Resources\img\decreaseFontIcon.png" />
     <Resource Include="Resources\img\dog_icon.png" />
+    <Resource Include="Resources\img\increaseFontIcon.png" />
+    <Resource Include="Resources\img\justifyIcon.png" />
+    <Resource Include="Resources\img\numberingIcon.png" />
     <Resource Include="Resources\img\pug3.png" />
+    <Resource Include="Resources\img\redoIcon.png" />
+    <Resource Include="Resources\img\undoIcon.png" />
   </ItemGroup>
 
   <ItemGroup>

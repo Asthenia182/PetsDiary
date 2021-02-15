@@ -8,7 +8,6 @@
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True">
     <UserControl.Resources>
-
         <CollectionViewSource x:Key="TimelineItems" Source="{Binding Visits}">
             <CollectionViewSource.GroupDescriptions>
                 <PropertyGroupDescription PropertyName="Date" />
@@ -20,16 +19,7 @@
                 
                     <Border BorderThickness="1" Margin="0,5,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" CornerRadius="3" BorderBrush="{StaticResource RussianGreen}">
                     <DockPanel>
-                        <controls:IconButton VerticalAlignment="Center" HorizontalAlignment="Right" DockPanel.Dock="Right" 
-                                     IconHeight="15" IconWidth="15"
-                                     IconSource="{StaticResource closeIcon}" 
-                                     Style="{StaticResource EllipseIconButtonTemplate}"
-                                     Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.DeleteCommand}" CommandParameter="{Binding Id}"/>
-                        <controls:IconButton VerticalAlignment="Center" HorizontalAlignment="Right"  DockPanel.Dock="Right" Margin="5,0,0,0"
-                                     IconHeight="15" IconWidth="15"
-                                     IconSource="{StaticResource editIcon}" 
-                                     Style="{StaticResource EllipseIconButtonTemplate}"
-                                     Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.EditCommand}" CommandParameter="{Binding Id}"/>
+                        <controls:EditButtons DockPanel.Dock="Right" />
                         <TextBlock DockPanel.Dock="Left" Text="{Binding Path=Description}" Height="Auto" TextWrapping="WrapWithOverflow" Width="300" FontSize="12" Margin="10" FontFamily="{StaticResource Quicksand}"/>
                     </DockPanel>
                 </Border>

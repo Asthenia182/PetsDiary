@@ -8,12 +8,9 @@ namespace PetsDiary.Presentation.ViewModels
 {
     public class VisitViewModel : SingleViewModel
     {
-        private readonly IPetsData petsData;
-
         public VisitViewModel(IPetsData petsData, IMapper mapper)
             : base(petsData, mapper)
         {
-            this.petsData = petsData;
         }
 
         public override bool Save()

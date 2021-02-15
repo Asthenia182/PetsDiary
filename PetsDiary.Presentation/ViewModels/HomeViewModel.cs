@@ -41,7 +41,7 @@ namespace PetsDiary.Presentation.ViewModels
             {
                 if (r.Result == ButtonResult.OK)
                 {
-                    petsData.DeleteAnimalById(SelectedItem.Id.Value);
+                    petsData.DeletePetById(SelectedItem.Id.Value);
 
                     Pets.Remove(SelectedItem);
                 }
@@ -60,7 +60,7 @@ namespace PetsDiary.Presentation.ViewModels
             petDescription.Name = SelectedItem.Name;
             petDescription.IsSelected = SelectedItem.IsSelected;
 
-            regionManager.RequestNavigate(RegionNames.Content, ViewNames.Animal, navigationParams);
+            regionManager.RequestNavigate(RegionNames.Content, ViewNames.Pet, navigationParams);
         }
 
         private void LoadData()
@@ -93,7 +93,7 @@ namespace PetsDiary.Presentation.ViewModels
                 { ParametersKeys.IsNew, true}
             };
 
-            regionManager.RequestNavigate(RegionNames.Content, ViewNames.Animal, navigationParams);
+            regionManager.RequestNavigate(RegionNames.Content, ViewNames.Pet, navigationParams);
         }
 
         public DelegateCommand AddCommand { get; private set; }

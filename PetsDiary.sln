@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Module", "Module\Module.csproj", "{C6BC1ECE-FB06-4676-93EC-D8D7EF37BF92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetsDiary.Module", "Module\PetsDiary.Module.csproj", "{C6BC1ECE-FB06-4676-93EC-D8D7EF37BF92}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetsDiary.Data", "PetsDiary.Data\PetsDiary.Data.csproj", "{F156B352-6688-4B37-BF9B-9571855EC362}"
 EndProject
@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetsDiary.Presentation", "P
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetsDiary.Core", "PetsDiary.Core\PetsDiary.Core.csproj", "{021C8640-861F-4286-A316-512074E3F188}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetsDiary.Common", "PetsDiary.Common\PetsDiary.Common.csproj", "{3E9A615B-C948-4575-A068-38A8E5E0FC65}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetsDiary.Common", "PetsDiary.Common\PetsDiary.Common.csproj", "{3E9A615B-C948-4575-A068-38A8E5E0FC65}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

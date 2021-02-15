@@ -8,7 +8,7 @@ namespace PetsDiary.Data
 {
     public class PetsData : IPetsData
     {
-        private readonly List<AnimalModel> animals;
+        private readonly List<PetModel> pets;
         private readonly List<VaccinationModel> vaccinations;
         private readonly List<VisitModel> visits;
         private readonly List<WeightModel> weights;
@@ -16,11 +16,11 @@ namespace PetsDiary.Data
 
         public PetsData()
         {
-            animals = new List<AnimalModel>()
+            pets = new List<PetModel>()
             {
-                new AnimalModel { Id = 1, Name = "Daisy", AnimalType=1, Breed="Pug", Gender=1, BirthDate= DateTime.Now, LastModified = DateTime.Now },
-                new AnimalModel { Id = 2, Name = "Kicia", AnimalType=2, Breed="Mix", Gender=1, BirthDate= DateTime.Now, LastModified = DateTime.Now },
-                new AnimalModel { Id = 3, Name = "Kotalke", AnimalType=2, Breed="Mix", Gender=2, BirthDate= DateTime.Now, LastModified = DateTime.Now },
+                new PetModel { Id = 1, Name = "Daisy", AnimalType=1, Breed="Pug", Gender=1, BirthDate= DateTime.Now, LastModified = DateTime.Now },
+                new PetModel { Id = 2, Name = "Kicia", AnimalType=2, Breed="Mix", Gender=1, BirthDate= DateTime.Now, LastModified = DateTime.Now },
+                new PetModel { Id = 3, Name = "Kotalke", AnimalType=2, Breed="Mix", Gender=2, BirthDate= DateTime.Now, LastModified = DateTime.Now },
             };
 
             vaccinations = new List<VaccinationModel>()
@@ -172,48 +172,48 @@ namespace PetsDiary.Data
                 .OrderBy(x => x.ShotDate);
         }
 
-        public IEnumerable<AnimalModel> GetPets()
+        public IEnumerable<PetModel> GetPets()
         {
-            return animals.OrderBy(x => x.Name);
+            return pets.OrderBy(x => x.Name);
         }
 
-        public AnimalModel GetAnimalById(int id)
+        public PetModel GetPetById(int id)
         {
-            return animals.SingleOrDefault(r => r.Id == id);
+            return pets.SingleOrDefault(r => r.Id == id);
         }
 
-        public AnimalModel AddAnimal(AnimalModel model)
+        public PetModel AddPet(PetModel model)
         {
-            model.Id = animals.Max(r => r.Id) + 1;
+            model.Id = pets.Max(r => r.Id) + 1;
             model.LastModified = DateTime.Now;
-            animals.Add(model);
+            pets.Add(model);
 
             return model;
         }
 
-        public AnimalModel UpdateAnimal(AnimalModel updatedAnimal)
+        public PetModel UpdatePet(PetModel updatedmodel)
         {
-            var animal = animals.SingleOrDefault(r => r.Id == updatedAnimal.Id);
-            if (animal != null)
+            var pet = pets.SingleOrDefault(r => r.Id == updatedmodel.Id);
+            if (pet != null)
             {
-                animal.Id = updatedAnimal.Id;
-                animal.Name = updatedAnimal.Name;
-                animal.Breed = updatedAnimal.Breed;
-                animal.AnimalType = updatedAnimal.AnimalType;
-                animal.LastModified = DateTime.Now;
-                animal.BirthDate = updatedAnimal.BirthDate;
-                animal.Gender = updatedAnimal.Gender;
-                animal.Image = updatedAnimal.Image;
+                pet.Id = updatedmodel.Id;
+                pet.Name = updatedmodel.Name;
+                pet.Breed = updatedmodel.Breed;
+                pet.AnimalType = updatedmodel.AnimalType;
+                pet.LastModified = DateTime.Now;
+                pet.BirthDate = updatedmodel.BirthDate;
+                pet.Gender = updatedmodel.Gender;
+                pet.Image = updatedmodel.Image;
             }
-            return animal;
+            return pet;
         }
 
-        public void DeleteAnimalById(int id)
+        public void DeletePetById(int id)
         {
-            var animal = animals.FirstOrDefault(r => r.Id == id);
-            if (animal != null)
+            var pet = pets.FirstOrDefault(r => r.Id == id);
+            if (pet != null)
             {
-                animals.Remove(animal);
+                pets.Remove(pet);
             }
         }
 

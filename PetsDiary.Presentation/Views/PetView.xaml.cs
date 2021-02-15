@@ -8,9 +8,9 @@ namespace PetsDiary.Presentation.Views
     /// Interaction logic for AddDialogView.xaml
     /// </summary>
     [RegionMemberLifetime(KeepAlive = false)]
-    public partial class AnimalView : UserControl, IAnimalView
+    public partial class PetView : UserControl, IPetView
     {
-        public AnimalView()
+        public PetView()
         {
             InitializeComponent();
         }

@@ -1,4 +1,4 @@
-﻿using Module;
+﻿using PetsDiary.Module;
 using PetsDiary.Core.Behaviours;
 using PetsDiary.Core.Views;
 using Prism.DryIoc;

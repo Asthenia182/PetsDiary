@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Module\Module.csproj" />
+    <ProjectReference Include="..\Module\PetsDiary.Module.csproj" />
     <ProjectReference Include="..\PetsDiary.Presentation\PetsDiary.Presentation.csproj" />
   </ItemGroup>
 

@@ -10,7 +10,7 @@ using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
 
-namespace Module
+namespace PetsDiary.Module
 {
     public class SingleModule : IModule
     {
@@ -23,7 +23,7 @@ namespace Module
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterForNavigation<AnimalView>(ViewNames.Animal);
+            containerRegistry.RegisterForNavigation<PetView>(ViewNames.Pet);
             containerRegistry.RegisterForNavigation<HomeView>(ViewNames.Home);
             containerRegistry.RegisterForNavigation<VaccinationsView>(ViewNames.Vaccinations);
             containerRegistry.RegisterForNavigation<VisitsView>(ViewNames.Visits);

@@ -12,9 +12,9 @@ using System.IO;
 
 namespace PetsDiary.Presentation.ViewModels
 {
-    public class AnimalViewModel : SingleViewModel, IAnimalViewModel
+    public class PetViewModel : SingleViewModel, IPetViewModel
     {
-        public AnimalViewModel(IPetsData petsData, IPetDescription petDescription, IMapper mapper) : base(petsData, mapper)
+        public PetViewModel(IPetsData petsData, IPetDescription petDescription, IMapper mapper) : base(petsData, mapper)
         {
             SaveCommand = new DelegateCommand(SaveCommandExecute);
             EditCommand = new DelegateCommand(Edit);
@@ -200,14 +200,14 @@ namespace PetsDiary.Presentation.ViewModels
             else
             {
                 // Reading saved
-                var model = petsData.GetAnimalById(petDescription.Id.Value);
+                var model = petsData.GetPetById(petDescription.Id.Value);
                 SetProps(model);
                 IsInEdit = false;
                 IsDirty = false;
             }
         }
 
-        private void SetProps(AnimalModel model)
+        private void SetProps(PetModel model)
         {
             AnimalType = (AnimalType)model.AnimalType;
             BirthDate = model.BirthDate;
@@ -241,8 +241,8 @@ namespace PetsDiary.Presentation.ViewModels
         {
             if (!base.Save()) return false;
 
-            var model = mapper.Map<AnimalModel>(this);
-            petsData.AddAnimal(model);
+            var model = mapper.Map<PetModel>(this);
+            petsData.AddPet(model);
 
             Id = model.Id;
             LastModified = model.LastModified;
@@ -255,8 +255,8 @@ namespace PetsDiary.Presentation.ViewModels
         {
             if (!base.Update()) return false;
 
-            var model = mapper.Map<AnimalModel>(this);
-            petsData.UpdateAnimal(model);
+            var model = mapper.Map<PetModel>(this);
+            petsData.UpdatePet(model);
 
             LastModified = model.LastModified;
             IsDirty = false;

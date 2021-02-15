@@ -1,6 +1,6 @@
 ﻿namespace PetsDiary.Presentation.Interfaces
 {
-    public interface IAnimalViewModel
+    public interface IPetView
     {
     }
 }

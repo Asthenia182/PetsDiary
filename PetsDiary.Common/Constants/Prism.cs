@@ -8,7 +8,7 @@
 
     public class ViewNames
     {
-        public const string Animal = "Animal";
+        public const string Pet = "Pet";
         public const string Home = "Home";
         public const string Vaccinations = "Vaccinations";
         public const string Visits = "Visits";

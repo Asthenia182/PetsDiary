@@ -24,7 +24,7 @@
                                  Content="{x:Static res:CommonResources.Profile}" 
                                  Style="{StaticResource NavRadioButtonStyle}"
                                  IsChecked="True"
-                                 Command="{Binding NavigateCommand}" CommandParameter="{x:Static constans:ViewNames.Animal}"/>
+                                 Command="{Binding NavigateCommand}" CommandParameter="{x:Static constans:ViewNames.Pet}"/>
             <RadioButton DockPanel.Dock="Right"  GroupName="Nav" 
                                  Content="{x:Static res:CommonResources.Vaccinations}" 
                                  Style="{StaticResource NavRadioButtonStyle}"

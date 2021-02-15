@@ -2,7 +2,7 @@
 
 namespace PetsDiary.Common.Models
 {
-    public class AnimalModel
+    public class PetModel
     {
         public int Id { get; set; }
 

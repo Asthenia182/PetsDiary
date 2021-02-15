@@ -5,15 +5,15 @@ namespace PetsDiary.Common.Interfaces
 {
     public interface IPetsData
     {
-        AnimalModel AddAnimal(AnimalModel model);
+        PetModel AddPet(PetModel model);
 
-        void DeleteAnimalById(int id);
+        void DeletePetById(int id);
 
-        IEnumerable<AnimalModel> GetPets();
+        IEnumerable<PetModel> GetPets();
 
-        AnimalModel GetAnimalById(int id);
+        PetModel GetPetById(int id);
 
-        AnimalModel UpdateAnimal(AnimalModel updatedAnimal);
+        PetModel UpdatePet(PetModel updatedmodel);
 
         IEnumerable<VaccinationModel> GetVaccinations(int petId);
 

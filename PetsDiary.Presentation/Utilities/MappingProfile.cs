@@ -11,7 +11,7 @@ namespace PetsDiary.Presentation.Utilities
             CreateMap<VisitModel, VisitViewModel>().ReverseMap();
             CreateMap<VaccinationModel, VaccinationViewModel>().ReverseMap();
             CreateMap<WeightModel, WeightViewModel>().ReverseMap();
-            CreateMap<AnimalModel, AnimalViewModel>().ReverseMap();
+            CreateMap<PetModel, PetViewModel>().ReverseMap();
             CreateMap<NoteModel, NoteViewModel>().ReverseMap();
         }
     }

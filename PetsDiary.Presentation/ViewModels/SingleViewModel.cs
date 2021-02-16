@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using PetsDiary.Common.Interfaces;
+using PetsDiary.Presentation.Interfaces;
 using System;
 using System.Collections.Generic;
 
 namespace PetsDiary.Presentation.ViewModels
 {
-    public abstract class SingleViewModel : BaseViewModel
+    public abstract class SingleViewModel : BaseViewModel, ISingleViewModel
     {
         public SingleViewModel(IPetsData petsData, IMapper mapper)
         {
@@ -45,7 +46,7 @@ namespace PetsDiary.Presentation.ViewModels
                 if (!IsDirty)
                     SaveOriginValues();
 
-                    RaisePropertyChanged(nameof(IsDirty));
+                RaisePropertyChanged(nameof(IsDirty));
             }
         }
 

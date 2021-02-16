@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using PetsDiary.Common.Constants;
 using PetsDiary.Common.Interfaces;
+using PetsDiary.Presentation.Interfaces;
 using Prism.Commands;
-using Prism.Regions;
 using Prism.Services.Dialogs;
 using System;
 using System.Collections.Generic;
@@ -29,7 +29,7 @@ namespace PetsDiary.Presentation.ViewModels
             this.petDescription = petDescription;
             this.dialogService = dialogService;
             this.mapper = mapper;
-            Weights = new ObservableCollection<WeightViewModel>();
+            Weights = new ObservableCollection<IWeightViewModel>();
 
             InitializeWeight();
             InitializedWeight.PropertyChanged += InitializedWeight_PropertyChanged;
@@ -59,10 +59,10 @@ namespace PetsDiary.Presentation.ViewModels
 
         private void Add()
         {
-            if (!initializedWeight.IsValid() || !CanSave) return;
+            if (!CanSave) return;
 
             initializedWeight.Save();
-   
+
             initializedWeight.Dispose();
             initializedWeight = null;
             InitializeWeight();
@@ -70,9 +70,9 @@ namespace PetsDiary.Presentation.ViewModels
             LoadData();
         }
 
-        private WeightViewModel initializedWeight { get; set; }
+        private IWeightViewModel initializedWeight { get; set; }
 
-        public WeightViewModel InitializedWeight
+        public IWeightViewModel InitializedWeight
         {
             get { return initializedWeight; }
             set
@@ -83,7 +83,7 @@ namespace PetsDiary.Presentation.ViewModels
         }
 
         protected override void Dispose(bool disposing)
-        {         
+        {
             AddCommand = null;
             EditCommand = null;
 
@@ -95,17 +95,7 @@ namespace PetsDiary.Presentation.ViewModels
 
             base.Dispose(disposing);
         }
-
-        public void Delete(int? visitId)
-        {
-            if (visitId.HasValue)
-            {
-                petsData.DeleteVisitById(visitId.Value);
-                var visit = Weights.FirstOrDefault(x => x.Id == visitId.Value);
-                Weights.Remove(visit);
-            }
-        }
-
+  
         public void Edit()
         {
             var parameters = new DialogParameters();
@@ -113,15 +103,15 @@ namespace PetsDiary.Presentation.ViewModels
             {
                 weight.WeightText = weight.Weight.ToString();
             }
-            var clonedWeights = new ObservableCollection<WeightViewModel>(Weights);
-            
+            var clonedWeights = new ObservableCollection<IWeightViewModel>(Weights);
+
             parameters.Add(nameof(Weights), clonedWeights);
 
             dialogService.ShowDialog(DialogNames.EditWeightsDialog, parameters, (r) =>
              {
                  if (r.Result == ButtonResult.OK)
                  {
-                     var modifiedWeights = r.Parameters.GetValue<ObservableCollection<WeightViewModel>>(nameof(Weights));
+                     var modifiedWeights = r.Parameters.GetValue<ObservableCollection<IWeightViewModel>>(nameof(Weights));
 
                      var weightsToUpdate = Weights.Where(w => modifiedWeights.Any(mf => mf.Id == w.Id));
                      var weightsToDelete = Weights.Where(mf => !modifiedWeights.Any(w => w.Id == mf.Id));
@@ -129,7 +119,7 @@ namespace PetsDiary.Presentation.ViewModels
                      foreach (var wu in weightsToUpdate)
                      {
                          wu.IsDirty = true;
-                         wu.Update();                         
+                         wu.Update();
                      }
 
                      foreach (var wd in weightsToDelete)
@@ -152,25 +142,28 @@ namespace PetsDiary.Presentation.ViewModels
                 canSave = value;
                 RaisePropertyChanged(nameof(canSave));
             }
-        }             
+        }
 
         private void LoadData()
         {
             Weights = null;
 
             var models = petsData.GetWeights(petDescription.Id.Value);
+
+            if (models == null) return;
+
             var vms = new List<WeightViewModel>();
             foreach (var model in models)
             {
                 var vm = mapper.Map(model, new WeightViewModel(petsData, mapper));
                 vms.Add(vm);
             }
-            Weights = new ObservableCollection<WeightViewModel>(vms);
+            Weights = new ObservableCollection<IWeightViewModel>(vms);
         }
 
-        private ObservableCollection<WeightViewModel> weights;
+        private ObservableCollection<IWeightViewModel> weights;
 
-        public ObservableCollection<WeightViewModel> Weights
+        public ObservableCollection<IWeightViewModel> Weights
         {
             get { return weights; }
             set

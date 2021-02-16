@@ -112,8 +112,11 @@ namespace PetsDiary.Presentation.ViewModels
             base.OnNavigatedTo(navigationContext);
 
             var navRegion = regionManager.Regions[RegionNames.Navigation];
-            var navView = regionManager.Regions[RegionNames.Navigation].ActiveViews.First();
-            navRegion.Remove(navView);
+            if (navRegion != null)
+            {
+                var navView = regionManager.Regions[RegionNames.Navigation].ActiveViews.First();
+                navRegion.Remove(navView);
+            }
 
             petDescription.Id = null;
             petDescription.IsSelected = false;

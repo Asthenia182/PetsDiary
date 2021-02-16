@@ -1,4 +1,5 @@
-﻿using PetsDiary.Presentation.Resources;
+﻿using PetsDiary.Presentation.Interfaces;
+using PetsDiary.Presentation.Resources;
 using PetsDiary.Presentation.ViewModels;
 using Prism.Commands;
 using Prism.Services.Dialogs;
@@ -25,12 +26,12 @@ namespace PetsDiary.Presentation.Dialogs
 
         private void Delete(object obj)
         {
-            Weights.Remove((WeightViewModel)obj);
+            Weights.Remove((IWeightViewModel)obj);
         }
 
-        private ObservableCollection<WeightViewModel> weights;
+        private ObservableCollection<IWeightViewModel> weights;
 
-        public ObservableCollection<WeightViewModel> Weights
+        public ObservableCollection<IWeightViewModel> Weights
         {
             get { return weights; }
             set
@@ -85,7 +86,7 @@ namespace PetsDiary.Presentation.Dialogs
 
         public void OnDialogOpened(IDialogParameters parameters)
         {
-            Weights = parameters.GetValue<ObservableCollection<WeightViewModel>>(nameof(Weights));
+            Weights = parameters.GetValue<ObservableCollection<IWeightViewModel>>(nameof(Weights));
         }
 
         public virtual void RaiseRequestClose(IDialogResult dialogResult)

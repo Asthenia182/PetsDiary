@@ -185,12 +185,6 @@ namespace PetsDiary.Presentation.ViewModels
 
         public override void OnNavigatedTo(NavigationContext navigationContext)
         {
-            if (navigationContext.Parameters == null)
-            {
-                ///TODO
-                throw new NullReferenceException();
-            }
-
             // Creating new
             if (navigationContext.Parameters.ContainsKey(Constants.ParametersKeys.IsNew))
             {
@@ -219,6 +213,13 @@ namespace PetsDiary.Presentation.ViewModels
             Image = model.Image;
         }
 
+        public override bool IsValid()
+        {
+            ValidateName();
+
+            return !HasErrors;
+        }
+
         public DelegateCommand SaveCommand { get; private set; }
 
         public DelegateCommand EditCommand { get; private set; }
@@ -229,7 +230,9 @@ namespace PetsDiary.Presentation.ViewModels
 
         private void SaveCommandExecute()
         {
-            if (!Id.HasValue) Save(); else Update();
+            bool result = !Id.HasValue ? Save() : Update();
+
+            if (!result) return;
 
             IsInEdit = false;
 
@@ -242,10 +245,10 @@ namespace PetsDiary.Presentation.ViewModels
             if (!base.Save()) return false;
 
             var model = mapper.Map<PetModel>(this);
-            petsData.AddPet(model);
+            var savedModel = petsData.AddPet(model);
 
-            Id = model.Id;
-            LastModified = model.LastModified;
+            Id = savedModel.Id;
+            LastModified = savedModel.LastModified;
             IsDirty = false;
 
             return true;
@@ -256,9 +259,9 @@ namespace PetsDiary.Presentation.ViewModels
             if (!base.Update()) return false;
 
             var model = mapper.Map<PetModel>(this);
-            petsData.UpdatePet(model);
+            var updatedModel = petsData.UpdatePet(model);
 
-            LastModified = model.LastModified;
+            LastModified = updatedModel.LastModified;
             IsDirty = false;
 
             return true;
@@ -272,6 +275,7 @@ namespace PetsDiary.Presentation.ViewModels
             originValues.Add(nameof(Breed), Breed);
             originValues.Add(nameof(BirthDate), BirthDate);
             originValues.Add(nameof(AnimalType), AnimalType);
+            originValues.Add(nameof(LastModified), LastModified);
             originValues.Add(nameof(Image), Image);
         }
 
@@ -282,6 +286,7 @@ namespace PetsDiary.Presentation.ViewModels
             Breed = (string)originValues[nameof(Breed)];
             BirthDate = (DateTime)originValues[nameof(BirthDate)];
             AnimalType = (AnimalType)originValues[nameof(AnimalType)];
+            LastModified=(DateTime)originValues[nameof(LastModified)];
             Image = (byte[])originValues[nameof(Image)];
         }
     }

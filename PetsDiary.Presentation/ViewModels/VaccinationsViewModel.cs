@@ -2,6 +2,7 @@
 using PetsDiary.Common.Constants;
 using PetsDiary.Common.Interfaces;
 using PetsDiary.Presentation.Constants;
+using PetsDiary.Presentation.Interfaces;
 using PetsDiary.Presentation.Resources;
 using Prism.Commands;
 using Prism.Services.Dialogs;
@@ -34,7 +35,7 @@ namespace PetsDiary.Presentation.ViewModels
             this.petDescription = petDescription;
             this.dialogService = dialogService;
             this.mapper = mapper;
-            Vaccinations = new ObservableCollection<VaccinationViewModel>();
+            Vaccinations = new ObservableCollection<IVaccinationViewModel>();
 
             LoadData();
         }
@@ -55,15 +56,15 @@ namespace PetsDiary.Presentation.ViewModels
 
         public void Save(int? vaccinationId)
         {
-            var note = Vaccinations.FirstOrDefault(x => x.Id == vaccinationId);
+            var vaccination = Vaccinations.FirstOrDefault(x => x.Id == vaccinationId);
 
             if (vaccinationId.HasValue)
             {
-                note.Update();
+                vaccination.Update();
             }
             else
             {
-                note.Save();
+                vaccination.Save();
             }
         }
 
@@ -128,6 +129,8 @@ namespace PetsDiary.Presentation.ViewModels
 
             var vaccinationModels = petsData.GetVaccinations(petDescription.Id.Value);
 
+            if (vaccinationModels == null) return;
+
             foreach (var model in vaccinationModels)
             {
                 var vm = mapper.Map(model, new VaccinationViewModel(petsData, mapper));
@@ -136,9 +139,9 @@ namespace PetsDiary.Presentation.ViewModels
             }
         }
 
-        private ObservableCollection<VaccinationViewModel> vaccinations;
+        private ObservableCollection<IVaccinationViewModel> vaccinations;
 
-        public ObservableCollection<VaccinationViewModel> Vaccinations
+        public ObservableCollection<IVaccinationViewModel> Vaccinations
         {
             get { return vaccinations; }
             set

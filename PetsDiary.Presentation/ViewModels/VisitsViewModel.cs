@@ -2,6 +2,7 @@
 using PetsDiary.Common.Constants;
 using PetsDiary.Common.Interfaces;
 using PetsDiary.Presentation.Constants;
+using PetsDiary.Presentation.Interfaces;
 using PetsDiary.Presentation.Resources;
 using Prism.Commands;
 using Prism.Services.Dialogs;
@@ -31,7 +32,7 @@ namespace PetsDiary.Presentation.ViewModels
             this.petDescription = petDescription;
             this.dialogService = dialogService;
             this.mapper = mapper;
-            Visits = new ObservableCollection<VisitViewModel>();
+            Visits = new ObservableCollection<IVisitViewModel>();
 
             LoadData();
         }
@@ -47,6 +48,7 @@ namespace PetsDiary.Presentation.ViewModels
                 if (r.Result == ButtonResult.OK)
                 {
                     newVisit.Save();
+
                     LoadData();
                 }
             });
@@ -114,6 +116,8 @@ namespace PetsDiary.Presentation.ViewModels
 
             var models = petsData.GetVisits(petDescription.Id.Value);
 
+            if (models == null) return;
+
             foreach (var model in models)
             {
                 var vm = mapper.Map(model, new VisitViewModel(petsData, mapper));
@@ -122,9 +126,9 @@ namespace PetsDiary.Presentation.ViewModels
             }
         }
 
-        private ObservableCollection<VisitViewModel> visits;
+        private ObservableCollection<IVisitViewModel> visits;
 
-        public ObservableCollection<VisitViewModel> Visits
+        public ObservableCollection<IVisitViewModel> Visits
         {
             get
             {

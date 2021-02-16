@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
 using PetsDiary.Common.Interfaces;
 using PetsDiary.Common.Models;
+using PetsDiary.Presentation.Interfaces;
 using PetsDiary.Presentation.Resources;
 using System;
 
 namespace PetsDiary.Presentation.ViewModels
 {
-    public class VisitViewModel : SingleViewModel
+    public class VisitViewModel : SingleViewModel, IVisitViewModel
     {
         public VisitViewModel(IPetsData petsData, IMapper mapper)
             : base(petsData, mapper)
@@ -18,8 +19,8 @@ namespace PetsDiary.Presentation.ViewModels
             if (!base.Save()) return false;
 
             var model = mapper.Map<VisitModel>(this);
-            petsData.AddVisit(model);
-            Id = model.Id;
+            var savedModel = petsData.AddVisit(model);
+            Id = savedModel.Id;
             IsDirty = false;
 
             return true;
@@ -31,6 +32,7 @@ namespace PetsDiary.Presentation.ViewModels
 
             var model = mapper.Map<VisitModel>(this);
             petsData.UpdateVisit(model);
+
             IsDirty = false;
             return true;
         }
@@ -78,7 +80,7 @@ namespace PetsDiary.Presentation.ViewModels
                     AddError(nameof(Date), ErrorMessages.ValidationErrorRequiredField);
                     return;
                 }
-            }                      
+            }
         }
 
         protected override void SaveOriginValues()
@@ -93,5 +95,6 @@ namespace PetsDiary.Presentation.ViewModels
             Description = (string)originValues[nameof(Description)];
             Date = (DateTime)originValues[nameof(Date)];
         }
+
     }
 }

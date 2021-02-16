@@ -41,6 +41,7 @@ namespace PetsDiary.Module
             var mapperConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new MappingProfile());
+                mc.DisableConstructorMapping();
             });
 
             IMapper mapper = mapperConfig.CreateMapper();

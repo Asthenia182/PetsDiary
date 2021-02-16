@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using PetsDiary.Common.Interfaces;
 using PetsDiary.Common.Models;
+using PetsDiary.Presentation.Interfaces;
 using System;
 
 namespace PetsDiary.Presentation.ViewModels
 {
-    public class VaccinationViewModel : SingleViewModel
+    public class VaccinationViewModel : SingleViewModel, IVaccinationViewModel
     {
         public VaccinationViewModel(IPetsData petsData, IMapper mapper) : base(petsData, mapper)
         {

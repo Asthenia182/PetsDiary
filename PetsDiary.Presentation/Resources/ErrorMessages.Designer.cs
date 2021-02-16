@@ -22,7 +22,7 @@ namespace PetsDiary.Presentation.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ErrorMessages {
+    public class ErrorMessages {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace PetsDiary.Presentation.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PetsDiary.Presentation.Resources.ErrorMessages", typeof(ErrorMessages).Assembly);
@@ -51,7 +51,7 @@ namespace PetsDiary.Presentation.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace PetsDiary.Presentation.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Weight with this date is already saved.
         /// </summary>
-        internal static string ValidationErrorDateWeight {
+        public static string ValidationErrorDateWeight {
             get {
                 return ResourceManager.GetString("ValidationErrorDateWeight", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace PetsDiary.Presentation.Resources {
         /// <summary>
         ///   Looks up a localized string similar to This field is required.
         /// </summary>
-        internal static string ValidationErrorRequiredField {
+        public static string ValidationErrorRequiredField {
             get {
                 return ResourceManager.GetString("ValidationErrorRequiredField", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace PetsDiary.Presentation.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Weight cannot contain any letters.
         /// </summary>
-        internal static string ValidationErrorWeightValueType {
+        public static string ValidationErrorWeightValueType {
             get {
                 return ResourceManager.GetString("ValidationErrorWeightValueType", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace PetsDiary.Presentation.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Weight must be greather than 0.
         /// </summary>
-        internal static string ValidationWeightZero {
+        public static string ValidationWeightZero {
             get {
                 return ResourceManager.GetString("ValidationWeightZero", resourceCulture);
             }

@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetsDiary.Core", "PetsDiary
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetsDiary.Common", "PetsDiary.Common\PetsDiary.Common.csproj", "{3E9A615B-C948-4575-A068-38A8E5E0FC65}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetsDiary.Presentations.Tests", "PetsDiary.Presentations.Tests\PetsDiary.Presentations.Tests.csproj", "{BB18A4A8-7304-40A6-82AA-3DF33364F886}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{3E9A615B-C948-4575-A068-38A8E5E0FC65}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E9A615B-C948-4575-A068-38A8E5E0FC65}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E9A615B-C948-4575-A068-38A8E5E0FC65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB18A4A8-7304-40A6-82AA-3DF33364F886}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB18A4A8-7304-40A6-82AA-3DF33364F886}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB18A4A8-7304-40A6-82AA-3DF33364F886}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB18A4A8-7304-40A6-82AA-3DF33364F886}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

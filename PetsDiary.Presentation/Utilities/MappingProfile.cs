@@ -8,11 +8,44 @@ namespace PetsDiary.Presentation.Utilities
     {
         public MappingProfile()
         {
-            CreateMap<VisitModel, VisitViewModel>().ReverseMap();
-            CreateMap<VaccinationModel, VaccinationViewModel>().ReverseMap();
-            CreateMap<WeightModel, WeightViewModel>().ReverseMap();
-            CreateMap<PetModel, PetViewModel>().ReverseMap();
-            CreateMap<NoteModel, NoteViewModel>().ReverseMap();
+            CreateMap<VisitModel, VisitViewModel>()
+                .ForMember(dest => dest.HasErrors, opt => opt.Ignore())
+                .ForMember(dest => dest.IsDirty, opt => opt.Ignore())
+                .ForMember(dest => dest.IsInEdit, opt => opt.Ignore())
+                .DisableCtorValidation()
+                .ReverseMap();
+            CreateMap<VaccinationModel, VaccinationViewModel>()
+                .ForMember(dest => dest.HasErrors, opt => opt.Ignore())
+                .ForMember(dest => dest.IsDirty, opt => opt.Ignore())
+                .ForMember(dest => dest.IsInEdit, opt => opt.Ignore())
+                .DisableCtorValidation()
+                .ReverseMap();
+            CreateMap<WeightModel, WeightViewModel>()
+                .ForMember(dest => dest.HasErrors, opt => opt.Ignore())
+                .ForMember(dest => dest.IsDirty, opt => opt.Ignore())
+                .ForMember(dest => dest.IsInEdit, opt => opt.Ignore())
+                .ForMember(dest => dest.WeightText, opt => opt.Ignore())
+                .DisableCtorValidation()
+                .ReverseMap();
+            CreateMap<PetModel, PetViewModel>()
+                .ForMember(dest => dest.HasErrors, opt => opt.Ignore())
+                .ForMember(dest => dest.IsDirty, opt => opt.Ignore())
+                .ForMember(dest => dest.IsInEdit, opt => opt.Ignore())
+                .ForMember(dest => dest.CanSave, opt => opt.Ignore())
+                .ForMember(dest => dest.CancelCommand, opt => opt.Ignore())
+                .ForMember(dest => dest.EditCommand, opt => opt.Ignore())
+                .ForMember(dest => dest.CancelCommand, opt => opt.Ignore())
+                .ForMember(dest => dest.ChangeImageCommand, opt => opt.Ignore())
+                .ForMember(dest => dest.PetId, opt => opt.Ignore())
+                .ForMember(dest => dest.SaveCommand, opt => opt.Ignore())
+                .DisableCtorValidation()
+                .ReverseMap();
+            CreateMap<NoteModel, NoteViewModel>()
+                .ForMember(dest => dest.HasErrors, opt => opt.Ignore())
+                .ForMember(dest => dest.IsDirty, opt => opt.Ignore())
+                .ForMember(dest => dest.IsInEdit, opt => opt.Ignore())
+                .DisableCtorValidation()
+                .ReverseMap();
         }
     }
 }

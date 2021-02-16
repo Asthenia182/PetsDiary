@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32.SafeHandles;
+using PetsDiary.Presentation.Interfaces;
 using Prism.Mvvm;
 using Prism.Regions;
 using System;
@@ -10,7 +11,7 @@ using System.Runtime.InteropServices;
 
 namespace PetsDiary.Presentation
 {
-    public class BaseViewModel : BindableBase, INavigationAware, IDisposable, INotifyDataErrorInfo
+    public class BaseViewModel : BindableBase, INavigationAware, IDisposable, INotifyDataErrorInfo, IBaseViewModel
     {
         public BaseViewModel()
         {

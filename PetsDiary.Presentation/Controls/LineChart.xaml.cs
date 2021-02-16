@@ -1,4 +1,5 @@
 ﻿using PetsDiary.Common.Models;
+using PetsDiary.Presentation.Interfaces;
 using PetsDiary.Presentation.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -257,16 +258,16 @@ namespace PetsDiary.Presentation.Controls
         /// <summary>
         /// true - pokazanie sie popupa
         /// </summary>
-        public ObservableCollection<WeightViewModel> Weights
+        public ObservableCollection<IWeightViewModel> Weights
         {
-            get { return (ObservableCollection<WeightViewModel>)GetValue(WeightsProperty); }
+            get { return (ObservableCollection<IWeightViewModel>)GetValue(WeightsProperty); }
             set {
                 SetValue(WeightsProperty, value); }
         }
 
         public static readonly DependencyProperty WeightsProperty = DependencyProperty.Register(
           name: nameof(Weights),
-          propertyType: typeof(ObservableCollection<WeightViewModel>),
+          propertyType: typeof(ObservableCollection<IWeightViewModel>),
           ownerType: typeof(LineChart),
           typeMetadata: new UIPropertyMetadata(null));
 

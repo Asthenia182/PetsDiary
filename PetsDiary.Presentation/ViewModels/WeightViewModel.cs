@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using PetsDiary.Common.Interfaces;
 using PetsDiary.Common.Models;
+using PetsDiary.Presentation.Interfaces;
 using PetsDiary.Presentation.Resources;
 using System;
 using System.Globalization;
@@ -8,7 +9,7 @@ using System.Linq;
 
 namespace PetsDiary.Presentation.ViewModels
 {
-    public class WeightViewModel : SingleViewModel
+    public class WeightViewModel : SingleViewModel, IWeightViewModel
     {
         public WeightViewModel(IPetsData petsData, IMapper mapper)
             : base(petsData, mapper)
@@ -52,6 +53,8 @@ namespace PetsDiary.Presentation.ViewModels
             {
                 weight = value;
 
+                weightText = weight.ToString();
+
                 RaisePropertyChanged();
             }
         }
@@ -69,7 +72,8 @@ namespace PetsDiary.Presentation.ViewModels
             if (!base.Save()) return false;
 
             var weight = mapper.Map<WeightModel>(this);
-            petsData.AddWeight(weight);
+            var savedModel = petsData.AddWeight(weight);
+            Id = savedModel.Id;
 
             IsDirty = false;
 
@@ -96,7 +100,7 @@ namespace PetsDiary.Presentation.ViewModels
             {
                 AddError(nameof(WeightText), ErrorMessages.ValidationErrorRequiredField);
                 return;
-            }                        
+            }
 
             var weightFormatted = WeightText.Replace(',', '.');
             double result;
@@ -109,7 +113,7 @@ namespace PetsDiary.Presentation.ViewModels
                 Weight = double.Parse(weightFormatted, CultureInfo.InvariantCulture);
             }
 
-            if(result == 0)
+            if (result == 0)
             {
                 AddError(nameof(WeightText), ErrorMessages.ValidationWeightZero);
             }

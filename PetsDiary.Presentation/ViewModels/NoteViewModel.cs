@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
 using PetsDiary.Common.Interfaces;
 using PetsDiary.Common.Models;
+using PetsDiary.Presentation.Interfaces;
 
 namespace PetsDiary.Presentation.ViewModels
 {
-    public class NoteViewModel : SingleViewModel
+    public class NoteViewModel : SingleViewModel, INoteViewModel
     {
         public NoteViewModel(IPetsData petsData, IMapper mapper)
             : base(petsData, mapper)

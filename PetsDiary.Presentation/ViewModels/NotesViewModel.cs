@@ -2,6 +2,7 @@
 using PetsDiary.Common.Constants;
 using PetsDiary.Common.Interfaces;
 using PetsDiary.Presentation.Constants;
+using PetsDiary.Presentation.Interfaces;
 using PetsDiary.Presentation.Resources;
 using Prism.Commands;
 using Prism.Services.Dialogs;
@@ -34,7 +35,7 @@ namespace PetsDiary.Presentation.ViewModels
             this.petDescription = petDescription;
             this.dialogService = dialogService;
             this.mapper = mapper;
-            Notes = new ObservableCollection<NoteViewModel>();
+            Notes = new ObservableCollection<INoteViewModel>();
             LoadData();
         }
 
@@ -129,9 +130,9 @@ namespace PetsDiary.Presentation.ViewModels
             }
         }
 
-        private ObservableCollection<NoteViewModel> notes;
+        private ObservableCollection<INoteViewModel> notes;
 
-        public ObservableCollection<NoteViewModel> Notes
+        public ObservableCollection<INoteViewModel> Notes
         {
             get
             {

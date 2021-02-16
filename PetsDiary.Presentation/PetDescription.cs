@@ -47,7 +47,8 @@ namespace PetsDiary.Presentation
             get { return image; }
             set
             {
-                image = value;
+                if (image != null && image.Length > 0)
+                    image = value;
 
                 RaisePropertyChanged(nameof(Image));
             }

@@ -166,7 +166,7 @@ namespace PetsDiary.Presentation.ViewModels
             get { return image; }
             set
             {
-                if (image != null && image.Length > 0)
+                if (value != null && value.Length > 0)
                     image = value;
 
                 RaisePropertyChanged();

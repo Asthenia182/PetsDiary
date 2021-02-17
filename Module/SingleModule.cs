@@ -34,7 +34,7 @@ namespace PetsDiary.Module
             containerRegistry.RegisterDialog<MessageDialog, MessageDialogViewModel>();
             containerRegistry.RegisterDialog<EditWeightsDialog, EditWeightsDialogViewModel>();
 
-            containerRegistry.RegisterSingleton<IPetsData, PetsData>();
+            containerRegistry.RegisterSingleton<IPetsData, PetsDataInMemory>();
             containerRegistry.RegisterSingleton<IPetDescription, PetDescription>();
 
             // Auto Mapper Configurations

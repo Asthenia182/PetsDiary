@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace PetsDiary.Data
 {
-    public class PetsData : IPetsData
+    public class PetsDataInMemory : IPetsData
     {
         private readonly List<PetModel> pets;
         private readonly List<VaccinationModel> vaccinations;
@@ -14,7 +14,7 @@ namespace PetsDiary.Data
         private readonly List<WeightModel> weights;
         private readonly List<NoteModel> notes;
 
-        public PetsData()
+        public PetsDataInMemory()
         {
             pets = new List<PetModel>()
             {
@@ -214,6 +214,11 @@ namespace PetsDiary.Data
             if (pet != null)
             {
                 pets.Remove(pet);
+                DeleteNoteByPetId(id);
+                DeleteVaccinationByPetId(id);
+                DeleteVisitByPetId(id);
+                DeleteVaccinationByPetId(id);
+                DeleteWeightByPetId(id);
             }
         }
 
@@ -230,6 +235,42 @@ namespace PetsDiary.Data
             if (vaccination != null)
             {
                 vaccinations.Remove(vaccination);
+            }
+        }
+
+        public void DeleteVaccinationByPetId(int petId)
+        {
+            var vaccination = vaccinations.FirstOrDefault(r => r.PetId == petId);
+            if (vaccination != null)
+            {
+                vaccinations.Remove(vaccination);
+            }
+        }
+
+        public void DeleteVisitByPetId(int petId)
+        {
+            var visit = this.visits.FirstOrDefault(r => r.PetId == petId);
+            if (visit != null)
+            {
+                visits.Remove(visit);
+            }
+        }
+
+        public void DeleteNoteByPetId(int petId)
+        {
+            var note = this.notes.FirstOrDefault(r => r.PetId == petId);
+            if (note != null)
+            {
+                notes.Remove(note);
+            }
+        }
+
+        public void DeleteWeightByPetId(int petId)
+        {
+            var weight = this.weights.FirstOrDefault(r => r.PetId == petId);
+            if (weight != null)
+            {
+                notes.Remove(weight);
             }
         }
 

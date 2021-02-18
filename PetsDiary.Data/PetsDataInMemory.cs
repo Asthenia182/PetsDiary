@@ -16,41 +16,15 @@ namespace PetsDiary.Data
 
         public PetsDataInMemory()
         {
-            pets = new List<PetModel>()
-            {
-                new PetModel { Id = 1, Name = "Daisy", AnimalType=1, Breed="Pug", Gender=1, BirthDate= DateTime.Now, LastModified = DateTime.Now },
-                new PetModel { Id = 2, Name = "Kicia", AnimalType=2, Breed="Mix", Gender=1, BirthDate= DateTime.Now, LastModified = DateTime.Now },
-                new PetModel { Id = 3, Name = "Kotalke", AnimalType=2, Breed="Mix", Gender=2, BirthDate= DateTime.Now, LastModified = DateTime.Now },
-            };
+            pets = new List<PetModel>();
 
-            vaccinations = new List<VaccinationModel>()
-            {
-                new VaccinationModel {Id =1, PetId = 1, Address="Warszawa, Marszalkowska 134", Name = "Przeciw wsciekliznie", NextShotDate = DateTime.Now, ShotDate = DateTime.Now, ShotInformation = "Firma szczepionki taka i numer szczepionki taki" },
-                new VaccinationModel {Id =2, PetId = 1, Address="Warszawa, Marszalkowska 134", Name = "Przeciw wsciekliznie !!", NextShotDate = DateTime.Now, ShotDate = DateTime.Now, ShotInformation = "fdshr tewt sfd ewr takiefsfdsfsdg h" },
-            };
+            vaccinations = new List<VaccinationModel>();
 
-            visits = new List<VisitModel>()
-            {
-                new VisitModel(){Id=1, PetId=1, Description = "Lorem ipsum lorem ipsum lorem ipsum", Date = DateTime.Today.AddDays(-1)},
-                new VisitModel(){Id=2, PetId = 1, Description = "Przykladowy tekst", Date = DateTime.Today.AddDays(-10)},
-                new VisitModel(){Id=3, PetId = 1, Description = "dsablalba", Date = DateTime.Today.AddDays(-7)},
-                new VisitModel(){Id=4, PetId = 1, Description = "ggeelablalba", Date = DateTime.Today.AddDays(-7)},
-                new VisitModel(){Id=5, PetId = 1, Description = "ttttblalba", Date = DateTime.Today.AddDays(-7)},
-            };
+            visits = new List<VisitModel>();
 
-            weights = new List<WeightModel>()
-            {
-                new WeightModel() {Id = 1, PetId = 1, Date = DateTime.Today, Weight = 10},
-                new WeightModel() {Id = 2, PetId = 1, Date = DateTime.Today.AddDays(-10), Weight = 5},
-                new WeightModel() {Id = 3, PetId = 1, Date = DateTime.Today.AddDays(-5), Weight = 7},
-            };
+            weights = new List<WeightModel>();
 
-            notes = new List<NoteModel>()
-            {
-            new NoteModel(){Id=1,PetId=1,Note=string.Empty},
-            new NoteModel(){Id=2,PetId=1,Note=string.Empty},
-            new NoteModel(){Id=3,PetId=1,Note=string.Empty},
-            };
+            notes = new List<NoteModel>();
         }
 
         public NoteModel AddNote(NoteModel model)
